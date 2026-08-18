@@ -1,0 +1,18 @@
+# Global Streamlit configuration for the unified platform.
+# The visual theme is driven by platform_core/design_system.py; these values
+# only set sensible defaults for the chrome Streamlit renders itself.
+
+[theme]
+base = "light"
+primaryColor = "#2563EB"
+backgroundColor = "#F6F8FC"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#0F172A"
+font = "sans serif"
+
+[client]
+showErrorDetails = true
+toolbarMode = "minimal"
+
+[server]
+maxUploadSize = 500

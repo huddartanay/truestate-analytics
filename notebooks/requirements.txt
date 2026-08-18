@@ -1,0 +1,27 @@
+# ════════════════════════════════════════════════════════════════════════════
+# Requirements for Unified_Dashboard_Graph_Analysis.ipynb — nothing else.
+#
+# This file is deliberately separate from the repository's root
+# requirements.txt, which installs the Streamlit application. The notebook does
+# NOT import the application, so it needs none of streamlit, statsmodels,
+# scikit-learn, scipy, openpyxl, matplotlib or seaborn.
+#
+# Three packages. Every one of them is actually imported by the notebook:
+#
+#   pandas   -> all loading, grouping and aggregation
+#   pyarrow  -> the parquet engine pandas reads the two data files with
+#   plotly   -> plotly.graph_objects and plotly.subplots, for the nine figures
+#
+# numpy is imported by the notebook (`import numpy as np`) but is not listed
+# separately because pandas requires it and installs it. It is named here so
+# the omission is a decision on the record rather than an oversight.
+#
+#   pip install -r notebooks/requirements.txt
+#
+# On Google Colab all three are pre-installed; the first cell of the notebook
+# carries a commented-out install line for the rare case that one is missing.
+# ════════════════════════════════════════════════════════════════════════════
+
+pandas>=2.0,<3
+pyarrow>=14.0
+plotly>=5.18

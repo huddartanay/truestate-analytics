@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/dubai/transactions.parquet
+_backup_v1.1/
+_patched/

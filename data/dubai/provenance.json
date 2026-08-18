@@ -1,0 +1,81 @@
+{
+  "raw": {
+    "file": "transactions.parquet",
+    "rows": 1762262,
+    "columns": 47,
+    "date_min": "1966-01-18",
+    "date_max": "2026-08-06",
+    "areas": 258,
+    "transaction_groups": {
+      "Sales": 1349853,
+      "Mortgages": 346792,
+      "Gifts": 65617
+    },
+    "property_types": {
+      "Unit": 1263058,
+      "Villa": 306334,
+      "Land": 156293,
+      "Building": 36577
+    },
+    "property_usage": {
+      "Residential": 1466076,
+      "Commercial": 187174,
+      "Other": 47746,
+      "Hospitality": 44036,
+      "\u0623\u062e\u0631\u0649": 6286,
+      "Industrial": 4939
+    },
+    "registration_types": {
+      "Existing Properties": 1123176,
+      "Off-Plan Properties": 639086
+    },
+    "residential_unit_sales": 928489
+  },
+  "clean": {
+    "file": "latest_combined_data.parquet",
+    "rows": 818838,
+    "date_min": "2010-01-01",
+    "date_max": "2026-08-06",
+    "areas": 69,
+    "scope": {
+      "trans_group_en": [
+        "Sales"
+      ],
+      "property_type_en": [
+        "Unit"
+      ],
+      "property_usage_en": [
+        "Residential"
+      ]
+    },
+    "columns": 85
+  },
+  "relationship": {
+    "note": "The cleaned file is the residential-unit SALES slice of the raw registry, restricted to 2010 onwards and enriched with engineered time parts, unit attributes, amenity flags and building / developer scoring.",
+    "raw_matching_slice": 928489,
+    "clean_rows": 818838,
+    "coverage_pct": 88.2,
+    "added_columns": 38
+  },
+  "registration_type": {
+    "note": "Evidence that the off-plan / existing label means what it says, and that the two labels are attached to different stock.",
+    "completion_date_populated_pct": 50.8,
+    "timing": {
+      "Existing Properties": {
+        "rows_with_completion_date": 228545,
+        "median_years_vs_completion": 2.9,
+        "sold_before_completion_pct": 2.2
+      },
+      "Off-Plan Properties": {
+        "rows_with_completion_date": 187026,
+        "median_years_vs_completion": -1.6,
+        "sold_before_completion_pct": 84.3
+      }
+    },
+    "building_rate_weighted_by_side": {
+      "Existing Properties": 12486,
+      "Off-Plan Properties": 19445
+    },
+    "building_rate_gap_pct": 55.7
+  }
+}

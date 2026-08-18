@@ -1,0 +1,40 @@
+# ════════════════════════════════════════════════════════════════════════════
+# TruEstate Analytics — unified requirements
+# Union of regions/abu_dhabi/requirements.txt and the Dubai requirements,
+# with conflicts resolved. See docs/ARCHITECTURE.md §Dependencies.
+# ════════════════════════════════════════════════════════════════════════════
+
+# ── Core ────────────────────────────────────────────────────────────────────
+# Abu Dhabi asked for >=1.35, Dubai for >=1.40. The platform shell uses keyed
+# containers for the navigation styling, which need >=1.45. Highest wins.
+streamlit>=1.45
+
+# Both codebases were written against the pandas 2.x API. The upper bound is a
+# compatibility guard only — no analytical behaviour depends on it.
+pandas>=2.0,<3
+numpy>=1.24
+
+# ── Visualisation ───────────────────────────────────────────────────────────
+plotly>=5.18
+
+# ── Statistics / modelling ──────────────────────────────────────────────────
+statsmodels>=0.14
+patsy>=0.5
+scikit-learn>=1.3
+# Used by the Abu Dhabi charts (trendlines, gaussian_kde) but missing from the
+# original Abu Dhabi requirements file — added here so a clean install works.
+scipy>=1.10
+
+# ── File formats ────────────────────────────────────────────────────────────
+openpyxl>=3.1        # .xlsx read (both regions)
+xlsxwriter>=3.1      # Excel export (Abu Dhabi download centre)
+pyarrow>=14.0        # .parquet assets (Dubai)
+# Used by the Dubai correlation views (PIL.Image) but missing from the original
+# Dubai requirements file — added here so a clean install works.
+pillow>=10.0
+
+# ── Declared by the Dubai project ───────────────────────────────────────────
+# Not imported by any runtime .py in the Dubai codebase, but kept because they
+# are part of the project's declared environment and are used by its notebooks.
+matplotlib>=3.7
+seaborn>=0.13
