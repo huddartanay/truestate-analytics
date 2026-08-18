@@ -75,6 +75,28 @@ def build(df: pd.DataFrame, area: str, all_rows: int,
     )
 
     rep.new_page()
+    write_sections(rep, df, area, all_rows, period, sections)
+
+    return R.finish(rep, buf)
+
+
+def period_label(df: pd.DataFrame) -> str:
+    """The reporting period, as the cover states it."""
+    years = df[COL["year"]].dropna()
+    return f"{int(years.min())} – {int(years.max())}" if len(years) else "—"
+
+
+def write_sections(rep, df: pd.DataFrame, area: str, all_rows: int,
+                   period: str, sections: list[str] | None = None) -> None:
+    """
+    Write the area analysis into an existing report.
+
+    Split out of `build()` so the combined Area + Forecast document can lay both
+    analyses into ONE PDF without a second document, a merge library, or a
+    duplicate implementation of any section. `build()` still produces exactly
+    what it produced before.
+    """
+    sections = sections or ALL_SECTIONS
     if "summary" in sections:
         _executive_summary(rep, df, area, all_rows, period)
     if "volume" in sections:
@@ -93,8 +115,6 @@ def build(df: pd.DataFrame, area: str, all_rows: int,
         _brackets(rep, df)
     if "method" in sections:
         _methodology(rep, df, area)
-
-    return R.finish(rep, buf)
 
 
 ALL_SECTIONS = ["summary", "volume", "prices", "layout", "height", "amenity",
@@ -233,7 +253,7 @@ def _prices(rep, df) -> None:
     m["trend"] = mx.lowess_trend(m["median_rate"], exclude_tail=partial)
 
     def draw(ax):
-        ax.plot(m["_sort"], m["median_rate"], color="#9DB6D9", linewidth=0.85,
+        ax.plot(m["_sort"], m["median_rate"], color="#CFC3B2", linewidth=0.85,
                 label="Actual monthly median")
         ax.plot(m["_sort"], m["trend"], color=R.ACCENT, linewidth=2.0,
                 label="LOWESS smoothed trend")

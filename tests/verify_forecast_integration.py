@@ -221,7 +221,7 @@ def main() -> int:
     # ── 7. The chart draws the response and nothing else ────────────────────
     section("7. The chart's traces all trace back to the response")
 
-    fig = ch.api_forecast_chart(result, local_history=None, dark=False)
+    fig = ch.api_forecast_chart(result, dark=False)
     ys = {name: list(tr.y) for name, tr in
           ((tr.name or f"_{i}", tr) for i, tr in enumerate(fig.data))}
 
@@ -234,10 +234,13 @@ def main() -> int:
     check("the news line has the same length", 6, len(news_trace))
     check("it starts at the same anchor", 14865.12, news_trace[0])
 
-    check("the model-history line is the 5 returned history months", 5,
-          len(ys.get("Model history — smoothed by the API", [])))
-    check("no local-history trace when none is supplied", False,
-          "Recorded market history — area median" in ys)
+    # The history line now runs through to the valuation point, so it carries the
+    # 5 returned history months plus that anchor — this is the Jul→Aug fix.
+    check("the history line is the 5 history months plus the valuation point", 6,
+          len(ys.get("Historical", [])))
+    check("it ends on the valuation point", 14865.12, ys.get("Historical", [])[-1])
+    check("the recorded-median context series is gone", False,
+          any("Recorded market history" in n for n in ys))
 
     band_names = [n for n in ys if "Range between" in n]
     check("one shaded region, and it is named as a range not a confidence band",
@@ -255,7 +258,7 @@ def main() -> int:
     qres = fapi.parse(quiet)
     check("has_news is False", False, qres.has_news)
     check("the narrative is empty", "", qres.narrative)
-    qfig = ch.api_forecast_chart(qres, local_history=None, dark=False)
+    qfig = ch.api_forecast_chart(qres, dark=False)
     qnames = [tr.name for tr in qfig.data if tr.name]
     check("no news-adjusted trace", False, "News-adjusted forecast" in qnames)
     check("no shaded region", 0, len([n for n in qnames if "Range between" in n]))
@@ -271,6 +274,13 @@ def main() -> int:
     check("months are labelled from the response", "Sep 2026", table["Month"].iloc[0])
     check("macro values are unchanged", 14899.78,
           float(table[fapi.ForecastResult.TABLE_MACRO].iloc[1]))
+    printed = result.table(include_news=True, include_difference=False)
+    check("the printed table carries no Difference column", False,
+          fapi.ForecastResult.TABLE_DIFF in printed.columns)
+    check("the printed table carries no Difference % column", False,
+          fapi.ForecastResult.TABLE_DIFF_PCT in printed.columns)
+    check("with the news toggle off there is no news column", False,
+          fapi.ForecastResult.TABLE_NEWS in result.table(include_news=False).columns)
 
     # ── 10. The report reuses the response ──────────────────────────────────
     section("10. The PDF is built from the response already held")
@@ -285,8 +295,7 @@ def main() -> int:
 
     pdf = fr.build(result, "Al Barsha South Fourth",
                    {"rooms_en": "1 B/R", "floor_bin": "1-10",
-                    "reg_type_en": "Off-Plan Properties", "procedure_area": 45.0},
-                   local_history=None)
+                    "reg_type_en": "Off-Plan Properties", "procedure_area": 45.0})
     check("the PDF is produced", True, isinstance(pdf, bytes) and len(pdf) > 10_000)
     check("it is a PDF", b"%PDF", pdf[:4])
     print(f"  {DIM}{len(pdf) / 1024:,.0f} KB{OFF}")
@@ -294,7 +303,7 @@ def main() -> int:
     # ── 11. The area rule ───────────────────────────────────────────────────
     section("11. There is no second area control, and stale results cannot appear")
 
-    check("the forecast section creates no area selectbox of its own", 1,
+    check("the forecast section creates exactly one disabled control", 1,
           ui_src.count("disabled=True"))
     check("the read-only area control is disabled", True,
           'disabled=True, key="dxb_fc_area_readonly"' in ui_src)

@@ -1401,17 +1401,17 @@ def _report_body(df: pd.DataFrame, df_all: pd.DataFrame, area: str) -> None:
 def _section_download_report(df: pd.DataFrame, df_all: pd.DataFrame, area: str,
                              dark: bool = False) -> None:
     """
-    The Download Detailed Report area: the PDF above, the Forecast below.
+    The Download Report tab: the area PDF for whatever 📍 Area holds.
 
-    The Forecast is a subsection of this same area — not a new tab, and not a
-    new area control. It is rendered unconditionally, so a problem building the
-    PDF never takes the forecast down with it, and vice versa.
+    The forecast is NOT rendered here. It has its own destination — 🔮 Forecast
+    in the rail — where its inputs, chart and explanation belong. The 📄 Download
+    Detailed Report page is where the two are offered together as downloads.
     """
     _report_body(df, df_all, area)
 
-    st.markdown("---")
-    from . import forecast_ui
-    forecast_ui.render(area, df_area=df, dark=dark)
+    st.caption("Looking for the forecast? It has its own page — 🔮 **Forecast** in the "
+               "rail. The 📄 **Download Detailed Report** page offers the area report, "
+               "the forecast report and both combined in one PDF.")
 
 
 def _global_area_picker(df_all: pd.DataFrame) -> str:

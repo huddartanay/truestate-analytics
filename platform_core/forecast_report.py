@@ -37,13 +37,57 @@ def _month(ts) -> str:
         return "—"
 
 
-def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = None,
-          window_start=None) -> bytes:
+# The profile is listed in full inside the report. The cover carries only a
+# short form of it, because the cover's value column is one line wide and a long
+# string would run past the page edge.
+PROFILE_FIELDS = (
+    ("rooms_en", "Rooms"), ("floor_bin", "Floor"),
+    ("reg_type_en", "Registration"), ("Grade", "Building grade"),
+    ("project_grade", "Project grade"), ("Developer_grade", "Developer grade"),
+    ("has_parking", "Parking"), ("swimming_pool", "Pool"),
+    ("balcony", "Balcony"), ("elevators", "Elevators"), ("metro", "Metro"),
+)
+TYPICAL = "this area's typical value"
+
+
+def _profile_value(key, val) -> str:
+    if val is None or val == "Any":
+        return TYPICAL
+    if key in ("has_parking", "swimming_pool", "balcony", "metro"):
+        try:
+            return {0.0: "No", 1.0: "Yes"}.get(float(val), str(val))
+        except (TypeError, ValueError):
+            return str(val)
+    if key == "elevators":
+        try:
+            return f"{float(val):g}"
+        except (TypeError, ValueError):
+            return str(val)
+    return str(val)
+
+
+def _profile_rows(inputs: dict) -> list[tuple[str, str]]:
+    rows: list[tuple[str, str]] = []
+    size = inputs.get("procedure_area")
+    if size:
+        rows.append(("Unit size", f"{float(size):,.0f} m²"))
+    for key, label in PROFILE_FIELDS:
+        rows.append((label, _profile_value(key, inputs.get(key))))
+    return rows
+
+
+def build(result, area: str, inputs: dict, window_start=None,
+          show_news: bool = True) -> bytes:
     """
     `result` is a `regions.dubai_market.forecast_api.ForecastResult` that has
     already been fetched. `inputs` is the property profile that produced it.
     `window_start` is the historical window the screen was showing, so the PDF
     covers the same months. It trims history only — never the forecast.
+
+    `show_news` is the news toggle exactly as it stood when the user pressed
+    download. With it off the news-adjusted series, its legend entry, the
+    headline figures derived from it and the narrative are all absent from the
+    document — the PDF says what the screen said.
     """
     rep, buf = R.new_document(
         title="Dubai Forecast Report",
@@ -53,41 +97,9 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
 
     now_ts = result.now_timestamp
     horizon = result.horizon_months
+    with_news = bool(show_news) and result.has_news
 
-    # The profile is listed in full inside the report. The cover carries only a
-    # short form of it, because the cover's value column is one line wide and a
-    # long string would run past the page edge.
-    PROFILE_FIELDS = (
-        ("rooms_en", "Rooms"), ("floor_bin", "Floor"),
-        ("reg_type_en", "Registration"), ("Grade", "Building grade"),
-        ("project_grade", "Project grade"), ("Developer_grade", "Developer grade"),
-        ("has_parking", "Parking"), ("swimming_pool", "Pool"),
-        ("balcony", "Balcony"), ("elevators", "Elevators"), ("metro", "Metro"),
-    )
-    TYPICAL = "this area's typical value"
-
-    def _profile_value(key, val):
-        if val is None or val == "Any":
-            return TYPICAL
-        if key in ("has_parking", "swimming_pool", "balcony", "metro"):
-            try:
-                return {0.0: "No", 1.0: "Yes"}.get(float(val), str(val))
-            except (TypeError, ValueError):
-                return str(val)
-        if key == "elevators":
-            try:
-                return f"{float(val):g}"
-            except (TypeError, ValueError):
-                return str(val)
-        return str(val)
-
-    profile_rows: list[tuple[str, str]] = []
-    size = inputs.get("procedure_area")
-    if size:
-        profile_rows.append(("Unit size", f"{float(size):,.0f} m²"))
-    for key, label in PROFILE_FIELDS:
-        profile_rows.append((label, _profile_value(key, inputs.get(key))))
-
+    profile_rows = _profile_rows(inputs)
     short = " · ".join(
         f"{lbl} {val}" for lbl, val in profile_rows[:3] if val != TYPICAL)
 
@@ -97,7 +109,7 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
             ("Property profile", short or "Area defaults applied by the model"),
             ("Valuation point", _month(now_ts) if now_ts is not None else "—"),
             ("Forecast months returned", f"{horizon}"),
-            ("News-adjusted series", "included" if result.has_news else "not included"),
+            ("News-adjusted series", "included" if with_news else "not included"),
             ("Generated", R.stamp()),
         ],
         lede=(
@@ -109,6 +121,28 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
     )
 
     rep.new_page()
+    write_sections(rep, result, area, inputs, window_start=window_start,
+                   show_news=show_news)
+    return R.finish(rep, buf)
+
+
+def profile_rows_for(inputs: dict) -> list[tuple[str, str]]:
+    """The property profile as label/value pairs — shared by both documents."""
+    return _profile_rows(inputs)
+
+
+def write_sections(rep, result, area: str, inputs: dict, window_start=None,
+                   show_news: bool = True) -> None:
+    """
+    Write the forecast analysis into an existing report.
+
+    Split out of `build()` so the combined Area + Forecast document can carry
+    this analysis as its second section without a second PDF or a merge step.
+    """
+    now_ts = result.now_timestamp
+    horizon = result.horizon_months
+    with_news = bool(show_news) and result.has_news
+    profile_rows = _profile_rows(inputs)
 
     # ── 1. What the forecast says ───────────────────────────────────────────
     rep.h1("The forecast", needs=2.2)
@@ -122,7 +156,7 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
         if result.now_value:
             change = (float(last["value"]) - result.now_value) / result.now_value * 100
             cards.append(("Macro change over the horizon", _pct(change)))
-    if result.has_news:
+    if with_news:
         lastn = result.news.iloc[-1]
         cards.append((f"News-adjusted · {_month(lastn['timestamp'])}", _aed(lastn["value"])))
         if result.now_value:
@@ -150,16 +184,21 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
     def draw(ax):
         import matplotlib.dates as mdates
 
-        if local_history is not None and not local_history.empty:
-            ax.plot(local_history["timestamp"], local_history["value"],
-                    color="#94A3B8", linewidth=1.1, label="Recorded market history — area median")
-        if not api_history.empty:
-            ax.plot(api_history["timestamp"], api_history["value"],
+        # History runs through to the valuation point so the line into the
+        # forecast is continuous — the same point the marker sits on, not an
+        # interpolated bridge.
+        hist_line = api_history
+        if not result.now.empty:
+            hist_line = (pd.concat([api_history, result.now], ignore_index=True)
+                           .drop_duplicates(subset="timestamp")
+                           .sort_values("timestamp"))
+        if not hist_line.empty:
+            ax.plot(hist_line["timestamp"], hist_line["value"],
                     color="#475569", linewidth=1.8, marker="o", markersize=2.6,
-                    label="Model history — smoothed by the API")
+                    label="Historical")
         macro = result.anchored("macro")
         news = result.anchored("news")
-        if result.has_news and not macro.empty and not news.empty:
+        if with_news and not macro.empty and not news.empty:
             j = macro.merge(news, on="timestamp", suffixes=("_m", "_n"))
             if not j.empty:
                 ax.fill_between(j["timestamp"],
@@ -171,7 +210,7 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
             ax.plot(macro["timestamp"], macro["value"], color="#0E9F6E",
                     linewidth=1.8, linestyle="--", marker="o", markersize=3,
                     label="Macro forecast")
-        if result.has_news and not news.empty:
+        if with_news and not news.empty:
             ax.plot(news["timestamp"], news["value"], color="#E05252",
                     linewidth=1.8, marker="o", markersize=3,
                     label="News-adjusted forecast")
@@ -185,7 +224,7 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
         # Headroom so the legend sits in empty space rather than over the lines.
         # This changes the visible extent of the axis, not a single value on it.
         top = 0.0
-        for frame in (local_history, api_history, result.macro, result.news):
+        for frame in (hist_line, result.macro, result.news if with_news else None):
             if frame is not None and not frame.empty:
                 top = max(top, float(frame["value"].max()))
         if top > 0:
@@ -196,7 +235,7 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
 
         # Months on the axis, spaced so every tick stays legible.
         xs = []
-        for frame in (local_history, api_history, result.macro, result.news, result.now):
+        for frame in (hist_line, result.macro, result.news if with_news else None, result.now):
             if frame is not None and not frame.empty:
                 xs += list(pd.to_datetime(frame["timestamp"]))
         if xs:
@@ -213,11 +252,16 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
         draw, height=3.0, title="Price per m² — history, valuation point and forecast",
         caption=(
             "The dotted vertical line is the valuation point the API returned; it is read "
-            "from the response, not from today's date. The macro and news-adjusted lines "
-            "both begin at that point because the API propagates both from the same "
-            "baseline. The shaded region is the span between those two returned "
-            "trajectories — it is not a confidence interval, and none is drawn, because "
-            "the response does not carry one."
+            "from the response, not from today's date. History runs through to that point, "
+            "so the line into the forecast is continuous. " + (
+                "The macro and news-adjusted lines both begin there because the API "
+                "propagates both from the same baseline, and the shaded region is the span "
+                "between those two returned trajectories — it is not a confidence interval, "
+                "and none is drawn, because the response does not carry one."
+                if with_news else
+                "The forecast line begins there because the API propagates it from that "
+                "baseline."
+            )
         ),
     )
 
@@ -236,7 +280,9 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
     )
 
     # ── 3. The months, as figures ───────────────────────────────────────────
-    table = result.table()
+    # The two derived comparison columns are deliberately left out of the
+    # printed report; the months and the two trajectories are what it carries.
+    table = result.table(include_news=with_news, include_difference=False)
     if not table.empty:
         rep.h1("Forecast months", needs=2.0)
         headers = list(table.columns)
@@ -245,20 +291,19 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
             row = [str(r["Month"])]
             for col in headers[1:]:
                 val = r[col]
-                row.append(_pct(val) if col.endswith("%") else f"{float(val):,.0f}")
+                row.append(f"{float(val):,.0f}")
             rows.append(row)
         first = 1.35
         widths = [first] + [(R.CONTENT_W - first) / max(len(headers) - 1, 1)] * (
             len(headers) - 1)
         rep.table(headers, rows, widths=widths)
         rep.body(
-            "All figures are AED per square metre except the last column, which is the "
-            "same difference expressed as a percentage. Each row is one month the API "
+            "All figures are AED per square metre. Each row is one month the API "
             "returned — no row is repeated, interpolated or projected further out than "
             "the response reaches.", size=8.0)
 
     # ── 4. The narrative ────────────────────────────────────────────────────
-    if result.narrative:
+    if with_news and result.narrative:
         rep.h1("Market context", needs=1.6)
         rep.body(result.narrative)
         rep.body(
@@ -285,20 +330,22 @@ def build(result, area: str, inputs: dict, local_history: pd.DataFrame | None = 
         "latest smoothed history point.",
         "The macro forecast is propagated from that anchor using Chronos month-over-month "
         "growth, capped at ±7.5% per step.",
+    ] + ([
         "The news-adjusted forecast starts from the same anchor and uses uncapped "
         "news-derived growth, which is why the two lines separate.",
-    ])
+    ] if with_news else []))
 
     rep.h2("How to read these figures")
     rep.bullets([
         f"The projection extends {horizon} month(s) from the valuation point. That is the "
         "horizon the API provides for this profile, and the chart and table stop there.",
-        "The shaded region shows the distance between the two returned trajectories. It is "
-        "a range that exists in the response, not an uncertainty estimate.",
+        ("The shaded region shows the distance between the two returned trajectories. It "
+         "is a range that exists in the response, not an uncertainty estimate."
+         if with_news else
+         "The news-adjusted trajectory was not included in this report, so the chart and "
+         "table carry the macro forecast only."),
         "Values are price per square metre in AED for the stated property profile — not a "
         "whole-unit price, and not an area-wide average.",
         "Where an attribute was left as “Any”, the API applied that area's own typical "
         "value, as its documentation describes.",
     ])
-
-    return R.finish(rep, buf)

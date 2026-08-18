@@ -3,11 +3,10 @@
 Detailed Report.
 
 This page is a frame, not a second implementation. The whole section comes from
-`regions.dubai_market.forecast_ui`, the same module the Download Detailed Report
-page and the Dubai dashboard's Download Report tab render. One implementation in
-three places means the three cannot drift apart, and — more importantly — there
-is still exactly ONE area control in the application: the global 📍 Area. This
-page reads it and shows it read-only, like the others.
+`regions.dubai_market.forecast_ui`, and this is the only place it renders — the
+📄 Download Detailed Report page offers the forecast as a *download*, built from
+the result this page produced. There is still exactly ONE area control in the
+application: the global 📍 Area, which this page reads and shows read-only.
 """
 
 from __future__ import annotations

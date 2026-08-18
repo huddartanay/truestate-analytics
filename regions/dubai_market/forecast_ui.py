@@ -1,5 +1,5 @@
 """
-The Forecast subsection, rendered inside **Download Detailed Report**.
+The Forecast section, rendered on the 🔮 **Forecast** page.
 
 THE AREA RULE
 ─────────────
@@ -366,11 +366,17 @@ def _profile_controls(cfg, current: dict) -> dict:
                 label, opts, index=opts.index(val) if val in opts else 0,
                 format_func=lambda v, p=param: _flag_label(p, v), help=help_text)
 
+    # This toggle does two jobs, and both matter. It is sent as `news_available`
+    # so the API is not asked for news when it is off, AND it is read at render
+    # time, so switching it off removes the red line, its legend entry and the
+    # narrative immediately — without waiting for another request — and the PDF
+    # follows the same state.
     out["news_available"] = st.toggle(
         "Include the news-adjusted forecast and market narrative",
         value=bool(current.get("news_available", True)),
-        help="Sent as `news_available`. When off, the API returns the macro forecast "
-             "only — no news-adjusted series and no narrative.")
+        help="On: the news-adjusted forecast and the market narrative are shown and "
+             "included in the report. Off: both are removed from the chart, the legend "
+             "and the report.")
 
     return out
 
@@ -419,6 +425,9 @@ def _render_error(error: dict, area: str) -> None:
 def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None:
     now_ts = result.now_timestamp
     horizon = result.horizon_months
+    # The toggle as it stands right now — the source of truth for what is
+    # drawn and for what goes into the report.
+    show_news = bool(inputs.get("news_available", True))
 
     # ── headline figures ────────────────────────────────────────────────────
     cards = []
@@ -430,7 +439,7 @@ def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None
         cards.append(dict(label=f"Macro forecast · {pd.Timestamp(last['timestamp']):%b %Y}",
                           value=f"AED {float(last['value']):,.0f}/m²",
                           icon="📈", color="green"))
-    if result.has_news:
+    if show_news and result.has_news:
         lastn = result.news.iloc[-1]
         cards.append(dict(label=f"News-adjusted · {pd.Timestamp(lastn['timestamp']):%b %Y}",
                           value=f"AED {float(lastn['value']):,.0f}/m²",
@@ -444,12 +453,12 @@ def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None
     # does not render Markdown inside an unsafe_allow_html block, so the text
     # goes through st.markdown on its own — otherwise the bold markers show up
     # as literal asterisks. The wording itself is untouched.
-    if result.narrative:
+    if result.narrative and show_news:
         with st.container(border=True):
             st.markdown("#### 🧠  Market context")
             st.markdown(_narrative_md(result.narrative))
         st.caption("Supplied by the API as its `narrative` field, reproduced word for word.")
-    elif inputs.get("news_available") and not result.news_available:
+    elif show_news and not result.news_available:
         st.caption("The API reports that no matched news data was available for this area "
                    "on this request, so it returned the macro forecast on its own.")
 
@@ -463,20 +472,10 @@ def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None
                           help="How much recorded market history to show behind the "
                                "forecast. It changes the history shown, not the forecast — "
                                "the projection is exactly as long as the API's response.")
-        show_context = st.checkbox(
-            "Show the area's recorded median for context", value=True,
-            key="dxb_fc_context",
-            help="The median rate per m² across all recorded transactions in this area. "
-                 "It is a different measurement from the profile the forecast describes, "
-                 "so it can sit at a very different level — turn it off to read the "
-                 "forecast on its own scale.")
-
     api_first = (result.history["timestamp"].min() if not result.history.empty else None)
     start = _window_start(now_ts, WINDOWS[window], api_first=api_first)
-    local = (_local_history(df_area, now_ts, start) if show_context
-             else pd.DataFrame(columns=["timestamp", "value"]))
-    fig = ch.api_forecast_chart(result, local_history=local, dark=dark,
-                                window_start=start)
+    fig = ch.api_forecast_chart(result, dark=dark, window_start=start,
+                                show_news=show_news)
     st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG,
                     key="dxb_fc_chart")
 
@@ -494,7 +493,7 @@ def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None
         f"exactly the horizon the response contains."
     )
 
-    if result.has_news:
+    if show_news and result.has_news:
         st.caption(
             "The shaded region is the distance between the macro and news-adjusted "
             "trajectories. Both are returned by the API; the region is the gap between "
@@ -502,7 +501,7 @@ def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None
             "so none is drawn.")
 
     # ── the months ──────────────────────────────────────────────────────────
-    table = result.table()
+    table = result.table(include_news=show_news)
     if not table.empty:
         with st.expander("📋  The forecast month by month", expanded=False):
             fmt = {c: "{:,.0f}" for c in table.columns
@@ -514,7 +513,7 @@ def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None
                        f"All figures are AED per m² except **Difference %**.")
 
     # ── report + request record ─────────────────────────────────────────────
-    _download(result, area, inputs, local, window, start)
+    _download(result, area, inputs, window, start, show_news)
 
     with st.expander("🔎  The exact request that produced this"):
         st.caption("Open this URL in a browser and you get the same numbers back — it is "
@@ -522,21 +521,23 @@ def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None
         st.code(result.request_url or "—", language="text")
 
 
-def _download(result, area: str, inputs: dict, local: pd.DataFrame,
-              window: str = "", start=None) -> None:
+def _download(result, area: str, inputs: dict,
+              window: str = "", start=None, show_news: bool = True) -> None:
     """
     The Forecast PDF — built from the response already held in session state.
     The API is not called a second time to produce it.
     """
     # The window is part of the signature so the PDF follows the chart when the
     # historical window changes, rather than going stale against it.
-    sig = _signature(area, inputs) + (window,)
+    # The window and the news toggle are part of the signature, so the PDF
+    # follows the chart instead of going stale against it.
+    sig = _signature(area, inputs) + (window, bool(show_news))
     if st.session_state.get(K_PDF_SIG) != sig:
         try:
             from platform_core import forecast_report as builder
             with st.spinner("Preparing the forecast report…"):
                 st.session_state[K_PDF] = builder.build(
-                    result, area, inputs, local, window_start=start)
+                    result, area, inputs, window_start=start, show_news=show_news)
             st.session_state[K_PDF_SIG] = sig
         except Exception as exc:  # pragma: no cover - surfaced, never swallowed
             st.session_state.pop(K_PDF, None)

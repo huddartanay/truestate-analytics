@@ -25,6 +25,7 @@ from __future__ import annotations
 import io
 from dataclasses import dataclass, field
 from datetime import datetime
+from pathlib import Path
 
 import matplotlib
 
@@ -43,15 +44,28 @@ CONTENT_W = PAGE_W - M_L - M_R
 CONTENT_TOP = PAGE_H - M_T
 CONTENT_BOTTOM = M_B
 
-INK = "#0F172A"
-MUTED = "#64748B"
-RULE = "#CBD5E1"
-ACCENT = "#2563EB"
-ACCENT_2 = "#0D9488"
-AMBER = "#D97706"
-FAINT = "#F1F5F9"
+# The report palette is the site's palette. `design_system` is the single source
+# of the brand colours; they are imported rather than restated so the PDF cannot
+# drift away from the interface it reports on.
+from platform_core.design_system import (  # noqa: E402
+    BRAND_BRONZE, BRAND_GOLD, BRAND_INK, BRAND_SAND,
+)
 
-SERIES = ["#2563EB", "#0D9488", "#D97706", "#7C3AED", "#DC2626", "#059669", "#DB2777"]
+INK = BRAND_INK              # near-black, the logo's ground
+MUTED = "#6B6560"            # warm grey, so it sits with the bronze
+RULE = "#DED7CC"             # hairlines and table borders
+ACCENT = BRAND_BRONZE        # headings, eyebrows, the cover rule
+ACCENT_2 = BRAND_SAND        # secondary accent
+AMBER = BRAND_GOLD
+FAINT = "#F6F3EE"            # KPI panels
+HEADER_FILL = "#F0E6D6"      # table header row
+BAND_FILL = "#FBF8F3"        # alternating table rows
+
+SERIES = [BRAND_BRONZE, "#0D9488", BRAND_GOLD, "#7C3AED", "#DC2626", "#059669",
+          "#DB2777"]
+
+#: The company mark, placed at the top of every cover page.
+LOGO_FILE = Path(__file__).resolve().parent / "assets" / "truestates_logo.png"
 
 
 def _fx(x_in: float) -> float:
@@ -80,6 +94,7 @@ class Report:
     y: float = CONTENT_TOP
     page_no: int = 0
     footer_note: str = ""
+    eyebrow: str = "TRUESTATE ANALYTICS"
     _pages: list = field(default_factory=list)
 
     # ── page lifecycle ──────────────────────────────────────────────────────
@@ -229,7 +244,7 @@ class Report:
         def draw_head() -> None:
             self.fig.add_artist(Rectangle(
                 (_fx(M_L), _fy(self.y - head_h)), _fx(CONTENT_W), _fy(head_h),
-                transform=self.fig.transFigure, facecolor="#E8EEF9",
+                transform=self.fig.transFigure, facecolor=HEADER_FILL,
                 edgecolor=RULE, linewidth=0.6))
             for i, htxt in enumerate(headers):
                 right = i >= align_right_from
@@ -249,7 +264,7 @@ class Report:
             if r_i % 2 == 1:
                 self.fig.add_artist(Rectangle(
                     (_fx(M_L), _fy(self.y - row_h)), _fx(CONTENT_W), _fy(row_h),
-                    transform=self.fig.transFigure, facecolor="#FAFBFD",
+                    transform=self.fig.transFigure, facecolor=BAND_FILL,
                     edgecolor="none"))
             for i, cell in enumerate(row):
                 right = i >= align_right_from
@@ -308,6 +323,29 @@ class Report:
         if caption:
             self.body(caption, size=7.4, colour=MUTED, leading=0.135, wrap=126)
 
+    def _draw_logo(self, y: float, width: float = 1.55) -> float:
+        """
+        Place the company mark and return the cursor below it.
+
+        The image is read at its own proportions, so the mark is never squashed.
+        If the file is absent the cover simply starts at the eyebrow instead.
+        """
+        try:
+            import matplotlib.image as mpimg
+
+            if not LOGO_FILE.exists():
+                return y
+            img = mpimg.imread(str(LOGO_FILE))
+            h_px, w_px = img.shape[0], img.shape[1]
+            height = width * (h_px / w_px)
+            ax = self.fig.add_axes([
+                _fx(M_L), _fy(y - height), _fx(width), _fy(height)])
+            ax.imshow(img)
+            ax.axis("off")
+            return y - height - 0.42
+        except Exception:  # pragma: no cover - a cover page is never worth a crash
+            return y
+
     def title_page(self, meta: list[tuple[str, str]], lede: str) -> None:
         """
         Cover page, laid out with an explicit downward cursor.
@@ -321,10 +359,15 @@ class Report:
         import textwrap
 
         self.new_page(first=True)
-        y = PAGE_H - 2.55
+        y = PAGE_H - 1.55
+
+        # Company mark. Drawn at its own aspect ratio so it is never stretched,
+        # and simply skipped if the asset is missing — a missing logo must not
+        # cost anyone their report.
+        y = self._draw_logo(y)
 
         # Eyebrow
-        self.fig.text(_fx(M_L), _fy(y), "DUBAI REAL ESTATE",
+        self.fig.text(_fx(M_L), _fy(y), self.eyebrow,
                       fontsize=9.5, color=ACCENT, fontweight="bold",
                       va="top", ha="left")
         y -= 0.30

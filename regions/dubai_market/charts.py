@@ -1158,7 +1158,9 @@ def smoothing_experiment_chart(frame: pd.DataFrame, report: dict, view: str = "B
 #   * The "Now" marker and the divider both sit on `prediction_point`'s own
 #     timestamp. No date is hard-coded and today's date is never used.
 #   * The macro and news-adjusted lines start at the prediction point because
-#     the API states both are propagated from that same baseline.
+#     the API states both are propagated from that same baseline, and the
+#     history line is carried through to that same point so the transition
+#     into the forecast is continuous rather than broken.
 #   * There is no confidence interval, because the response carries none. The
 #     shaded region — drawn only when both trajectories are returned — is the
 #     span *between the two returned forecasts*, which is a range that exists
@@ -1207,20 +1209,28 @@ def _month_axis(fig, x_values, dark: bool = False) -> None:
     )
 
 
-def api_forecast_chart(result, local_history=None, dark: bool = False,
-                       show_band: bool = True, window_start=None) -> go.Figure:
+def api_forecast_chart(result, dark: bool = False, show_band: bool = True,
+                       window_start=None, show_news: bool = True) -> go.Figure:
     """
     The forecast chart.
 
-    `result` is a `forecast_api.ForecastResult`. `local_history` is optional and,
-    when given, is the area's genuine recorded monthly median rate per m² from
-    the cleaned dataset — a separate, separately-labelled trace, never spliced
-    onto the API series, and used only so the historical-window control has real
-    data behind it. It is drawn under everything else.
+    `result` is a `forecast_api.ForecastResult`.
 
     `window_start` trims the **history** shown to months at or after that date.
     It never touches the forecast: the projection is always drawn in full, for
     exactly as many months as the response contains.
+
+    `show_news` follows the interface's news toggle. When it is off, the
+    news-adjusted line, the shaded region between the two forecasts and the
+    corresponding legend entries are not created at all — there is no hidden
+    trace and no empty legend slot left behind.
+
+    CONTINUITY. `before_prediction` ends the month before `prediction_point`,
+    and the two used to be separate traces, which drew a visible break between
+    the last history month and the valuation point. The history line now ends
+    ON the prediction point, so it runs unbroken into the forecast. That point
+    is the API's own returned value, plotted once as the end of history and
+    once as the marker — no value is interpolated to bridge the two.
     """
     fig = go.Figure()
 
@@ -1228,33 +1238,28 @@ def api_forecast_chart(result, local_history=None, dark: bool = False,
     if window_start is not None and not history.empty:
         history = history[history["timestamp"] >= pd.Timestamp(window_start)]
 
-    # ── recorded market history (local dataset, clearly its own trace) ───────
-    if local_history is not None and not local_history.empty:
-        fig.add_trace(go.Scatter(
-            x=local_history["timestamp"], y=local_history["value"],
-            name="Recorded market history — area median",
-            mode="lines", line=dict(color=FC_HISTORY, width=1.6),
-            fill="tozeroy",
-            fillcolor="rgba(148,163,184,0.10)" if not dark else "rgba(148,163,184,0.07)",
-            hovertemplate="%{x|%b %Y}<br>Area median AED %{y:,.0f}/m²<extra></extra>",
-        ))
+    # ── the API's smoothed history, carried through to the valuation point ──
+    hist_line = history
+    if not result.now.empty:
+        hist_line = pd.concat([history, result.now], ignore_index=True)
+        hist_line = hist_line.drop_duplicates(subset="timestamp").sort_values("timestamp")
 
-    # ── the API's own smoothed history for this property profile ────────────
-    if not history.empty:
+    if not hist_line.empty:
         fig.add_trace(go.Scatter(
-            x=history["timestamp"], y=history["value"],
-            name="Model history — smoothed by the API",
-            mode="lines+markers",
-            line=dict(color=FC_MODEL_HISTORY, width=2.6),
+            x=hist_line["timestamp"], y=hist_line["value"],
+            name="Historical", mode="lines+markers",
+            line=dict(color=FC_MODEL_HISTORY, width=2.6, shape="linear"),
             marker=dict(size=6, color=FC_MODEL_HISTORY),
+            connectgaps=True,
             hovertemplate="%{x|%b %Y}<br>AED %{y:,.0f}/m²<extra></extra>",
         ))
 
     macro = result.anchored("macro")
     news = result.anchored("news")
+    draw_news = bool(show_news) and result.has_news and not news.empty
 
     # ── the range between the two returned trajectories ─────────────────────
-    if show_band and result.has_news and not macro.empty and not news.empty:
+    if show_band and draw_news and not macro.empty:
         joined = macro.merge(news, on="timestamp", suffixes=("_macro", "_news"))
         if not joined.empty:
             upper = joined[["value_macro", "value_news"]].max(axis=1)
@@ -1279,8 +1284,8 @@ def api_forecast_chart(result, local_history=None, dark: bool = False,
             hovertemplate="%{x|%b %Y}<br>Macro AED %{y:,.0f}/m²<extra></extra>",
         ))
 
-    # ── news-adjusted forecast ──────────────────────────────────────────────
-    if result.has_news and not news.empty:
+    # ── news-adjusted forecast — only when the toggle is on ─────────────────
+    if draw_news:
         fig.add_trace(go.Scatter(
             x=news["timestamp"], y=news["value"],
             name="News-adjusted forecast", mode="lines+markers",
@@ -1310,10 +1315,9 @@ def api_forecast_chart(result, local_history=None, dark: bool = False,
                       margin={"l": 60, "r": 25, "t": 55, "b": 90})
     fig.update_yaxes(title_text="AED per m²", rangemode="tozero")
 
-    # Every month labelled, at a readable spacing for the span actually drawn.
-    all_x = list(history["timestamp"]) + list(macro["timestamp"]) + list(news["timestamp"])
-    if local_history is not None and not local_history.empty:
-        all_x += list(local_history["timestamp"])
+    all_x = list(hist_line["timestamp"]) + list(macro["timestamp"])
+    if draw_news:
+        all_x += list(news["timestamp"])
     _month_axis(fig, all_x, dark=dark)
     fig.update_xaxes(title_text="Month", title_standoff=18)
     return fig

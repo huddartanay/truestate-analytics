@@ -1,0 +1,444 @@
+Area,SARIMA_Summary
+Al Barsha South Fifth,"                                      SARIMAX Results                                       
+============================================================================================
+Dep. Variable:                                    y   No. Observations:                   30
+Model:             SARIMAX(1, 1, 0)x(0, 0, [1], 12)   Log Likelihood                -234.006
+Date:                              Sun, 26 Oct 2025   AIC                            474.012
+Time:                                      13:16:39   BIC                            478.114
+Sample:                                           0   HQIC                           475.297
+                                               - 30                                         
+Covariance Type:                                opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1          0.4290      0.133      3.232      0.001       0.169       0.689
+ma.S.L12       0.3564      0.245      1.453      0.146      -0.125       0.837
+sigma2      6.124e+05   1.68e+05      3.651      0.000    2.84e+05    9.41e+05
+===================================================================================
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 9.71
+Prob(Q):                              0.96   Prob(JB):                         0.01
+Heteroskedasticity (H):               0.26   Skew:                             0.48
+Prob(H) (two-sided):                  0.04   Kurtosis:                         5.66
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Al Barsha South Fourth,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(3, 2, 0)   Log Likelihood                -146.021
+Date:                Sun, 26 Oct 2025   AIC                            300.042
+Time:                        13:16:51   BIC                            305.371
+Sample:                             0   HQIC                           301.671
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1          0.6034      0.138      4.359      0.000       0.332       0.875
+ar.L2          0.0454      0.202      0.224      0.822      -0.351       0.442
+ar.L3         -0.5303      0.217     -2.447      0.014      -0.955      -0.106
+sigma2      1840.9151    722.635      2.548      0.011     424.577    3257.253
+===================================================================================
+Ljung-Box (L1) (Q):                   0.08   Jarque-Bera (JB):                 1.60
+Prob(Q):                              0.78   Prob(JB):                         0.45
+Heteroskedasticity (H):               0.72   Skew:                             0.54
+Prob(H) (two-sided):                  0.64   Kurtosis:                         2.53
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Al Barshaa South Third,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(2, 1, 1)   Log Likelihood                -198.594
+Date:                Sun, 26 Oct 2025   AIC                            407.187
+Time:                        13:17:14   BIC                            414.024
+Sample:                             0   HQIC                           409.329
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept     23.5490     11.037      2.134      0.033       1.917      45.181
+ar.L1          1.5173      0.065     23.505      0.000       1.391       1.644
+ar.L2         -0.8095      0.057    -14.183      0.000      -0.921      -0.698
+ma.L1         -0.7456      0.185     -4.027      0.000      -1.108      -0.383
+sigma2      2.459e+04   8962.797      2.743      0.006    7021.589    4.22e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.47   Jarque-Bera (JB):                10.18
+Prob(Q):                              0.49   Prob(JB):                         0.01
+Heteroskedasticity (H):               0.05   Skew:                            -0.87
+Prob(H) (two-sided):                  0.00   Kurtosis:                         5.32
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Al Hebiah First,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(1, 1, 0)   Log Likelihood                -236.938
+Date:                Sun, 26 Oct 2025   AIC                            477.877
+Time:                        13:17:22   BIC                            480.612
+Sample:                             0   HQIC                           478.733
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1          0.5611      0.078      7.163      0.000       0.408       0.715
+sigma2      6.193e+05   6.15e+04     10.074      0.000    4.99e+05     7.4e+05
+===================================================================================
+Ljung-Box (L1) (Q):                   0.39   Jarque-Bera (JB):               113.67
+Prob(Q):                              0.53   Prob(JB):                         0.00
+Heteroskedasticity (H):               6.86   Skew:                             2.14
+Prob(H) (two-sided):                  0.01   Kurtosis:                        11.70
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Al Merkadh,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(3, 0, 0)   Log Likelihood                -180.530
+Date:                Sun, 26 Oct 2025   AIC                            371.059
+Time:                        13:17:42   BIC                            378.065
+Sample:                             0   HQIC                           373.300
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept    695.7586    771.231      0.902      0.367    -815.826    2207.343
+ar.L1          2.2037      0.220     10.036      0.000       1.773       2.634
+ar.L2         -1.7763      0.396     -4.490      0.000      -2.552      -1.001
+ar.L3          0.5374      0.211      2.552      0.011       0.125       0.950
+sigma2      8109.8834   1856.206      4.369      0.000    4471.787    1.17e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.55   Jarque-Bera (JB):                 6.47
+Prob(Q):                              0.46   Prob(JB):                         0.04
+Heteroskedasticity (H):               0.78   Skew:                            -0.90
+Prob(H) (two-sided):                  0.70   Kurtosis:                         4.39
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Al Thanyah Fifth,"                                        SARIMAX Results                                        
+===============================================================================================
+Dep. Variable:                                       y   No. Observations:                   30
+Model:             SARIMAX(0, 1, 1)x(0, 0, [1, 2], 12)   Log Likelihood                -234.996
+Date:                                 Sun, 26 Oct 2025   AIC                            477.992
+Time:                                         13:18:09   BIC                            483.462
+Sample:                                              0   HQIC                           479.705
+                                                  - 30                                         
+Covariance Type:                                   opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ma.L1          0.7282      0.145      5.012      0.000       0.443       1.013
+ma.S.L12      -0.1545      0.130     -1.192      0.233      -0.408       0.099
+ma.S.L24       0.5457      0.854      0.639      0.523      -1.128       2.220
+sigma2      3.704e+05   2.94e+05      1.261      0.207   -2.05e+05    9.46e+05
+===================================================================================
+Ljung-Box (L1) (Q):                   2.81   Jarque-Bera (JB):                 0.55
+Prob(Q):                              0.09   Prob(JB):                         0.76
+Heteroskedasticity (H):               0.45   Skew:                             0.32
+Prob(H) (two-sided):                  0.22   Kurtosis:                         3.21
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Al Warsan First,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(2, 1, 1)   Log Likelihood                -139.566
+Date:                Sun, 26 Oct 2025   AIC                            289.132
+Time:                        13:18:25   BIC                            295.969
+Sample:                             0   HQIC                           291.274
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept     18.3553      6.171      2.974      0.003       6.261      30.450
+ar.L1          1.4773      0.165      8.957      0.000       1.154       1.801
+ar.L2         -0.8156      0.158     -5.158      0.000      -1.126      -0.506
+ma.L1         -0.5560      0.269     -2.069      0.039      -1.083      -0.029
+sigma2       820.6285    299.423      2.741      0.006     233.770    1407.487
+===================================================================================
+Ljung-Box (L1) (Q):                   0.05   Jarque-Bera (JB):                 1.07
+Prob(Q):                              0.83   Prob(JB):                         0.58
+Heteroskedasticity (H):               0.34   Skew:                            -0.47
+Prob(H) (two-sided):                  0.10   Kurtosis:                         3.08
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Al Yelayiss 2,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(1, 1, 0)   Log Likelihood                -214.480
+Date:                Sun, 26 Oct 2025   AIC                            432.960
+Time:                        13:18:35   BIC                            435.695
+Sample:                             0   HQIC                           433.817
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1          0.4977      0.092      5.394      0.000       0.317       0.678
+sigma2      1.498e+05   2.62e+04      5.722      0.000    9.85e+04    2.01e+05
+===================================================================================
+Ljung-Box (L1) (Q):                   0.01   Jarque-Bera (JB):               135.78
+Prob(Q):                              0.93   Prob(JB):                         0.00
+Heteroskedasticity (H):               0.08   Skew:                            -2.33
+Prob(H) (two-sided):                  0.00   Kurtosis:                        12.52
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Burj Khalifa,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(3, 0, 0)   Log Likelihood                -191.197
+Date:                Sun, 26 Oct 2025   AIC                            392.394
+Time:                        13:18:56   BIC                            399.400
+Sample:                             0   HQIC                           394.635
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept   2670.2454   1473.431      1.812      0.070    -217.627    5558.117
+ar.L1          2.1105      0.281      7.508      0.000       1.560       2.661
+ar.L2         -1.6488      0.522     -3.159      0.002      -2.672      -0.626
+ar.L3          0.4135      0.306      1.349      0.177      -0.187       1.014
+sigma2      1.629e+04   7377.122      2.208      0.027    1826.806    3.07e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.27   Jarque-Bera (JB):                 2.20
+Prob(Q):                              0.60   Prob(JB):                         0.33
+Heteroskedasticity (H):               0.66   Skew:                            -0.58
+Prob(H) (two-sided):                  0.52   Kurtosis:                         2.35
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Business Bay,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(0, 1, 0)   Log Likelihood                -219.363
+Date:                Sun, 26 Oct 2025   AIC                            440.726
+Time:                        13:18:59   BIC                            442.094
+Sample:                             0   HQIC                           441.155
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+sigma2      2.174e+05   3.97e+04      5.471      0.000    1.39e+05    2.95e+05
+===================================================================================
+Ljung-Box (L1) (Q):                  10.75   Jarque-Bera (JB):                 5.70
+Prob(Q):                              0.00   Prob(JB):                         0.06
+Heteroskedasticity (H):               0.04   Skew:                             0.08
+Prob(H) (two-sided):                  0.00   Kurtosis:                         5.17
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Hadaeq Sheikh Mohammed Bin Rashid,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(1, 1, 1)   Log Likelihood                -176.885
+Date:                Sun, 26 Oct 2025   AIC                            361.769
+Time:                        13:19:22   BIC                            367.238
+Sample:                             0   HQIC                           363.482
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept    158.5626     50.384      3.147      0.002      59.812     257.313
+ar.L1          0.1311      0.186      0.703      0.482      -0.234       0.497
+ma.L1          0.9853      0.760      1.297      0.195      -0.503       2.474
+sigma2      8409.7259   5604.502      1.501      0.133   -2574.897    1.94e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.24   Jarque-Bera (JB):                 0.69
+Prob(Q):                              0.63   Prob(JB):                         0.71
+Heteroskedasticity (H):               0.90   Skew:                            -0.17
+Prob(H) (two-sided):                  0.87   Kurtosis:                         2.32
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Jabal Ali First,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(0, 2, 0)   Log Likelihood                -172.250
+Date:                Sun, 26 Oct 2025   AIC                            346.501
+Time:                        13:19:24   BIC                            347.833
+Sample:                             0   HQIC                           346.908
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+sigma2      1.291e+04   2427.257      5.317      0.000    8149.027    1.77e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.01   Jarque-Bera (JB):                 7.89
+Prob(Q):                              0.92   Prob(JB):                         0.02
+Heteroskedasticity (H):               0.14   Skew:                             1.03
+Prob(H) (two-sided):                  0.01   Kurtosis:                         4.58
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Madinat Al Mataar,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(3, 1, 1)   Log Likelihood                -215.853
+Date:                Sun, 26 Oct 2025   AIC                            443.705
+Time:                        13:19:49   BIC                            451.909
+Sample:                             0   HQIC                           446.275
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept     73.2866     93.094      0.787      0.431    -109.175     255.748
+ar.L1          1.7239      0.411      4.196      0.000       0.919       2.529
+ar.L2         -1.0950      0.481     -2.276      0.023      -2.038      -0.152
+ar.L3          0.1810      0.270      0.670      0.503      -0.349       0.711
+ma.L1         -0.9081      0.505     -1.798      0.072      -1.898       0.082
+sigma2       1.05e+05   4.79e+04      2.193      0.028    1.12e+04    1.99e+05
+===================================================================================
+Ljung-Box (L1) (Q):                   0.52   Jarque-Bera (JB):                 0.26
+Prob(Q):                              0.47   Prob(JB):                         0.88
+Heteroskedasticity (H):               0.36   Skew:                            -0.21
+Prob(H) (two-sided):                  0.12   Kurtosis:                         3.19
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Madinat Dubai Almelaheyah,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(0, 1, 2)   Log Likelihood                -183.923
+Date:                Sun, 26 Oct 2025   AIC                            375.845
+Time:                        13:20:04   BIC                            381.314
+Sample:                             0   HQIC                           377.558
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept    355.1775     55.066      6.450      0.000     247.250     463.105
+ma.L1          1.1647      0.136      8.540      0.000       0.897       1.432
+ma.L2          0.4158      0.214      1.944      0.052      -0.003       0.835
+sigma2      1.392e+04   2652.041      5.247      0.000    8717.584    1.91e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.21   Jarque-Bera (JB):                 2.78
+Prob(Q):                              0.65   Prob(JB):                         0.25
+Heteroskedasticity (H):               1.16   Skew:                            -0.57
+Prob(H) (two-sided):                  0.82   Kurtosis:                         4.01
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Me'Aisem First,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(2, 1, 0)   Log Likelihood                -184.446
+Date:                Sun, 26 Oct 2025   AIC                            376.893
+Time:                        13:20:21   BIC                            382.362
+Sample:                             0   HQIC                           378.606
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept     91.9899     42.154      2.182      0.029       9.370     174.610
+ar.L1          1.0448      0.187      5.597      0.000       0.679       1.411
+ar.L2         -0.5404      0.129     -4.198      0.000      -0.793      -0.288
+sigma2      1.635e+04   4441.995      3.682      0.000    7647.235    2.51e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.01   Jarque-Bera (JB):                 0.16
+Prob(Q):                              0.94   Prob(JB):                         0.92
+Heteroskedasticity (H):               0.36   Skew:                             0.07
+Prob(H) (two-sided):                  0.12   Kurtosis:                         2.66
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Nadd Hessa,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(2, 1, 0)   Log Likelihood                -195.510
+Date:                Sun, 26 Oct 2025   AIC                            399.020
+Time:                        13:20:33   BIC                            404.490
+Sample:                             0   HQIC                           400.733
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept     73.8018     65.583      1.125      0.260     -54.738     202.342
+ar.L1          0.9677      0.170      5.691      0.000       0.634       1.301
+ar.L2         -0.3014      0.202     -1.493      0.135      -0.697       0.094
+sigma2      4.057e+04   1.02e+04      3.968      0.000    2.05e+04    6.06e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 0.41
+Prob(Q):                              0.99   Prob(JB):                         0.81
+Heteroskedasticity (H):               0.61   Skew:                            -0.16
+Prob(H) (two-sided):                  0.44   Kurtosis:                         3.49
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Palm Jumeirah,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(0, 2, 1)   Log Likelihood                -164.395
+Date:                Sun, 26 Oct 2025   AIC                            332.791
+Time:                        13:20:38   BIC                            335.455
+Sample:                             0   HQIC                           333.605
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ma.L1          0.6812      0.170      4.019      0.000       0.349       1.013
+sigma2      6884.6495   1961.309      3.510      0.000    3040.555    1.07e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 1.41
+Prob(Q):                              0.98   Prob(JB):                         0.49
+Heteroskedasticity (H):               1.05   Skew:                             0.44
+Prob(H) (two-sided):                  0.94   Kurtosis:                         2.34
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."
+Wadi Al Safa 5,"                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                   30
+Model:               SARIMAX(2, 1, 0)   Log Likelihood                -184.972
+Date:                Sun, 26 Oct 2025   AIC                            377.944
+Time:                        13:20:54   BIC                            383.413
+Sample:                             0   HQIC                           379.657
+                                 - 30                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept     43.2680     36.537      1.184      0.236     -28.343     114.879
+ar.L1          1.2841      0.143      8.971      0.000       1.004       1.565
+ar.L2         -0.5564      0.186     -2.989      0.003      -0.921      -0.192
+sigma2       1.54e+04   3594.027      4.286      0.000    8359.603    2.24e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.07   Jarque-Bera (JB):                 4.49
+Prob(Q):                              0.80   Prob(JB):                         0.11
+Heteroskedasticity (H):               0.17   Skew:                             0.80
+Prob(H) (two-sided):                  0.01   Kurtosis:                         4.09
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step)."

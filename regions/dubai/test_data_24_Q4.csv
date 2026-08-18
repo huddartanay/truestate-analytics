@@ -1,0 +1,901 @@
+,meter_sale_price,procedure_area,rooms_en,floor_bin,swimming_pool,balcony,elevator,metro,has_parking,area_name_en
+0,15026.8,95.11,1 B/R,21-30,1,1,1,1,1,Al Barsha South Fifth
+1,15614.56,39.94,Studio,1-10,1,1,1,1,1,Al Barsha South Fifth
+2,12876.64,77.66,1 B/R,11-20,1,1,1,1,1,Al Barsha South Fifth
+3,19796.4,29.42,Studio,11-20,1,1,1,1,1,Al Barsha South Fifth
+4,19556.57,35.18,Studio,1-10,1,1,1,1,1,Al Barsha South Fifth
+5,11918.06,91.52,2 B/R,21-30,1,1,1,1,1,Al Barsha South Fifth
+6,17088.31,60.58,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+7,17002.35,76.46,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+8,15152.61,52.42,1 B/R,11-20,1,1,1,1,1,Al Barsha South Fifth
+9,13528.59,62.11,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+10,16091.36,38.53,Studio,1-10,1,1,1,1,1,Al Barsha South Fifth
+11,17328.62,29.73,Studio,11-20,1,1,1,1,1,Al Barsha South Fifth
+12,11523.86,36.88,Studio,11-20,1,1,1,1,1,Al Barsha South Fifth
+13,17381.24,85.09,2 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+14,10070.19,91.3,2 B/R,21-30,1,1,1,1,1,Al Barsha South Fifth
+15,12935.97,95.08,2 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+16,14216.57,68.91,1 B/R,1-10,0,1,1,1,1,Al Barsha South Fifth
+17,10963.94,53.8,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+18,15728.38,51.9,1 B/R,31-40,1,1,1,1,1,Al Barsha South Fifth
+19,16806.0,53.65,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+20,13777.81,72.51,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+21,10850.4,73.73,1 B/R,1-10,0,1,1,1,1,Al Barsha South Fifth
+22,15375.65,40.25,Studio,1-10,1,1,1,1,1,Al Barsha South Fifth
+23,18874.52,31.27,Studio,11-20,1,1,1,1,1,Al Barsha South Fifth
+24,14233.08,53.33,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+25,13416.47,97.59,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+26,13121.74,95.08,2 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+27,13992.61,75.01,1 B/R,21-30,1,1,1,1,1,Al Barsha South Fifth
+28,13528.62,61.4,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+29,10342.34,54.06,Studio,1-10,1,1,1,1,1,Al Barsha South Fifth
+30,20331.55,29.89,Studio,11-20,1,1,1,1,1,Al Barsha South Fifth
+31,14655.0,74.89,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+32,14256.38,57.79,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+33,21115.16,30.55,Studio,1-10,1,1,1,1,1,Al Barsha South Fifth
+34,15957.46,39.94,Studio,1-10,1,1,1,1,1,Al Barsha South Fifth
+35,17940.74,30.29,Studio,1-10,1,1,1,1,1,Al Barsha South Fifth
+36,15156.12,61.49,1 B/R,21-30,1,1,1,1,1,Al Barsha South Fifth
+37,14049.12,83.67,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+38,16486.39,40.04,Studio,11-20,1,1,1,1,1,Al Barsha South Fifth
+39,10358.0,54.32,Studio,1-10,1,1,1,1,1,Al Barsha South Fifth
+40,17400.92,60.56,1 B/R,21-30,1,1,1,1,1,Al Barsha South Fifth
+41,18661.05,28.78,Studio,11-20,1,1,1,1,1,Al Barsha South Fifth
+42,16993.77,53.57,1 B/R,11-20,1,1,1,1,1,Al Barsha South Fifth
+43,14548.0,82.44,1 B/R,21-30,1,1,1,1,1,Al Barsha South Fifth
+44,18297.99,29.91,Studio,11-20,1,1,1,1,1,Al Barsha South Fifth
+45,19663.78,81.64,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+46,10763.9,55.74,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+47,10695.19,48.62,Studio,1-10,1,0,1,1,1,Al Barsha South Fifth
+48,14626.95,84.38,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fifth
+49,16651.54,60.48,1 B/R,31-40,1,1,1,1,1,Al Barsha South Fifth
+50,19387.25,35.62,Studio,1-10,1,1,1,1,1,Al Barsha South Fourth
+51,12494.91,73.63,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+52,12869.01,106.42,2 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+53,17180.26,36.67,Studio,21-30,1,1,1,1,1,Al Barsha South Fourth
+54,11394.92,49.58,Studio,1-10,1,1,1,1,1,Al Barsha South Fourth
+55,19030.28,35.37,Studio,1-10,1,1,1,1,1,Al Barsha South Fourth
+56,14108.63,61.31,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+57,15436.83,91.34,2 B/R,21-30,1,1,1,1,1,Al Barsha South Fourth
+58,9478.95,85.98,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+59,11774.3,110.41,2 B/R,Below 1st floor,1,1,1,1,1,Al Barsha South Fourth
+60,10123.61,46.92,Studio,1-10,1,1,0,1,1,Al Barsha South Fourth
+61,9209.52,78.18,1 B/R,1-10,1,0,0,1,1,Al Barsha South Fourth
+62,15208.7,36.8,Studio,1-10,1,1,1,1,1,Al Barsha South Fourth
+63,14254.61,73.52,1 B/R,11-20,1,1,1,1,1,Al Barsha South Fourth
+64,17385.5,127.29,2 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+65,11900.66,115.96,2 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+66,12442.97,144.66,1 B/R,Below 1st floor,1,1,1,1,1,Al Barsha South Fourth
+67,12760.76,90.12,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+68,13993.04,66.28,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+69,11213.75,82.02,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+70,15481.97,74.7,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+71,16418.97,60.29,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+72,9270.67,79.58,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+73,9488.44,83.47,1 B/R,11-20,1,1,1,1,1,Al Barsha South Fourth
+74,12172.03,73.94,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+75,12880.24,72.98,1 B/R,Below 1st floor,1,1,1,1,1,Al Barsha South Fourth
+76,12328.38,35.69,Studio,1-10,1,1,1,1,1,Al Barsha South Fourth
+77,10355.15,109.24,2 B/R,11-20,1,1,1,1,1,Al Barsha South Fourth
+78,17044.15,43.06,Studio,1-10,1,1,1,1,1,Al Barsha South Fourth
+79,14420.44,63.84,1 B/R,11-20,1,1,1,1,1,Al Barsha South Fourth
+80,14072.71,59.69,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+81,17852.72,79.25,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+82,16963.53,82.53,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+83,9111.99,120.72,2 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+84,12786.44,74.19,1 B/R,11-20,1,1,1,1,1,Al Barsha South Fourth
+85,8951.41,46.92,Studio,1-10,1,1,0,1,1,Al Barsha South Fourth
+86,15809.73,36.37,Studio,1-10,1,1,1,1,1,Al Barsha South Fourth
+87,14585.1,75.84,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+88,15065.48,86.29,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+89,14473.48,63.91,1 B/R,11-20,1,1,1,1,1,Al Barsha South Fourth
+90,15156.28,95.34,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+91,10443.37,45.37,Studio,1-10,1,1,1,1,1,Al Barsha South Fourth
+92,11209.01,116.33,2 B/R,11-20,1,1,1,1,1,Al Barsha South Fourth
+93,14364.06,38.29,Studio,11-20,1,1,1,1,1,Al Barsha South Fourth
+94,13989.45,81.49,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+95,16101.33,93.16,1 B/R,1-10,1,1,1,1,1,Al Barsha South Fourth
+96,15665.26,42.54,Studio,1-10,0,1,1,1,1,Al Barsha South Fourth
+97,10938.1,77.71,1 B/R,21-30,1,1,1,1,1,Al Barsha South Fourth
+98,10704.73,44.84,Studio,1-10,1,1,0,1,1,Al Barsha South Fourth
+99,16703.51,40.71,Studio,Below 1st floor,1,1,1,1,1,Al Barsha South Fourth
+100,8314.97,111.17,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+101,11071.97,79.48,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+102,14029.98,81.39,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+103,11701.31,66.96,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+104,15630.43,115.16,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+105,11503.25,75.37,1 B/R,11-20,1,1,0,1,1,Al Barshaa South Third
+106,11814.09,115.54,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+107,14246.94,128.94,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+108,11700.14,76.97,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+109,7896.4,126.64,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+110,17446.89,82.84,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+111,16170.57,82.78,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+112,14001.72,40.62,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+113,13248.41,78.5,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+114,12142.04,43.65,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+115,15958.27,97.53,2 B/R,1-10,1,1,1,0,1,Al Barshaa South Third
+116,10119.09,145.27,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+117,16284.31,64.26,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+118,14550.25,41.94,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+119,13158.1,93.85,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+120,16505.93,40.44,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+121,13200.0,37.5,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+122,16732.53,40.49,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+123,14829.27,114.64,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+124,13490.02,81.69,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+125,14531.28,83.29,1 B/R,11-20,1,1,1,0,1,Al Barshaa South Third
+126,14599.63,37.87,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+127,13244.07,68.71,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+128,9689.5,45.41,Studio,1-10,1,0,0,1,1,Al Barshaa South Third
+129,8978.56,79.3,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+130,16457.1,40.56,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+131,8496.4,97.1,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+132,16296.3,33.75,Studio,11-20,1,1,1,1,1,Al Barshaa South Third
+133,14942.31,40.51,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+134,11448.13,84.73,1 B/R,1-10,1,1,0,1,1,Al Barshaa South Third
+135,16135.01,67.61,1 B/R,11-20,1,1,1,1,1,Al Barshaa South Third
+136,12204.73,111.17,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+137,19932.6,41.54,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+138,15105.74,86.06,2 B/R,Below 1st floor,1,1,1,1,1,Al Barshaa South Third
+139,11897.63,136.49,2 B/R,1-10,1,1,1,0,1,Al Barshaa South Third
+140,11950.53,119.66,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+141,12263.6,70.48,1 B/R,21-30,1,1,1,1,1,Al Barshaa South Third
+142,13340.87,80.97,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+143,13953.22,70.8,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+144,14964.87,115.27,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+145,9128.85,38.34,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+146,15732.31,41.94,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+147,10770.53,94.48,2 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+148,16606.28,82.8,1 B/R,1-10,1,1,1,1,1,Al Barshaa South Third
+149,14506.66,37.55,Studio,1-10,1,1,1,1,1,Al Barshaa South Third
+150,10812.11,41.62,Studio,1-10,1,1,0,1,1,Al Hebiah Fourth
+151,14520.81,41.32,Studio,Below 1st floor,1,1,0,1,1,Al Hebiah Fourth
+152,6732.87,59.41,Studio,11-20,1,1,0,1,1,Al Hebiah Fourth
+153,15254.67,78.14,2 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+154,10205.68,63.69,1 B/R,1-10,1,1,0,1,1,Al Hebiah Fourth
+155,11585.92,66.46,1 B/R,11-20,1,1,1,1,1,Al Hebiah Fourth
+156,8838.38,81.86,2 B/R,11-20,1,1,1,1,1,Al Hebiah Fourth
+157,6545.55,149.72,2 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+158,15977.84,36.1,Studio,1-10,1,1,1,1,1,Al Hebiah Fourth
+159,15247.78,78.7,2 B/R,21-30,0,1,1,1,1,Al Hebiah Fourth
+160,15949.75,78.81,2 B/R,1-10,0,1,1,1,1,Al Hebiah Fourth
+161,7371.39,127.52,2 B/R,1-10,1,1,0,1,1,Al Hebiah Fourth
+162,12860.17,70.73,1 B/R,Below 1st floor,1,1,1,1,1,Al Hebiah Fourth
+163,6565.03,83.14,1 B/R,1-10,1,1,0,1,1,Al Hebiah Fourth
+164,7102.55,78.69,1 B/R,1-10,1,1,0,1,1,Al Hebiah Fourth
+165,8592.1,66.34,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+166,8176.1,79.5,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+167,10474.68,37.71,Studio,1-10,1,1,0,1,1,Al Hebiah Fourth
+168,6708.55,93.91,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+169,7485.89,86.83,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+170,16348.43,80.13,2 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+171,17954.43,40.38,Studio,1-10,1,1,1,1,1,Al Hebiah Fourth
+172,9659.99,62.94,1 B/R,1-10,1,1,0,1,1,Al Hebiah Fourth
+173,8516.07,84.64,1 B/R,1-10,1,1,0,1,1,Al Hebiah Fourth
+174,7640.07,76.57,1 B/R,11-20,1,1,1,1,1,Al Hebiah Fourth
+175,8929.59,87.35,1 B/R,11-20,1,1,0,1,0,Al Hebiah Fourth
+176,6510.48,93.0,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+177,7056.35,49.51,Studio,11-20,1,1,1,1,1,Al Hebiah Fourth
+178,8441.44,112.54,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+179,10477.7,37.89,Studio,11-20,1,1,1,1,1,Al Hebiah Fourth
+180,8611.22,96.58,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+181,8491.05,97.75,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+182,6954.61,54.64,Studio,1-10,1,1,0,1,1,Al Hebiah Fourth
+183,9624.09,44.16,Studio,1-10,1,1,0,1,1,Al Hebiah Fourth
+184,9027.68,70.45,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+185,16079.4,77.83,2 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+186,8313.06,49.32,Studio,1-10,1,1,0,1,1,Al Hebiah Fourth
+187,5653.02,76.95,Studio,1-10,1,1,0,1,1,Al Hebiah Fourth
+188,14672.98,35.93,Studio,Below 1st floor,1,1,1,1,1,Al Hebiah Fourth
+189,7256.72,85.89,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+190,10387.6,64.5,1 B/R,11-20,1,1,0,1,1,Al Hebiah Fourth
+191,15339.73,101.11,2 B/R,1-10,0,1,1,1,1,Al Hebiah Fourth
+192,14841.58,35.79,Studio,Below 1st floor,1,1,1,1,1,Al Hebiah Fourth
+193,12678.56,86.3,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+194,7648.28,84.49,1 B/R,1-10,1,1,0,1,1,Al Hebiah Fourth
+195,9605.79,80.16,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+196,8970.73,42.36,Studio,1-10,1,1,0,1,1,Al Hebiah Fourth
+197,14346.31,80.16,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+198,6488.55,131.0,2 B/R,1-10,1,1,0,1,1,Al Hebiah Fourth
+199,9547.07,90.08,1 B/R,1-10,1,1,1,1,1,Al Hebiah Fourth
+200,29042.73,72.51,1 B/R,11-20,1,1,1,0,1,Al Khairan First
+201,22419.48,124.82,2 B/R,1-10,1,1,0,1,1,Al Khairan First
+202,23122.49,104.66,2 B/R,21-30,1,1,1,1,1,Al Khairan First
+203,25099.58,93.39,2 B/R,1-10,0,1,1,1,1,Al Khairan First
+204,21024.79,102.85,2 B/R,21-30,1,1,1,1,1,Al Khairan First
+205,29112.8,101.33,2 B/R,31-40,1,1,1,1,1,Al Khairan First
+206,21707.73,107.44,2 B/R,1-10,0,1,1,0,1,Al Khairan First
+207,32475.2,102.29,2 B/R,31-40,1,1,1,0,1,Al Khairan First
+208,30035.69,72.51,1 B/R,11-20,1,1,1,0,1,Al Khairan First
+209,29147.2,74.24,1 B/R,1-10,1,1,1,0,1,Al Khairan First
+210,26524.58,69.29,1 B/R,11-20,1,1,1,0,1,Al Khairan First
+211,21553.99,171.43,3 B/R,Below 1st floor,1,1,1,1,1,Al Khairan First
+212,23502.44,69.78,1 B/R,1-10,0,1,1,1,1,Al Khairan First
+213,26346.01,67.71,1 B/R,11-20,1,1,1,0,1,Al Khairan First
+214,21608.88,101.81,2 B/R,21-30,1,1,1,1,1,Al Khairan First
+215,28395.21,75.22,1 B/R,1-10,1,1,1,0,1,Al Khairan First
+216,23061.45,64.61,2 B/R,Below 1st floor,0,1,1,1,1,Al Khairan First
+217,18639.33,64.38,1 B/R,1-10,1,1,1,1,1,Al Khairan First
+218,23536.78,111.74,2 B/R,31-40,1,1,1,1,1,Al Khairan First
+219,18039.95,138.67,3 B/R,1-10,1,1,1,1,1,Al Khairan First
+220,23047.13,105.87,2 B/R,11-20,0,1,1,1,1,Al Khairan First
+221,30900.53,68.28,1 B/R,1-10,1,1,1,0,1,Al Khairan First
+222,25666.2,61.75,1 B/R,11-20,1,1,1,0,1,Al Khairan First
+223,21844.49,146.49,3 B/R,Below 1st floor,1,1,1,1,1,Al Khairan First
+224,20233.54,99.51,2 B/R,1-10,1,1,1,1,1,Al Khairan First
+225,23503.39,72.33,1 B/R,31-40,1,1,1,1,1,Al Khairan First
+226,31022.19,103.17,2 B/R,21-30,1,1,1,0,1,Al Khairan First
+227,25912.84,169.8,3 B/R,1-10,0,1,1,1,1,Al Khairan First
+228,21938.57,100.28,2 B/R,Below 1st floor,1,1,1,1,1,Al Khairan First
+229,23053.47,134.47,3 B/R,21-30,1,1,1,1,1,Al Khairan First
+230,27897.86,99.47,2 B/R,1-10,1,1,1,1,1,Al Khairan First
+231,29870.54,70.37,1 B/R,21-30,1,1,1,0,1,Al Khairan First
+232,23375.63,104.81,2 B/R,1-10,0,1,1,1,1,Al Khairan First
+233,22333.21,106.12,2 B/R,1-10,1,1,1,1,1,Al Khairan First
+234,29815.03,72.51,1 B/R,11-20,1,1,1,0,1,Al Khairan First
+235,30793.07,176.01,3 B/R,31-40,1,1,1,0,1,Al Khairan First
+236,31847.13,102.05,2 B/R,11-20,1,1,1,1,1,Al Khairan First
+237,26168.8,65.57,1 B/R,1-10,0,1,1,1,1,Al Khairan First
+238,24140.56,158.03,3 B/R,1-10,0,1,1,1,1,Al Khairan First
+239,22380.66,77.78,3 B/R,Below 1st floor,0,1,1,0,1,Al Khairan First
+240,33081.32,102.29,2 B/R,31-40,1,1,1,0,1,Al Khairan First
+241,24259.82,98.1,2 B/R,Other,0,1,1,1,1,Al Khairan First
+242,25849.45,64.91,1 B/R,1-10,0,1,1,1,1,Al Khairan First
+243,30176.78,177.55,3 B/R,11-20,1,1,1,0,1,Al Khairan First
+244,30707.15,68.71,1 B/R,21-30,1,1,1,0,1,Al Khairan First
+245,26438.07,124.82,2 B/R,1-10,1,1,0,1,1,Al Khairan First
+246,20305.91,152.33,3 B/R,11-20,1,1,1,1,1,Al Khairan First
+247,25659.06,174.32,3 B/R,1-10,1,1,1,0,1,Al Khairan First
+248,27400.2,69.01,1 B/R,31-40,0,1,1,0,1,Al Khairan First
+249,25849.6,114.04,2 B/R,1-10,1,1,1,0,1,Al Khairan First
+250,15757.87,29.55,Studio,1-10,1,1,1,1,1,Al Merkadh
+251,23473.34,59.64,1 B/R,1-10,1,1,1,1,1,Al Merkadh
+252,20553.47,74.44,1 B/R,11-20,1,1,1,1,1,Al Merkadh
+253,27779.41,47.78,1 B/R,31-40,1,1,1,1,1,Al Merkadh
+254,19865.16,83.06,2 B/R,1-10,1,1,1,1,1,Al Merkadh
+255,19702.14,32.23,Studio,1-10,1,1,1,1,1,Al Merkadh
+256,26697.82,31.72,Studio,1-10,1,1,1,1,1,Al Merkadh
+257,9984.87,32.66,Studio,1-10,1,1,1,1,1,Al Merkadh
+258,15589.94,84.67,1 B/R,11-20,1,1,1,1,1,Al Merkadh
+259,22526.46,27.82,Studio,1-10,1,1,1,1,1,Al Merkadh
+260,33296.37,42.16,Studio,11-20,1,1,1,1,1,Al Merkadh
+261,10600.99,54.41,1 B/R,1-10,1,1,1,1,1,Al Merkadh
+262,10715.98,56.87,1 B/R,1-10,1,1,1,1,1,Al Merkadh
+263,26613.9,128.88,2 B/R,1-10,0,1,1,0,1,Al Merkadh
+264,22359.82,58.14,1 B/R,11-20,1,1,1,1,1,Al Merkadh
+265,26852.51,70.31,2 B/R,Below 1st floor,1,1,1,1,1,Al Merkadh
+266,22345.79,90.12,2 B/R,1-10,1,1,1,0,1,Al Merkadh
+267,17827.33,84.67,1 B/R,11-20,1,1,1,1,1,Al Merkadh
+268,12898.71,35.65,Studio,1-10,1,1,1,1,1,Al Merkadh
+269,21315.23,32.69,Studio,1-10,1,1,1,1,1,Al Merkadh
+270,24409.39,68.04,2 B/R,1-10,1,1,1,1,1,Al Merkadh
+271,26496.15,72.69,2 B/R,Below 1st floor,1,1,1,1,1,Al Merkadh
+272,22719.6,67.08,1 B/R,21-30,1,1,1,0,1,Al Merkadh
+273,14842.38,30.96,Studio,Below 1st floor,1,1,1,1,1,Al Merkadh
+274,33291.33,42.58,Studio,11-20,1,1,1,1,1,Al Merkadh
+275,26884.95,99.87,3 B/R,1-10,1,1,1,1,1,Al Merkadh
+276,17776.6,37.69,Studio,1-10,1,1,1,1,1,Al Merkadh
+277,20373.51,29.45,Studio,1-10,1,1,1,1,1,Al Merkadh
+278,16531.72,27.62,Studio,1-10,1,1,1,1,1,Al Merkadh
+279,17738.36,45.1,1 B/R,1-10,1,1,1,1,1,Al Merkadh
+280,24886.51,36.83,Studio,11-20,1,1,1,1,1,Al Merkadh
+281,18865.63,128.88,2 B/R,1-10,0,1,1,0,1,Al Merkadh
+282,30687.0,77.38,1 B/R,11-20,1,1,1,1,1,Al Merkadh
+283,27291.08,59.88,1 B/R,11-20,1,1,1,1,1,Al Merkadh
+284,18117.51,50.55,1 B/R,11-20,1,1,1,1,1,Al Merkadh
+285,16683.96,115.68,2 B/R,21-30,1,1,1,1,1,Al Merkadh
+286,13139.93,35.16,Studio,1-10,1,1,1,1,1,Al Merkadh
+287,26535.34,59.85,1 B/R,11-20,1,1,1,1,1,Al Merkadh
+288,15069.45,81.53,1 B/R,1-10,1,1,1,1,1,Al Merkadh
+289,21038.9,59.64,1 B/R,1-10,1,1,1,1,1,Al Merkadh
+290,18729.19,72.08,1 B/R,31-40,1,1,1,0,1,Al Merkadh
+291,18116.47,108.8,2 B/R,11-20,1,1,1,1,1,Al Merkadh
+292,18783.82,108.8,2 B/R,11-20,1,1,1,1,1,Al Merkadh
+293,17415.21,55.35,1 B/R,1-10,1,1,1,1,1,Al Merkadh
+294,20656.28,84.72,1 B/R,11-20,1,1,1,1,1,Al Merkadh
+295,31080.27,33.45,Studio,Below 1st floor,1,1,1,1,1,Al Merkadh
+296,31936.77,42.07,Studio,11-20,1,1,1,1,1,Al Merkadh
+297,31064.72,119.75,2 B/R,1-10,0,1,1,1,1,Al Merkadh
+298,13410.33,31.77,Studio,1-10,1,1,1,1,1,Al Merkadh
+299,18846.32,73.25,1 B/R,1-10,0,1,1,0,1,Al Merkadh
+300,9804.3,154.13,2 B/R,1-10,1,1,0,1,1,Al Thanyah Fifth
+301,4486.6,78.01,1 B/R,1-10,1,1,1,1,1,Al Thanyah Fifth
+302,15724.57,120.83,2 B/R,1-10,1,1,0,1,1,Al Thanyah Fifth
+303,10812.93,89.85,1 B/R,11-20,1,1,1,1,1,Al Thanyah Fifth
+304,10759.49,79.0,1 B/R,1-10,1,1,0,1,1,Al Thanyah Fifth
+305,25681.38,69.8,1 B/R,31-40,1,1,1,1,1,Al Thanyah Fifth
+306,10280.26,81.71,1 B/R,11-20,1,0,0,1,1,Al Thanyah Fifth
+307,25521.52,137.25,2 B/R,31-40,1,1,1,0,1,Al Thanyah Fifth
+308,20826.1,57.62,Studio,11-20,1,0,1,1,1,Al Thanyah Fifth
+309,22088.11,99.42,1 B/R,21-30,1,1,1,1,1,Al Thanyah Fifth
+310,28618.52,87.35,1 B/R,21-30,1,1,1,0,1,Al Thanyah Fifth
+311,27797.83,69.25,1 B/R,51-60,1,1,1,1,1,Al Thanyah Fifth
+312,11927.21,91.22,1 B/R,21-30,1,1,0,1,1,Al Thanyah Fifth
+313,20686.08,77.25,1 B/R,1-10,1,1,1,1,1,Al Thanyah Fifth
+314,24403.47,126.9,2 B/R,21-30,1,1,1,1,1,Al Thanyah Fifth
+315,8611.13,77.59,1 B/R,1-10,0,1,1,1,1,Al Thanyah Fifth
+316,10273.5,72.03,1 B/R,21-30,1,1,0,1,1,Al Thanyah Fifth
+317,21340.09,131.88,2 B/R,11-20,1,1,1,1,1,Al Thanyah Fifth
+318,9040.33,143.8,2 B/R,1-10,1,1,1,1,1,Al Thanyah Fifth
+319,25315.21,147.77,2 B/R,21-30,1,1,1,0,1,Al Thanyah Fifth
+320,10638.3,83.66,1 B/R,1-10,1,0,0,1,1,Al Thanyah Fifth
+321,13055.37,78.01,1 B/R,1-10,1,1,1,1,1,Al Thanyah Fifth
+322,30732.38,43.83,Studio,11-20,1,1,1,1,1,Al Thanyah Fifth
+323,17939.52,39.02,Studio,21-30,1,1,0,1,0,Al Thanyah Fifth
+324,7432.84,59.32,1 B/R,1-10,1,1,0,1,1,Al Thanyah Fifth
+325,12452.95,183.86,2 B/R,1-10,1,1,0,1,1,Al Thanyah Fifth
+326,25005.09,96.32,1 B/R,11-20,1,1,1,1,1,Al Thanyah Fifth
+327,12011.0,77.86,1 B/R,1-10,1,0,1,1,1,Al Thanyah Fifth
+328,29683.89,38.91,Studio,21-30,1,1,1,1,1,Al Thanyah Fifth
+329,24570.02,36.63,Studio,1-10,1,0,1,1,1,Al Thanyah Fifth
+330,24788.6,127.35,2 B/R,1-10,1,1,1,0,1,Al Thanyah Fifth
+331,6501.05,137.67,2 B/R,1-10,1,1,0,1,1,Al Thanyah Fifth
+332,29786.69,38.91,Studio,21-30,1,1,1,1,1,Al Thanyah Fifth
+333,9898.89,108.55,2 B/R,11-20,1,0,0,1,1,Al Thanyah Fifth
+334,22925.92,69.79,1 B/R,21-30,1,1,1,1,1,Al Thanyah Fifth
+335,17423.92,69.74,1 B/R,31-40,1,1,1,1,1,Al Thanyah Fifth
+336,26079.88,69.35,1 B/R,21-30,1,1,1,1,1,Al Thanyah Fifth
+337,7609.88,42.32,Studio,1-10,1,1,0,1,1,Al Thanyah Fifth
+338,13245.03,151.0,2 B/R,1-10,1,1,0,1,1,Al Thanyah Fifth
+339,16018.64,68.67,1 B/R,1-10,1,1,1,1,1,Al Thanyah Fifth
+340,12881.13,122.66,2 B/R,21-30,1,0,0,1,1,Al Thanyah Fifth
+341,29838.09,38.91,Studio,21-30,1,1,1,1,1,Al Thanyah Fifth
+342,19955.48,130.29,2 B/R,Top floor,1,1,1,1,1,Al Thanyah Fifth
+343,22980.9,165.98,3 B/R,61-70,1,1,1,1,1,Al Thanyah Fifth
+344,12993.38,78.01,1 B/R,1-10,1,1,1,1,1,Al Thanyah Fifth
+345,26606.4,102.87,2 B/R,51-60,1,1,1,1,1,Al Thanyah Fifth
+346,17282.01,38.19,Studio,21-30,1,1,1,1,1,Al Thanyah Fifth
+347,20212.62,85.73,1 B/R,Top floor,1,1,1,1,1,Al Thanyah Fifth
+348,28209.05,132.54,2 B/R,21-30,1,1,1,0,1,Al Thanyah Fifth
+349,23840.61,117.95,2 B/R,41-50,1,1,1,1,1,Al Thanyah Fifth
+350,14029.68,95.29,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+351,15395.97,91.77,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+352,13685.59,84.03,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+353,8230.19,87.58,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+354,11120.31,96.67,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+355,9929.15,83.27,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+356,8618.71,87.02,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+357,14587.07,44.56,1 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+358,13322.88,44.66,1 B/R,Below 1st floor,1,1,1,0,1,Al Yelayiss 2
+359,14970.73,44.42,1 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+360,10473.82,100.25,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+361,13928.98,92.82,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+362,13025.46,84.45,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+363,14376.43,96.4,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+364,14625.7,91.27,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+365,6733.51,87.77,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+366,13508.3,88.9,2 B/R,11-20,1,1,1,0,1,Al Yelayiss 2
+367,13020.3,93.0,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+368,10837.8,82.12,2 B/R,1-10,0,1,1,0,1,Al Yelayiss 2
+369,13501.71,101.09,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+370,10867.7,118.23,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+371,14848.94,106.33,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+372,14762.69,88.12,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+373,14318.0,129.27,3 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+374,9142.71,141.74,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+375,10870.58,89.71,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+376,11515.45,88.66,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+377,11560.83,110.19,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+378,9804.57,134.06,3 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+379,10697.57,92.16,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+380,15059.42,84.79,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+381,16080.3,61.87,1 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+382,10853.84,69.1,1 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+383,14173.75,86.49,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+384,11503.98,59.11,1 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+385,13264.39,44.48,1 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+386,14441.77,129.27,3 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+387,9803.22,139.75,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+388,11535.16,81.49,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+389,15623.22,97.86,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+390,11515.45,88.66,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+391,12564.11,91.84,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+392,7814.35,84.46,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+393,11608.12,131.45,3 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+394,15013.54,61.87,1 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+395,15540.06,93.3,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+396,13925.91,62.25,1 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+397,15122.84,66.25,1 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+398,13491.34,89.16,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+399,13210.95,89.16,2 B/R,1-10,1,1,1,0,1,Al Yelayiss 2
+400,21689.21,117.57,1 B/R,1-10,1,1,1,1,1,Burj Khalifa
+401,9174.47,116.41,1 B/R,1-10,0,1,1,1,1,Burj Khalifa
+402,17678.3,91.14,1 B/R,1-10,0,1,1,1,1,Burj Khalifa
+403,25002.94,52.61,Studio,1-10,1,1,1,1,1,Burj Khalifa
+404,28033.83,105.23,2 B/R,21-30,1,1,1,1,1,Burj Khalifa
+405,23573.2,161.2,2 B/R,21-30,1,1,1,1,1,Burj Khalifa
+406,18821.32,85.01,1 B/R,1-10,1,1,0,1,1,Burj Khalifa
+407,27224.77,117.54,2 B/R,11-20,1,1,0,1,1,Burj Khalifa
+408,20052.81,121.18,2 B/R,21-30,1,1,0,1,1,Burj Khalifa
+409,11810.36,118.54,1 B/R,1-10,0,1,1,1,1,Burj Khalifa
+410,23757.48,88.73,1 B/R,1-10,1,1,1,1,1,Burj Khalifa
+411,21245.24,81.43,1 B/R,11-20,1,1,1,1,1,Burj Khalifa
+412,10885.83,73.49,1 B/R,Below 1st floor,1,1,0,1,1,Burj Khalifa
+413,29364.53,43.59,Studio,1-10,1,1,0,1,1,Burj Khalifa
+414,25204.01,94.41,1 B/R,11-20,1,1,1,1,1,Burj Khalifa
+415,24043.77,72.65,1 B/R,21-30,1,1,1,1,1,Burj Khalifa
+416,19669.98,91.51,1 B/R,11-20,1,1,1,1,1,Burj Khalifa
+417,15089.16,109.35,1 B/R,1-10,0,1,1,1,1,Burj Khalifa
+418,27539.83,124.91,2 B/R,11-20,1,1,1,1,1,Burj Khalifa
+419,29255.32,112.8,2 B/R,11-20,1,1,1,1,1,Burj Khalifa
+420,27768.01,131.34,2 B/R,21-30,1,1,1,1,0,Burj Khalifa
+421,29189.56,43.68,Studio,21-30,1,1,1,1,1,Burj Khalifa
+422,32106.16,140.16,3 B/R,41-50,1,1,1,1,1,Burj Khalifa
+423,33507.1,135.55,2 B/R,31-40,0,1,1,1,1,Burj Khalifa
+424,8098.99,66.61,1 B/R,61-70,1,0,1,1,1,Burj Khalifa
+425,29886.81,78.63,1 B/R,11-20,0,1,1,1,1,Burj Khalifa
+426,30506.57,170.56,3 B/R,31-40,1,1,1,1,1,Burj Khalifa
+427,19102.94,154.95,2 B/R,41-50,1,1,1,1,1,Burj Khalifa
+428,21637.39,155.98,2 B/R,21-30,1,1,1,1,1,Burj Khalifa
+429,10102.14,89.09,1 B/R,Below 1st floor,1,1,0,1,1,Burj Khalifa
+430,13567.84,49.75,Studio,11-20,1,1,1,1,1,Burj Khalifa
+431,11723.98,44.78,Studio,Below 1st floor,1,1,0,1,1,Burj Khalifa
+432,27802.29,113.3,2 B/R,1-10,1,1,1,1,1,Burj Khalifa
+433,28290.38,131.14,2 B/R,11-20,1,1,1,1,1,Burj Khalifa
+434,30341.74,93.93,2 B/R,41-50,1,1,1,1,1,Burj Khalifa
+435,31392.29,87.4,1 B/R,31-40,1,1,1,1,1,Burj Khalifa
+436,25806.66,126.51,3 B/R,41-50,1,1,1,1,1,Burj Khalifa
+437,25203.32,70.34,1 B/R,11-20,1,1,1,1,1,Burj Khalifa
+438,24745.81,133.76,2 B/R,11-20,1,1,0,1,1,Burj Khalifa
+439,18980.91,151.9,2 B/R,1-10,1,1,1,1,1,Burj Khalifa
+440,30412.12,80.56,1 B/R,21-30,1,0,1,1,1,Burj Khalifa
+441,19227.18,81.43,1 B/R,11-20,1,1,1,1,1,Burj Khalifa
+442,24261.04,112.32,2 B/R,11-20,1,1,0,1,1,Burj Khalifa
+443,33070.71,102.81,2 B/R,1-10,1,1,1,1,1,Burj Khalifa
+444,29205.44,69.85,1 B/R,1-10,1,1,1,1,1,Burj Khalifa
+445,24753.47,69.8,1 B/R,31-40,1,1,1,1,1,Burj Khalifa
+446,18824.51,95.62,1 B/R,1-10,1,1,1,1,1,Burj Khalifa
+447,12696.95,173.27,3 B/R,21-30,1,1,1,1,1,Burj Khalifa
+448,15928.93,104.96,2 B/R,51-60,0,1,1,1,1,Burj Khalifa
+449,28664.1,163.41,2 B/R,31-40,1,1,1,1,1,Burj Khalifa
+450,8138.77,125.43,3 B/R,21-30,1,1,1,1,1,Business Bay
+451,33268.56,105.9,2 B/R,Below 1st floor,1,1,1,1,1,Business Bay
+452,28208.74,42.54,Studio,11-20,1,1,1,1,1,Business Bay
+453,11021.59,31.03,Studio,11-20,1,0,0,1,1,Business Bay
+454,30000.8,159.89,3 B/R,11-20,1,1,1,1,1,Business Bay
+455,22792.28,55.94,1 B/R,Below 1st floor,1,1,1,1,1,Business Bay
+456,24617.78,77.18,1 B/R,21-30,1,1,1,1,1,Business Bay
+457,24424.68,70.83,1 B/R,41-50,1,1,1,1,1,Business Bay
+458,20710.06,60.84,Studio,11-20,1,1,1,1,1,Business Bay
+459,23250.63,134.62,3 B/R,11-20,1,1,1,1,1,Business Bay
+460,24210.05,43.99,1 B/R,11-20,1,1,1,1,1,Business Bay
+461,15791.81,180.97,3 B/R,41-50,1,1,1,1,1,Business Bay
+462,24658.57,39.54,Studio,21-30,1,1,1,1,1,Business Bay
+463,15427.37,105.89,1 B/R,1-10,1,1,0,1,1,Business Bay
+464,14442.75,124.63,2 B/R,1-10,1,1,1,1,1,Business Bay
+465,25284.24,69.09,1 B/R,21-30,1,1,1,1,1,Business Bay
+466,34168.83,34.71,Studio,41-50,1,1,1,1,1,Business Bay
+467,23973.32,47.97,Studio,11-20,1,1,0,1,1,Business Bay
+468,21909.21,67.96,1 B/R,1-10,1,1,1,1,1,Business Bay
+469,31388.46,94.78,1 B/R,1-10,1,1,1,1,1,Business Bay
+470,30763.57,98.26,2 B/R,11-20,1,1,1,1,1,Business Bay
+471,18678.27,151.62,2 B/R,1-10,1,1,1,1,1,Business Bay
+472,24378.64,84.09,2 B/R,31-40,1,1,1,1,1,Business Bay
+473,28983.55,57.27,1 B/R,1-10,1,1,1,1,1,Business Bay
+474,27143.16,76.3,1 B/R,11-20,1,1,1,1,1,Business Bay
+475,24963.41,129.83,2 B/R,41-50,0,1,1,1,1,Business Bay
+476,18023.03,125.95,2 B/R,31-40,1,1,1,1,1,Business Bay
+477,24001.13,70.83,1 B/R,41-50,1,1,1,1,1,Business Bay
+478,16212.88,123.26,2 B/R,21-30,1,1,0,1,1,Business Bay
+479,19783.86,94.79,1 B/R,31-40,1,1,1,1,1,Business Bay
+480,24394.17,136.99,2 B/R,11-20,1,1,1,1,1,Business Bay
+481,32693.6,32.48,Studio,21-30,1,1,1,1,1,Business Bay
+482,28980.22,71.29,1 B/R,51-60,1,1,1,1,1,Business Bay
+483,24962.11,94.01,1 B/R,61-70,1,1,1,1,1,Business Bay
+484,22873.37,79.64,1 B/R,11-20,1,1,1,1,1,Business Bay
+485,18185.9,44.54,Studio,1-10,1,1,1,1,1,Business Bay
+486,23091.87,112.95,2 B/R,1-10,1,0,1,1,1,Business Bay
+487,23449.71,57.57,1 B/R,1-10,1,1,1,1,1,Business Bay
+488,14904.07,126.14,2 B/R,1-10,1,1,1,1,1,Business Bay
+489,22666.45,60.53,1 B/R,1-10,1,1,1,1,1,Business Bay
+490,32143.61,36.62,Studio,11-20,1,1,1,1,1,Business Bay
+491,24436.99,41.74,Studio,31-40,1,1,1,1,1,Business Bay
+492,22392.42,157.33,2 B/R,1-10,1,1,1,0,1,Business Bay
+493,16162.59,154.36,3 B/R,41-50,1,1,1,1,1,Business Bay
+494,29840.6,97.56,1 B/R,61-70,1,1,1,1,1,Business Bay
+495,15301.44,98.03,1 B/R,41-50,1,1,1,1,1,Business Bay
+496,14362.22,41.08,Studio,11-20,1,0,0,1,1,Business Bay
+497,24216.26,53.27,1 B/R,21-30,1,1,1,1,1,Business Bay
+498,23142.39,60.72,1 B/R,11-20,1,0,1,1,1,Business Bay
+499,27209.12,77.18,1 B/R,21-30,1,1,1,1,1,Business Bay
+500,24006.44,69.56,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+501,22681.23,127.81,2 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+502,23392.86,141.02,3 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+503,22712.55,69.34,1 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+504,24207.71,69.56,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+505,26578.43,46.09,1 B/R,1-10,1,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+506,24663.29,128.04,2 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+507,24396.86,141.53,3 B/R,1-10,1,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+508,23174.09,69.56,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+509,29197.25,113.5,2 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+510,27144.11,77.41,1 B/R,21-30,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+511,23594.05,69.25,1 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+512,23895.78,73.23,1 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+513,24725.24,69.56,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+514,27262.61,100.94,2 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+515,24680.49,121.63,2 B/R,Below 1st floor,1,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+516,29906.14,69.38,1 B/R,1-10,0,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+517,23502.42,69.92,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+518,23324.18,73.23,1 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+519,30091.58,69.75,1 B/R,11-20,0,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+520,30483.2,109.04,2 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+521,25028.62,109.63,2 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+522,21593.24,128.99,2 B/R,1-10,1,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+523,29599.68,101.45,2 B/R,1-10,0,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+524,30331.21,101.41,2 B/R,11-20,0,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+525,18897.64,38.1,Studio,1-10,0,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+526,27825.39,110.83,2 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+527,24370.42,70.86,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+528,24724.77,69.44,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+529,20914.66,107.24,2 B/R,Other,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+530,26166.89,105.76,2 B/R,1-10,0,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+531,28433.08,100.97,2 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+532,26618.59,100.79,2 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+533,27942.85,109.04,2 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+534,20022.52,62.18,1 B/R,11-20,1,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+535,21274.75,107.37,2 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+536,27961.53,101.11,2 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+537,22518.4,128.99,2 B/R,1-10,1,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+538,23539.61,69.75,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+539,22098.32,147.07,3 B/R,1-10,1,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+540,23611.1,69.92,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+541,22881.08,69.31,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+542,21122.51,132.56,2 B/R,1-10,1,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+543,17039.54,38.44,Studio,1-10,0,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+544,23759.22,73.23,1 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+545,27606.4,110.55,2 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+546,26341.8,100.9,2 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+547,22856.77,70.39,1 B/R,1-10,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+548,23168.87,73.24,1 B/R,11-20,1,1,1,0,1,Hadaeq Sheikh Mohammed Bin Rashid
+549,23648.35,72.97,2 B/R,Below 1st floor,1,1,1,1,1,Hadaeq Sheikh Mohammed Bin Rashid
+550,13381.29,69.5,1 B/R,1-10,1,1,1,0,1,Jabal Ali First
+551,14257.78,109.94,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+552,13109.63,73.61,1 B/R,1-10,1,1,1,1,1,Jabal Ali First
+553,15289.74,161.35,3 B/R,1-10,1,1,1,1,1,Jabal Ali First
+554,8249.28,98.27,1 B/R,1-10,1,1,1,1,1,Jabal Ali First
+555,16976.52,80.99,1 B/R,1-10,1,1,1,0,1,Jabal Ali First
+556,18580.79,36.64,Studio,1-10,1,1,1,1,1,Jabal Ali First
+557,13225.23,122.72,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+558,13688.05,71.23,1 B/R,1-10,1,1,1,0,1,Jabal Ali First
+559,13297.01,85.45,1 B/R,1-10,1,1,1,0,1,Jabal Ali First
+560,13256.24,70.91,2 B/R,11-20,0,1,1,1,1,Jabal Ali First
+561,17414.01,85.14,1 B/R,1-10,1,1,1,0,1,Jabal Ali First
+562,9707.64,177.18,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+563,11614.27,105.71,2 B/R,1-10,1,1,1,0,1,Jabal Ali First
+564,12663.46,133.06,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+565,8370.58,123.05,2 B/R,1-10,0,1,1,1,0,Jabal Ali First
+566,14701.76,71.42,1 B/R,1-10,1,1,1,0,1,Jabal Ali First
+567,16145.18,39.95,Studio,1-10,1,1,1,0,1,Jabal Ali First
+568,11172.07,140.57,3 B/R,1-10,1,1,1,0,1,Jabal Ali First
+569,11898.67,78.16,1 B/R,Below 1st floor,1,1,1,1,1,Jabal Ali First
+570,16038.57,65.33,1 B/R,1-10,1,1,1,1,1,Jabal Ali First
+571,12686.57,127.3,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+572,12346.01,75.49,1 B/R,1-10,1,1,1,1,1,Jabal Ali First
+573,11999.66,105.79,2 B/R,1-10,1,1,1,0,1,Jabal Ali First
+574,9564.04,144.25,3 B/R,1-10,1,1,1,0,1,Jabal Ali First
+575,9687.62,98.27,1 B/R,1-10,1,1,1,1,1,Jabal Ali First
+576,8945.15,75.84,1 B/R,1-10,1,1,1,1,1,Jabal Ali First
+577,10786.89,72.31,1 B/R,1-10,1,1,1,1,1,Jabal Ali First
+578,14246.85,69.84,1 B/R,1-10,1,1,1,0,1,Jabal Ali First
+579,11560.43,129.58,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+580,20521.48,115.79,2 B/R,1-10,1,1,1,0,1,Jabal Ali First
+581,13945.67,91.48,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+582,13479.59,91.48,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+583,7711.65,147.18,2 B/R,1-10,0,1,1,1,0,Jabal Ali First
+584,12277.16,118.92,2 B/R,Below 1st floor,1,1,1,1,1,Jabal Ali First
+585,12587.69,114.04,2 B/R,Below 1st floor,1,1,0,0,1,Jabal Ali First
+586,13051.66,116.92,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+587,13843.1,186.23,3 B/R,1-10,1,1,1,1,1,Jabal Ali First
+588,11133.42,54.79,1 B/R,1-10,1,1,1,1,1,Jabal Ali First
+589,11194.57,75.47,1 B/R,11-20,1,1,1,1,1,Jabal Ali First
+590,7215.87,182.93,3 B/R,1-10,1,1,1,1,1,Jabal Ali First
+591,10225.78,144.73,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+592,13060.65,156.96,3 B/R,1-10,1,1,1,1,1,Jabal Ali First
+593,14000.0,65.0,1 B/R,1-10,1,1,1,1,1,Jabal Ali First
+594,12490.54,111.02,2 B/R,1-10,1,1,1,0,1,Jabal Ali First
+595,12228.24,116.37,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+596,15932.64,38.6,Studio,Below 1st floor,1,1,1,1,1,Jabal Ali First
+597,12475.97,114.46,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+598,11790.2,69.21,2 B/R,1-10,1,1,1,1,1,Jabal Ali First
+599,17011.09,39.68,Studio,1-10,1,1,1,0,1,Jabal Ali First
+600,9248.87,90.93,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+601,17928.76,33.41,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+602,16566.4,64.83,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+603,17070.39,35.09,Studio,11-20,1,1,1,0,1,Madinat Al Mataar
+604,12025.47,86.77,2 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+605,16829.74,62.68,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+606,22198.67,33.02,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+607,14370.52,62.69,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+608,17857.14,35.28,Studio,11-20,1,1,1,0,1,Madinat Al Mataar
+609,20516.09,31.39,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+610,15448.6,63.17,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+611,15880.97,33.94,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+612,13645.4,63.09,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+613,20243.7,36.11,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+614,20858.55,31.39,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+615,9621.17,83.15,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+616,17620.32,93.42,2 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+617,14324.69,63.1,1 B/R,11-20,1,1,1,0,1,Madinat Al Mataar
+618,19093.44,93.54,2 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+619,15110.82,63.06,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+620,12206.15,44.24,Studio,1-10,0,1,1,0,1,Madinat Al Mataar
+621,16773.61,99.74,2 B/R,11-20,1,1,1,0,1,Madinat Al Mataar
+622,14331.0,135.98,2 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+623,19366.31,30.93,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+624,22839.17,32.83,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+625,8002.45,78.65,1 B/R,1-10,1,1,0,0,1,Madinat Al Mataar
+626,17755.07,62.68,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+627,16538.33,59.74,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+628,13523.37,80.22,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+629,13993.71,63.6,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+630,14870.41,70.61,1 B/R,11-20,1,1,1,0,1,Madinat Al Mataar
+631,15944.97,63.97,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+632,14402.42,62.69,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+633,7918.74,61.04,1 B/R,1-10,0,1,1,0,1,Madinat Al Mataar
+634,17567.37,35.17,Studio,11-20,1,1,1,0,1,Madinat Al Mataar
+635,12241.86,151.03,2 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+636,22830.19,100.7,2 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+637,11505.27,41.72,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+638,9531.75,83.93,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+639,18041.69,31.66,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+640,12404.27,92.71,1 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+641,17577.5,31.29,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+642,21070.87,31.75,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+643,11767.22,93.48,1 B/R,11-20,1,1,1,0,1,Madinat Al Mataar
+644,17589.35,63.1,1 B/R,11-20,1,1,1,0,1,Madinat Al Mataar
+645,19985.41,31.53,Studio,1-10,1,1,1,0,1,Madinat Al Mataar
+646,18687.57,33.64,Studio,11-20,1,1,1,0,1,Madinat Al Mataar
+647,13067.05,98.56,2 B/R,1-10,1,1,1,0,1,Madinat Al Mataar
+648,13063.75,8.89,Studio,Below 1st floor,1,1,1,0,1,Madinat Al Mataar
+649,16509.08,66.63,1 B/R,11-20,1,1,1,0,1,Madinat Al Mataar
+650,26556.13,71.17,1 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+651,26200.26,83.43,1 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+652,21881.36,119.96,2 B/R,1-10,0,1,1,0,1,Madinat Dubai Almelaheyah
+653,23842.77,73.98,1 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+654,22710.0,118.94,2 B/R,1-10,0,1,1,0,1,Madinat Dubai Almelaheyah
+655,29679.88,81.32,1 B/R,Below 1st floor,1,1,1,0,1,Madinat Dubai Almelaheyah
+656,20430.11,74.4,1 B/R,1-10,1,1,1,1,1,Madinat Dubai Almelaheyah
+657,19153.23,71.17,1 B/R,1-10,1,1,1,1,1,Madinat Dubai Almelaheyah
+658,27929.19,71.18,1 B/R,21-30,1,1,1,0,1,Madinat Dubai Almelaheyah
+659,22187.72,115.96,2 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+660,23536.6,74.39,1 B/R,1-10,0,1,1,0,1,Madinat Dubai Almelaheyah
+661,26658.65,155.33,3 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+662,22271.84,68.82,1 B/R,11-20,1,1,1,1,1,Madinat Dubai Almelaheyah
+663,27800.46,109.49,2 B/R,21-30,1,1,1,1,1,Madinat Dubai Almelaheyah
+664,33537.21,74.66,1 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+665,23876.86,74.0,1 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+666,25075.0,75.35,1 B/R,1-10,0,1,1,0,1,Madinat Dubai Almelaheyah
+667,24184.13,121.48,2 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+668,32720.17,74.66,1 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+669,19431.81,71.33,1 B/R,1-10,1,1,1,1,1,Madinat Dubai Almelaheyah
+670,21119.8,111.27,2 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+671,24113.11,73.98,1 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+672,25949.95,109.48,2 B/R,11-20,1,1,1,0,1,Madinat Dubai Almelaheyah
+673,25389.78,135.75,2 B/R,Below 1st floor,1,1,1,0,1,Madinat Dubai Almelaheyah
+674,19951.09,107.06,2 B/R,31-40,1,1,1,1,1,Madinat Dubai Almelaheyah
+675,19817.04,107.13,2 B/R,Below 1st floor,0,1,1,1,1,Madinat Dubai Almelaheyah
+676,21463.5,121.55,2 B/R,1-10,0,1,1,0,1,Madinat Dubai Almelaheyah
+677,27795.29,81.32,1 B/R,Below 1st floor,1,1,1,0,1,Madinat Dubai Almelaheyah
+678,21505.38,74.4,1 B/R,1-10,1,1,1,1,1,Madinat Dubai Almelaheyah
+679,25099.7,119.24,2 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+680,18539.98,129.45,2 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+681,29914.92,76.02,1 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+682,28884.18,127.54,2 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+683,30617.01,75.7,1 B/R,Below 1st floor,1,1,1,0,1,Madinat Dubai Almelaheyah
+684,25607.22,87.79,1 B/R,Below 1st floor,1,1,1,0,1,Madinat Dubai Almelaheyah
+685,22403.31,115.96,2 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+686,32802.34,157.15,3 B/R,11-20,0,1,1,0,1,Madinat Dubai Almelaheyah
+687,29335.0,68.18,1 B/R,21-30,1,1,1,1,1,Madinat Dubai Almelaheyah
+688,22482.02,71.01,1 B/R,1-10,1,1,1,1,1,Madinat Dubai Almelaheyah
+689,25240.11,179.86,3 B/R,21-30,1,1,1,1,1,Madinat Dubai Almelaheyah
+690,32459.12,156.84,3 B/R,1-10,0,1,1,0,1,Madinat Dubai Almelaheyah
+691,21545.77,121.55,2 B/R,1-10,0,1,1,0,1,Madinat Dubai Almelaheyah
+692,18794.08,72.9,1 B/R,11-20,1,1,1,1,1,Madinat Dubai Almelaheyah
+693,32854.11,74.66,1 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+694,27592.13,88.81,1 B/R,Below 1st floor,1,1,1,0,1,Madinat Dubai Almelaheyah
+695,25470.19,62.74,1 B/R,11-20,1,1,1,1,1,Madinat Dubai Almelaheyah
+696,23937.39,73.98,1 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+697,21626.26,121.56,2 B/R,1-10,0,1,1,0,1,Madinat Dubai Almelaheyah
+698,21601.19,161.56,3 B/R,1-10,1,1,1,0,1,Madinat Dubai Almelaheyah
+699,24705.13,62.74,1 B/R,11-20,1,1,1,1,1,Madinat Dubai Almelaheyah
+700,3947.72,108.67,1 B/R,1-10,1,1,0,1,1,Marsa Dubai
+701,26081.56,106.36,2 B/R,21-30,1,1,1,1,1,Marsa Dubai
+702,31264.38,70.46,1 B/R,11-20,1,0,1,1,1,Marsa Dubai
+703,24695.36,98.8,1 B/R,11-20,1,1,1,1,1,Marsa Dubai
+704,32902.62,75.07,1 B/R,1-10,1,1,1,0,1,Marsa Dubai
+705,11160.55,83.15,1 B/R,11-20,0,1,1,1,1,Marsa Dubai
+706,14367.82,160.08,2 B/R,1-10,1,1,0,1,1,Marsa Dubai
+707,32425.42,131.07,2 B/R,11-20,1,1,1,1,1,Marsa Dubai
+708,18653.4,112.58,2 B/R,11-20,1,1,0,1,1,Marsa Dubai
+709,27278.29,81.75,1 B/R,11-20,1,1,0,1,1,Marsa Dubai
+710,26798.08,121.72,2 B/R,31-40,1,1,1,1,1,Marsa Dubai
+711,30156.82,33.16,Studio,1-10,1,1,1,1,1,Marsa Dubai
+712,12788.63,84.45,1 B/R,21-30,1,1,1,1,1,Marsa Dubai
+713,27985.03,77.47,1 B/R,11-20,1,1,1,1,1,Marsa Dubai
+714,15052.1,129.55,2 B/R,1-10,0,1,1,0,1,Marsa Dubai
+715,15176.81,131.78,2 B/R,11-20,1,1,1,1,1,Marsa Dubai
+716,8347.56,158.13,3 B/R,21-30,1,1,0,1,1,Marsa Dubai
+717,21140.59,189.76,2 B/R,31-40,1,1,1,1,1,Marsa Dubai
+718,28479.16,56.95,Studio,11-20,1,1,1,1,1,Marsa Dubai
+719,28831.02,69.12,1 B/R,1-10,0,1,1,0,1,Marsa Dubai
+720,20779.22,96.25,1 B/R,1-10,0,1,1,1,1,Marsa Dubai
+721,15040.49,129.65,2 B/R,11-20,1,1,0,1,1,Marsa Dubai
+722,21991.09,109.03,1 B/R,21-30,1,1,1,1,1,Marsa Dubai
+723,15564.86,132.51,2 B/R,31-40,1,1,0,1,1,Marsa Dubai
+724,17966.22,166.98,3 B/R,1-10,1,1,0,1,1,Marsa Dubai
+725,27454.78,44.93,Studio,11-20,1,0,1,1,1,Marsa Dubai
+726,28805.53,78.11,1 B/R,11-20,1,1,1,1,1,Marsa Dubai
+727,33472.19,42.07,Studio,11-20,1,1,1,1,1,Marsa Dubai
+728,28410.35,73.42,1 B/R,1-10,1,1,1,1,1,Marsa Dubai
+729,14844.07,48.1,Studio,1-10,0,1,1,1,1,Marsa Dubai
+730,25954.2,85.15,1 B/R,Other,1,1,1,0,1,Marsa Dubai
+731,23104.27,42.2,Studio,11-20,1,1,0,1,1,Marsa Dubai
+732,20375.28,105.52,2 B/R,61-70,1,0,1,1,1,Marsa Dubai
+733,19921.68,69.56,1 B/R,1-10,1,1,1,1,1,Marsa Dubai
+734,12294.56,78.49,1 B/R,31-40,1,1,0,1,1,Marsa Dubai
+735,30433.97,84.08,1 B/R,31-40,1,1,1,1,1,Marsa Dubai
+736,28376.84,132.15,2 B/R,31-40,1,1,1,1,1,Marsa Dubai
+737,16864.46,80.05,1 B/R,51-60,1,1,0,1,1,Marsa Dubai
+738,13089.06,12.43,2 B/R,Below 1st floor,1,1,0,1,1,Marsa Dubai
+739,20359.41,109.03,1 B/R,21-30,1,1,1,1,1,Marsa Dubai
+740,21763.28,144.05,2 B/R,21-30,1,1,1,1,1,Marsa Dubai
+741,29573.19,49.23,Studio,11-20,1,1,1,1,1,Marsa Dubai
+742,26520.38,114.7,2 B/R,11-20,1,1,1,1,1,Marsa Dubai
+743,15491.5,106.51,1 B/R,1-10,1,1,0,1,1,Marsa Dubai
+744,21792.01,98.66,1 B/R,81-90,1,1,0,1,1,Marsa Dubai
+745,22794.62,131.61,2 B/R,21-30,1,1,1,1,1,Marsa Dubai
+746,15564.84,122.07,2 B/R,1-10,1,1,0,1,1,Marsa Dubai
+747,12184.8,150.22,2 B/R,11-20,1,1,0,1,1,Marsa Dubai
+748,15072.67,96.25,1 B/R,1-10,0,1,1,1,1,Marsa Dubai
+749,14938.38,80.33,1 B/R,11-20,1,1,0,1,1,Marsa Dubai
+750,5865.6,83.1,1 B/R,1-10,1,1,0,1,1,Me'Aisem First
+751,8029.51,46.08,Studio,11-20,1,1,0,1,1,Me'Aisem First
+752,4530.35,66.22,1 B/R,1-10,1,1,1,1,1,Me'Aisem First
+753,16950.0,38.88,Studio,11-20,1,1,1,1,1,Me'Aisem First
+754,15687.01,39.03,Studio,1-10,1,1,1,1,1,Me'Aisem First
+755,18739.4,38.68,Studio,1-10,1,1,1,1,1,Me'Aisem First
+756,11677.63,60.8,1 B/R,1-10,1,1,1,1,1,Me'Aisem First
+757,10985.75,33.68,Studio,21-30,1,1,0,1,1,Me'Aisem First
+758,10743.54,80.34,1 B/R,1-10,1,1,1,1,1,Me'Aisem First
+759,13147.91,39.55,Studio,11-20,1,1,1,1,1,Me'Aisem First
+760,10167.99,33.93,Studio,11-20,1,1,0,1,1,Me'Aisem First
+761,8258.09,90.82,2 B/R,21-30,1,1,0,1,1,Me'Aisem First
+762,18067.94,38.68,Studio,1-10,1,1,1,1,1,Me'Aisem First
+763,17515.97,39.91,Studio,11-20,1,1,1,1,1,Me'Aisem First
+764,14178.37,74.71,1 B/R,1-10,1,1,1,1,1,Me'Aisem First
+765,10492.6,90.11,1 B/R,1-10,1,1,1,1,1,Me'Aisem First
+766,10935.25,34.75,Studio,1-10,1,1,0,1,1,Me'Aisem First
+767,6743.54,55.33,1 B/R,11-20,1,1,0,1,1,Me'Aisem First
+768,11319.53,61.84,1 B/R,1-10,1,1,1,1,1,Me'Aisem First
+769,6808.23,123.38,2 B/R,11-20,1,1,0,1,0,Me'Aisem First
+770,12041.65,108.1,2 B/R,1-10,1,1,1,1,1,Me'Aisem First
+771,18419.42,37.08,Studio,1-10,1,1,1,1,1,Me'Aisem First
+772,6569.53,118.73,2 B/R,1-10,1,1,0,1,0,Me'Aisem First
+773,18100.07,44.25,Studio,1-10,1,1,1,1,1,Me'Aisem First
+774,13196.09,75.78,1 B/R,Below 1st floor,0,1,1,1,1,Me'Aisem First
+775,16852.1,44.67,Studio,11-20,1,1,1,1,1,Me'Aisem First
+776,15011.08,74.76,1 B/R,11-20,1,1,1,1,1,Me'Aisem First
+777,8718.73,52.76,1 B/R,1-10,1,1,0,1,1,Me'Aisem First
+778,13316.77,71.09,1 B/R,1-10,1,1,1,1,1,Me'Aisem First
+779,10063.76,57.72,1 B/R,1-10,1,1,1,1,1,Me'Aisem First
+780,15391.87,39.01,Studio,11-20,1,1,1,1,0,Me'Aisem First
+781,12875.28,81.08,1 B/R,11-20,1,1,1,1,1,Me'Aisem First
+782,9266.41,155.4,3 B/R,1-10,1,1,1,1,1,Me'Aisem First
+783,8254.37,55.03,1 B/R,1-10,1,1,1,1,1,Me'Aisem First
+784,15342.13,38.69,Studio,11-20,1,1,1,1,1,Me'Aisem First
+785,14914.39,74.76,1 B/R,11-20,1,1,1,1,1,Me'Aisem First
+786,3833.4,106.84,1 B/R,11-20,1,1,0,1,1,Me'Aisem First
+787,6471.13,60.28,1 B/R,1-10,1,1,1,1,1,Me'Aisem First
+788,13701.98,40.87,Studio,11-20,1,1,1,1,1,Me'Aisem First
+789,12535.64,72.99,1 B/R,11-20,1,1,1,1,1,Me'Aisem First
+790,14381.35,40.33,Studio,11-20,1,1,1,1,1,Me'Aisem First
+791,13901.73,106.31,2 B/R,11-20,1,1,1,1,1,Me'Aisem First
+792,18287.29,39.91,Studio,11-20,1,1,1,1,1,Me'Aisem First
+793,15667.72,44.67,Studio,11-20,1,1,1,1,1,Me'Aisem First
+794,10794.57,57.72,1 B/R,11-20,1,1,1,1,1,Me'Aisem First
+795,14298.54,167.85,3 B/R,1-10,1,1,0,1,1,Me'Aisem First
+796,8697.54,45.99,Studio,11-20,1,1,0,1,1,Me'Aisem First
+797,17958.06,37.08,Studio,1-10,1,1,1,1,1,Me'Aisem First
+798,16573.04,38.94,Studio,1-10,1,1,1,1,1,Me'Aisem First
+799,10985.75,33.68,Studio,21-30,1,1,0,1,1,Me'Aisem First
+800,5294.33,125.48,2 B/R,1-10,1,1,0,0,1,Nadd Hessa
+801,11183.6,32.19,Studio,1-10,1,1,1,0,1,Nadd Hessa
+802,10756.37,72.98,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+803,9060.0,93.85,1 B/R,1-10,1,1,0,0,1,Nadd Hessa
+804,10503.04,36.18,Studio,11-20,1,0,0,0,1,Nadd Hessa
+805,4365.66,75.59,1 B/R,11-20,1,1,0,0,1,Nadd Hessa
+806,11647.03,72.98,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+807,10023.46,93.78,1 B/R,1-10,1,1,0,0,1,Nadd Hessa
+808,5572.8,125.61,2 B/R,1-10,1,1,0,0,1,Nadd Hessa
+809,7168.96,71.14,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+810,6910.15,71.79,1 B/R,1-10,1,1,0,0,1,Nadd Hessa
+811,8457.2,39.02,Studio,1-10,1,1,0,0,1,Nadd Hessa
+812,18510.98,52.84,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+813,18612.34,51.23,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+814,9060.0,84.73,1 B/R,1-10,1,1,0,0,1,Nadd Hessa
+815,8256.14,74.49,1 B/R,1-10,1,1,0,0,1,Nadd Hessa
+816,9338.97,87.53,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+817,11044.04,82.66,1 B/R,Below 1st floor,1,1,1,0,1,Nadd Hessa
+818,8138.71,70.65,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+819,9542.24,74.93,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+820,8932.88,82.84,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+821,7175.32,83.62,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+822,11129.87,65.14,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+823,9148.15,110.29,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+824,10192.2,34.34,Studio,1-10,1,1,0,0,1,Nadd Hessa
+825,10304.78,91.78,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+826,18247.13,76.56,2 B/R,1-10,1,1,1,0,1,Nadd Hessa
+827,8033.17,77.18,1 B/R,1-10,1,1,0,0,1,Nadd Hessa
+828,4971.43,87.5,2 B/R,1-10,1,1,0,0,1,Nadd Hessa
+829,10048.38,121.96,2 B/R,Below 1st floor,1,1,1,0,1,Nadd Hessa
+830,6112.93,79.34,1 B/R,1-10,1,1,0,0,1,Nadd Hessa
+831,8851.65,84.73,1 B/R,1-10,1,1,0,0,1,Nadd Hessa
+832,12157.65,74.85,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+833,8359.78,81.94,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+834,5709.46,79.92,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+835,12248.83,36.33,Studio,11-20,1,0,0,0,1,Nadd Hessa
+836,18404.32,51.89,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+837,11213.56,80.26,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+838,5719.87,73.68,1 B/R,1-10,1,1,0,0,1,Nadd Hessa
+839,9156.05,75.36,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+840,9703.01,118.52,2 B/R,1-10,1,1,0,0,1,Nadd Hessa
+841,9666.87,67.24,1 B/R,1-10,1,1,0,0,1,Nadd Hessa
+842,19252.26,51.89,1 B/R,1-10,1,1,1,0,1,Nadd Hessa
+843,18916.87,52.81,1 B/R,11-20,1,1,1,0,1,Nadd Hessa
+844,8566.98,38.52,Studio,1-10,1,1,0,0,1,Nadd Hessa
+845,20309.58,58.79,1 B/R,11-20,1,1,1,0,1,Nadd Hessa
+846,9571.49,124.85,2 B/R,1-10,1,1,1,0,1,Nadd Hessa
+847,11301.99,110.6,2 B/R,1-10,1,1,1,0,1,Nadd Hessa
+848,18352.68,71.34,2 B/R,21-30,1,1,1,0,1,Nadd Hessa
+849,10673.24,77.09,1 B/R,Below 1st floor,1,1,1,0,1,Nadd Hessa
+850,9477.11,71.35,1 B/R,11-20,1,1,1,0,1,Wadi Al Safa 5
+851,5516.41,117.82,2 B/R,11-20,1,1,0,0,1,Wadi Al Safa 5
+852,7057.26,135.18,2 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+853,17231.63,39.04,Studio,11-20,1,1,1,0,1,Wadi Al Safa 5
+854,8388.29,86.43,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+855,8698.22,39.4,Studio,11-20,1,1,1,0,1,Wadi Al Safa 5
+856,9524.42,77.59,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+857,12582.61,78.68,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+858,14845.16,74.55,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+859,16156.02,74.55,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+860,10669.54,74.23,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+861,10131.12,94.94,1 B/R,Below 1st floor,1,1,1,0,1,Wadi Al Safa 5
+862,13046.05,123.0,2 B/R,11-20,1,1,1,0,1,Wadi Al Safa 5
+863,8758.43,40.25,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+864,8915.07,37.68,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+865,14054.65,74.37,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+866,7255.26,75.3,1 B/R,11-20,1,1,1,0,1,Wadi Al Safa 5
+867,10622.05,81.4,1 B/R,Below 1st floor,1,1,1,0,1,Wadi Al Safa 5
+868,15072.13,74.53,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+869,5539.64,115.17,2 B/R,1-10,0,1,1,0,1,Wadi Al Safa 5
+870,8166.66,70.26,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+871,8553.46,39.75,Studio,11-20,1,1,0,0,1,Wadi Al Safa 5
+872,13278.2,108.34,2 B/R,31-40,1,1,1,0,1,Wadi Al Safa 5
+873,15902.72,127.74,2 B/R,11-20,1,1,1,0,1,Wadi Al Safa 5
+874,11705.77,89.93,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+875,16196.6,35.75,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+876,12459.86,73.65,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+877,9551.81,75.88,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+878,13594.73,34.94,Studio,11-20,1,1,1,0,1,Wadi Al Safa 5
+879,8744.92,40.57,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+880,10520.74,55.85,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+881,13735.98,32.85,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+882,8756.83,40.57,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+883,13990.79,77.6,1 B/R,21-30,1,1,1,0,1,Wadi Al Safa 5
+884,9554.94,39.77,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+885,6996.54,98.73,2 B/R,1-10,1,1,0,0,1,Wadi Al Safa 5
+886,6147.83,119.53,2 B/R,1-10,1,1,0,0,1,Wadi Al Safa 5
+887,16394.98,75.36,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+888,10531.27,74.35,1 B/R,11-20,1,1,1,0,1,Wadi Al Safa 5
+889,9608.13,73.71,1 B/R,11-20,1,1,1,0,1,Wadi Al Safa 5
+890,10005.11,74.41,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+891,13993.09,38.36,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+892,8634.16,134.35,2 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+893,10253.49,35.11,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+894,9403.08,43.67,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+895,16357.89,75.31,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+896,8958.19,37.26,Studio,1-10,1,1,1,0,1,Wadi Al Safa 5
+897,15885.3,133.1,2 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+898,13329.31,74.55,1 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5
+899,10048.2,134.85,3 B/R,1-10,1,1,1,0,1,Wadi Al Safa 5

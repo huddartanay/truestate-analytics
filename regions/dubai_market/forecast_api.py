@@ -603,17 +603,26 @@ class ForecastResult:
     TABLE_DIFF = "Difference"
     TABLE_DIFF_PCT = "Difference %"
 
-    def table(self) -> pd.DataFrame:
-        """The forecast months as a table — exactly the returned values."""
+    def table(self, include_news: bool = True,
+              include_difference: bool = True) -> pd.DataFrame:
+        """
+        The forecast months as a table — exactly the returned values.
+
+        `include_news` follows the interface's news toggle: with it off the
+        news-adjusted column is not produced at all, so nothing downstream has
+        to remember to hide it. `include_difference` controls the two derived
+        comparison columns, which the PDF omits.
+        """
         if self.macro.empty:
             return pd.DataFrame()
         out = self.macro.rename(columns={"value": self.TABLE_MACRO}).copy()
-        if self.has_news:
+        if include_news and self.has_news:
             merged = self.news.rename(columns={"value": self.TABLE_NEWS})
             out = out.merge(merged, on="timestamp", how="left")
-            delta = out[self.TABLE_NEWS] - out[self.TABLE_MACRO]
-            out[self.TABLE_DIFF] = delta
-            out[self.TABLE_DIFF_PCT] = delta / out[self.TABLE_MACRO] * 100
+            if include_difference:
+                delta = out[self.TABLE_NEWS] - out[self.TABLE_MACRO]
+                out[self.TABLE_DIFF] = delta
+                out[self.TABLE_DIFF_PCT] = delta / out[self.TABLE_MACRO] * 100
         out.insert(0, "Month", out["timestamp"].dt.strftime("%b %Y"))
         return out.drop(columns=["timestamp"])
 
