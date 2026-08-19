@@ -28,6 +28,7 @@ if str(ROOT) not in sys.path:
 
 from platform_core import config as C  # noqa: E402
 from platform_core import design_system as ds  # noqa: E402
+from platform_core import memory as mem  # noqa: E402
 from platform_core import navigation as nav  # noqa: E402
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -62,7 +63,14 @@ route = nav.render_sidebar()
 # 4. ROUTING
 #    Regions are imported lazily so that opening the Overview page never pays
 #    the cost of touching a regional module.
+#
+#    The memory governor runs first, before anything is rendered. If this run
+#    belongs to a different environment than the last heavy one, it releases
+#    the outgoing environment's cached frames so the incoming one does not load
+#    on top of them. See platform_core/memory.py for the measurements behind it.
 # ─────────────────────────────────────────────────────────────────────────────
+
+mem.govern(route)
 
 try:
     if route == C.ROUTE_ABU_DHABI:

@@ -246,18 +246,20 @@ def _abu_dhabi_block() -> None:
                  f"`{type(exc).__name__}: {exc}`", icon="⚠️")
         return
 
+    # Only the district list is needed to draw this block. Loading the whole
+    # Abu Dhabi frame here would hold that dataset in memory alongside Dubai's
+    # on every visit, which is what a hosted instance cannot afford.
     try:
-        with st.spinner("Loading Abu Dhabi data…"):
-            df, cols = adr.load_clean()
+        with st.spinner("Reading Abu Dhabi districts…"):
+            counts = adr.district_counts()
     except adr.AbuDhabiReportError as exc:
         st.error(f"**{exc}**", icon="⚠️")
         return
 
-    options = [adr.ALL_AREAS] + adr.districts(df)
-    counts = df[adr.AREA_COL].astype(str).value_counts()
-    labels = {adr.ALL_AREAS: f"{adr.ALL_AREAS}  ({len(df):,} transactions)"}
-    labels.update({d: f"{str(d).title()}  ({int(counts.get(d, 0)):,})"
-                   for d in options[1:]})
+    total = sum(counts.values())
+    options = [adr.ALL_AREAS] + sorted(counts, key=counts.get, reverse=True)
+    labels = {adr.ALL_AREAS: f"{adr.ALL_AREAS}  ({total:,} transactions)"}
+    labels.update({d: f"{str(d).title()}  ({counts[d]:,})" for d in options[1:]})
 
     left, right = st.columns([3, 2], gap="large")
     with left:
@@ -269,7 +271,7 @@ def _abu_dhabi_block() -> None:
                  "setting does not apply here — the two regions have separate records.")
     with right:
         st.markdown("<div style='height:1.85rem'></div>", unsafe_allow_html=True)
-        rows = len(df) if district == adr.ALL_AREAS else int(counts.get(district, 0))
+        rows = total if district == adr.ALL_AREAS else int(counts.get(district, 0))
         st.caption(f"**{rows:,}** recorded apartment sales in this selection.")
 
     if st.button("Prepare Abu Dhabi area-wise report", use_container_width=True,

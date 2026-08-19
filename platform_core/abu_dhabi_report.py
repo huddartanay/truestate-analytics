@@ -29,6 +29,7 @@ import sys
 from pathlib import Path
 
 import pandas as pd
+import streamlit as st
 
 from platform_core import config as C
 from platform_core import pdf_report as R
@@ -80,6 +81,42 @@ def load_clean() -> tuple[pd.DataFrame, dict]:
         raise AbuDhabiReportError(
             f"The Abu Dhabi dataset could not be loaded ({type(exc).__name__}: {exc})."
         ) from exc
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CHEAP DISTRICT LIST
+#
+# Filling the district dropdown used to require the whole cleaned frame, which
+# meant the Abu Dhabi dataset sat in memory on every visit to the report page —
+# on top of the Dubai dataset. That is what pushed a hosted instance past its
+# memory ceiling. This reads three columns instead of seventeen and builds the
+# same list, and the full frame is loaded only when a report is actually built.
+# ─────────────────────────────────────────────────────────────────────────────
+
+AD_CSV = AD_DIR / "Abu_Dhabi_Sales_Cleaned (1).csv"
+
+
+@st.cache_data(show_spinner=False)
+def district_counts() -> dict[str, int]:
+    """District → apartment-sale count, without loading the whole dataset."""
+    if not AD_CSV.exists():
+        raise AbuDhabiReportError(
+            "The Abu Dhabi sales file was not found under regions/abu_dhabi/.")
+    try:
+        thin = pd.read_csv(AD_CSV, usecols=["Asset Class", "Property Type", "District"],
+                           low_memory=False)
+    except Exception as exc:  # pragma: no cover - surfaced, never swallowed
+        raise AbuDhabiReportError(
+            f"The Abu Dhabi district list could not be read "
+            f"({type(exc).__name__}: {exc}).") from exc
+
+    for col in ("Asset Class", "Property Type", "District"):
+        thin[col] = thin[col].astype(str).str.strip().str.lower()
+    apt = thin[(thin["Asset Class"] == "residential")
+               & (thin["Property Type"] == "apartment")]
+    counts = apt["District"].value_counts()
+    del thin, apt
+    return {str(k): int(v) for k, v in counts.items()}
 
 
 def districts(df: pd.DataFrame) -> list[str]:

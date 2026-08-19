@@ -22,6 +22,7 @@ same numbers, not screenshots of the UI.
 
 from __future__ import annotations
 
+import gc
 import io
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -448,10 +449,22 @@ def new_document(title: str, subtitle: str, footer_note: str = "") -> tuple[Repo
 
 
 def finish(rep: Report, buf: io.BytesIO) -> bytes:
+    """
+    Close the document and hand back the bytes.
+
+    The figures and the buffer are released explicitly. matplotlib holds a
+    reference to every figure it creates, and a report can create a dozen; on a
+    small hosted instance that is the difference between finishing and being
+    killed for memory.
+    """
     rep.close()
     rep.pdf.close()
     buf.seek(0)
-    return buf.getvalue()
+    data = buf.getvalue()
+    buf.close()
+    plt.close("all")
+    gc.collect()
+    return data
 
 
 def stamp() -> str:
