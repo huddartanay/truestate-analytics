@@ -138,7 +138,7 @@ def _dubai_block(area: str) -> None:
     # ── A. Area-wise ────────────────────────────────────────────────────────
     with a:
         st.markdown("**Area-wise report**")
-        st.caption("Transaction activity, price levels, layout, building height, "
+        st.caption("Transaction activity, price levels, layout, floor band, "
                    "amenities, registration type and price brackets.")
         if st.button("Prepare area-wise report", use_container_width=True,
                      key="rep_prep_area"):

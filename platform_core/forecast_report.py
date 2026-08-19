@@ -132,12 +132,18 @@ def profile_rows_for(inputs: dict) -> list[tuple[str, str]]:
 
 
 def write_sections(rep, result, area: str, inputs: dict, window_start=None,
-                   show_news: bool = True) -> None:
+                   show_news: bool = True, closing: bool = True) -> None:
     """
     Write the forecast analysis into an existing report.
 
     Split out of `build()` so the combined Area + Forecast document can carry
     this analysis as its second section without a second PDF or a merge step.
+
+    `closing=False` writes the analysis ONLY — the figures, the chart, the
+    profile and the month table — and leaves the market narrative and the
+    "how this was produced" notes for `write_closing()`. The combined document
+    uses that to gather all the methodology at the end, after both analyses,
+    instead of interrupting the report in the middle.
     """
     now_ts = result.now_timestamp
     horizon = result.horizon_months
@@ -302,25 +308,28 @@ def write_sections(rep, result, area: str, inputs: dict, window_start=None,
             "returned — no row is repeated, interpolated or projected further out than "
             "the response reaches.", size=8.0)
 
-    # ── 4. The narrative ────────────────────────────────────────────────────
+    if closing:
+        write_closing(rep, result, area, show_news=show_news)
+
+
+def write_closing(rep, result, area: str, show_news: bool = True) -> None:
+    """
+    The market narrative and the production notes — the closing matter.
+
+    Kept separate so the combined document can place it where it belongs: at
+    the very end, after both analyses and after the area methodology, rather
+    than between the forecast and whatever follows it.
+    """
+    horizon = result.horizon_months
+    with_news = bool(show_news) and result.has_news
+
+    # ── The narrative ────────────────────────────────────────────────────
     if with_news and result.narrative:
         rep.h1("Market context", needs=1.6)
         rep.body(result.narrative)
-        rep.body(
-            "Supplied by the API as the `narrative` field. It is reproduced exactly as "
-            "received and is not edited, summarised or added to here.",
-            size=7.6, colour=R.MUTED)
 
     # ── 5. How this was produced ────────────────────────────────────────────
     rep.h1("How this forecast was produced", needs=2.4)
-
-    rep.h2("Source")
-    rep.bullets([
-        "TruEstate Forecast API, `GET /forecast`, called once for this report.",
-        "The response used here is the same one the on-screen chart is drawn from — "
-        "the report reuses it rather than issuing a second request.",
-        f"Request sent: {result.request_url or '—'}",
-    ])
 
     rep.h2("What the API does")
     rep.bullets([

@@ -90,7 +90,7 @@ def main() -> int:
           f"{moved} of {len(AREAS)} areas moved the numbers")
 
     # ── PART 3 ──────────────────────────────────────────────────────────────
-    head("PART 3 — Area + Property type + Amenity, one filtered population")
+    head("PART 3 — Area + Property layout + Amenity, one filtered population")
     base3 = mx.amenity_transaction_share(df, "2 B/R")
     check("unfiltered amenity shares produced", not base3.empty, f"{len(base3)} amenities")
     for a in AREAS:
@@ -111,7 +111,7 @@ def main() -> int:
     within = mx.amenity_transaction_share(sub, "2 B/R")
     across = mx.amenity_share_by_property_type(sub, "has_parking")
     row = within[within["Amenity"] == "Parking"]
-    cell = across[across["Property type"] == "2 BHK"]
+    cell = across[across["Property layout"] == "2 BHK"]
     check("left chart and right chart agree on the same cell",
           (not row.empty and not cell.empty
            and abs(float(row.iloc[0]["Share of recorded transactions (%)"])

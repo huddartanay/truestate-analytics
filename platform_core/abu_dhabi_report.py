@@ -14,7 +14,7 @@ uses are the ones that exist:
     District              the "area" for Abu Dhabi
     Community, Project Name
     Property Sale Price (AED), Rate (AED per SQM), Property Sold Area (SQM)
-    Property Layout, Property Type, Asset Class
+    Property Layout, Property Layout, Asset Class
     Sale Application Type, Sale Application Date, Year / Month / Quarter
 
 There is no floor, no amenity flag, no building-height field and no registration
@@ -323,7 +323,7 @@ def write_sections(rep, df: pd.DataFrame, df_all: pd.DataFrame, district: str,
     ])
     rep.h2("How this selection was formed")
     rep.bullets([
-        "Residential apartments only: asset class *residential* and property type "
+        "Residential apartments only: asset class *residential* and property layout "
         "*apartment*, as the dashboard defines them.",
         "Rows without a recorded rate or sold area are excluded.",
         "Rate, price and sold area are each trimmed to their 1st–99th percentile, which "
@@ -338,7 +338,7 @@ def write_sections(rep, df: pd.DataFrame, df_all: pd.DataFrame, district: str,
         "than of stock.",
         "Medians describe the middle of the market; means sit higher wherever a few large "
         "sales pull them up.",
-        "This dataset records apartments. Villas, land and other property types are "
+        "This dataset records apartments. Villas, land and other property layouts are "
         "outside the cleaned frame this report is built on.",
         "The dataset carries no floor number, amenity flag or building-height field, so "
         "this report contains no section on any of them.",

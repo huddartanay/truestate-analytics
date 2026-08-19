@@ -928,7 +928,7 @@ def amenity_transaction_share(df: pd.DataFrame, property_type: str | None = None
 
     DATA SOURCE: CLEANED — the amenity flags exist only there.
 
-    Optionally restricted to one property type. This is an observed share of
+    Optionally restricted to one property layout. This is an observed share of
     completed transactions, NOT a purchase probability: the dataset contains no
     non-purchase records against which a probability could be estimated.
     """
@@ -954,7 +954,7 @@ def amenity_transaction_share(df: pd.DataFrame, property_type: str | None = None
 
 def amenity_share_by_property_type(df: pd.DataFrame, column: str,
                                    min_rows: int = MIN_CELL) -> pd.DataFrame:
-    """The same share for one amenity, across every property type."""
+    """The same share for one amenity, across every property layout."""
     if column not in df.columns:
         return pd.DataFrame()
     rows = []
@@ -964,7 +964,7 @@ def amenity_share_by_property_type(df: pd.DataFrame, column: str,
             continue
         recorded = int((sub[column] == 1).sum())
         rows.append({
-            "Property type": label,
+            "Property layout": label,
             "Transactions": int(len(sub)),
             "With amenity recorded": recorded,
             "Share of recorded transactions (%)": recorded / len(sub) * 100,
@@ -1069,7 +1069,7 @@ def rate_by_building_height(df: pd.DataFrame, min_cell: int = MIN_CELL,
                             band_source: pd.DataFrame | None = None
                             ) -> tuple[pd.DataFrame, dict]:
     """
-    Median rate per m² by building-height band and property type.
+    Median rate per m² by building-height band and property layout.
 
     DATA SOURCE: CLEANED. Returns the plotting frame plus an audit dict naming
     every cell dropped for thin support, so nothing disappears silently.
@@ -1099,7 +1099,7 @@ def rate_by_building_height(df: pd.DataFrame, min_cell: int = MIN_CELL,
     kept = grouped[grouped["transactions"] >= min_cell].copy()
     dropped = grouped[grouped["transactions"] < min_cell]
 
-    kept["Property type"] = kept[COL["rooms"]].map(PROPERTY_TYPE_LABELS)
+    kept["Property layout"] = kept[COL["rooms"]].map(PROPERTY_TYPE_LABELS)
     kept["height_band"] = pd.Categorical(kept["height_band"], categories=labels, ordered=True)
     kept = kept.sort_values(["height_band", COL["rooms"]])
 
@@ -1391,7 +1391,7 @@ def partial_tail_months(monthly: "pd.DataFrame", ratio: float = 0.6) -> int:
 #
 # Why this replaced a plain ranked bar of raw shares.
 #
-# Parking is recorded on 88.9%–100.0% of transactions in EVERY property type.
+# Parking is recorded on 88.9%–100.0% of transactions in EVERY property layout.
 # It is very nearly a constant, so a chart that ranks amenities by raw share
 # puts parking first every single time, in every area, for every layout. A
 # reader looking at that chart reasonably concludes "parking matters most",

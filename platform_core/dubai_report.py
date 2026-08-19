@@ -68,7 +68,7 @@ def build(df: pd.DataFrame, area: str, all_rows: int,
             "An analysis of registered residential unit sales in Dubai, prepared from the "
             "Dubai Land Department transaction records held by the TruEstate "
             "Analytics platform. The report covers transaction activity, price levels and "
-            "how they have moved, the composition of the market by layout, building height "
+            "how they have moved, the composition of the market by layout, floor band "
             "and registration type, and where transactions concentrate across price "
             "brackets and areas."
         ),
@@ -87,7 +87,8 @@ def period_label(df: pd.DataFrame) -> str:
 
 
 def write_sections(rep, df: pd.DataFrame, area: str, all_rows: int,
-                   period: str, sections: list[str] | None = None) -> None:
+                   period: str, sections: list[str] | None = None,
+                   method_heading: bool = True) -> None:
     """
     Write the area analysis into an existing report.
 
@@ -114,7 +115,10 @@ def write_sections(rep, df: pd.DataFrame, area: str, all_rows: int,
     if "brackets" in sections:
         _brackets(rep, df)
     if "method" in sections:
-        _methodology(rep, df, area)
+        # The combined document introduces this with its own section divider,
+        # so the inner heading is suppressed there to avoid printing the same
+        # title twice on consecutive lines.
+        _methodology(rep, df, area, heading=method_heading)
 
 
 ALL_SECTIONS = ["summary", "volume", "prices", "layout", "height", "amenity",
@@ -125,7 +129,7 @@ SECTION_LABELS = {
     "volume": "Transaction volume",
     "prices": "Price levels and movement",
     "layout": "Rate per m² by layout",
-    "height": "Rate by building height",
+    "height": "Rate by floor band",
     "amenity": "Amenity analysis",
     "regtype": "Registration type",
     "brackets": "Price brackets and area concentration",
@@ -166,33 +170,36 @@ def _executive_summary(rep, df, area, all_rows, period) -> None:
             total = (l0["Median rate (AED/m²)"] / f0["Median rate (AED/m²)"] - 1) * 100
             cagr = ((l0["Median rate (AED/m²)"] / f0["Median rate (AED/m²)"])
                     ** (1 / span) - 1) * 100
+            direction = "risen" if total >= 0 else "fallen"
             findings.append(
-                f"The median rate moved from AED {f0['Median rate (AED/m²)']:,.0f}/m² in "
-                f"{int(f0['Year'])} to AED {l0['Median rate (AED/m²)']:,.0f}/m² in "
-                f"{int(l0['Year'])} — {total:+.1f}% in total, a compound "
-                f"{cagr:+.1f}% a year over {span} years.")
+                f"Prices have {direction} {abs(total):.0f}% over {span} years — from "
+                f"AED {f0['Median rate (AED/m²)']:,.0f} per m² in {int(f0['Year'])} to "
+                f"AED {l0['Median rate (AED/m²)']:,.0f} per m² in {int(l0['Year'])}, "
+                f"an average of {cagr:+.1f}% a year.")
 
     gap = float(rate.mean() - rate.median())
     findings.append(
-        f"The mean rate sits AED {gap:,.0f}/m² {'above' if gap >= 0 else 'below'} the "
-        f"median, which is the signature of a right-skewed market: a minority of very "
-        f"large transactions pulls the average away from the typical sale.")
+        f"A typical sale is priced at AED {rate.median():,.0f} per m². The average is "
+        f"AED {abs(gap):,.0f} {'higher' if gap >= 0 else 'lower'}, because a small number "
+        f"of high-value sales pull it {'up' if gap >= 0 else 'down'} — so the median is "
+        f"the better guide to what most buyers pay.")
 
     bands, b_audit = mx.price_bands(df)
     if not bands.empty:
         top = bands.loc[bands["Transactions"].idxmax()]
         findings.append(
-            f"The busiest price bracket is {top['Price band (AED)']}, holding "
-            f"{int(top['Transactions']):,} transactions — {top['Share (%)']:.1f}% of the "
-            f"selection.")
+            f"Most activity sits in the {top['Price band (AED)']} bracket, which accounts "
+            f"for {top['Share (%)']:.0f}% of sales ({int(top['Transactions']):,} "
+            f"transactions).")
 
     stats = ch.rate_by_layout(df)[1]
     if not stats.empty:
         hi, lo = stats["med"].idxmax(), stats["med"].idxmin()
+        spread = stats.loc[hi, "med"] - stats.loc[lo, "med"]
         findings.append(
-            f"Across layouts the highest median rate is {hi} at "
-            f"AED {stats.loc[hi, 'med']:,.0f}/m², the lowest {lo} at "
-            f"AED {stats.loc[lo, 'med']:,.0f}/m².")
+            f"{hi} units command the highest rate at AED {stats.loc[hi, 'med']:,.0f} per "
+            f"m², and {lo} the lowest at AED {stats.loc[lo, 'med']:,.0f} — a spread of "
+            f"AED {spread:,.0f} per m² between layouts.")
 
     if COL["area"] in df.columns and area == "All Areas":
         vc = df[COL["area"]].value_counts()
@@ -263,9 +270,7 @@ def _prices(rep, df) -> None:
         ax.yaxis.set_major_formatter(matplotlib_thousands())
 
     rep.chart(draw, height=2.6, title="How prices are moving — median rate per m²",
-              caption="The trend is a centred LOWESS fit of the monthly medians — a smoothing "
-                      "drawn through the observed months. It runs to the last complete "
-                      "month, so it always reflects fully recorded data.")
+              caption="")
 
     price, rate = df[COL["price"]], df[COL["rate"]]
     rep.table(
@@ -282,9 +287,7 @@ def _prices(rep, df) -> None:
           f"{df[COL['area_sqm']].quantile(.75):,.0f}",
           f"{df[COL['area_sqm']].max():,.0f}"]],
         widths=[0.24, 0.12, 0.13, 0.13, 0.13, 0.13, 0.12],
-        caption="The mean sits above the median on every price measure, which is what a "
-                "right-skewed distribution looks like. Both are reported so neither is "
-                "mistaken for the other.")
+        caption="")
 
 
 def _layout(rep, df) -> None:
@@ -333,22 +336,22 @@ def plt_rect(x, y, w, h, colour):
 
 
 def _height(rep, df) -> None:
-    rep.h1("Rate by building height", needs=3.4)
+    rep.h1("Rate by floor band", needs=3.4)
     frame, audit = mx.rate_by_building_height(df, band_source=df)
     if frame.empty:
-        rep.body("No height band in this selection reaches the minimum transaction count, "
+        rep.body("No floor band in this selection reaches the minimum transaction count, "
                  "so no medians are reported.")
         return
 
     bands = list(frame["height_band"].cat.categories)
     types = [t for t in mx.PROPERTY_TYPE_LABELS.values()
-             if t in set(frame["Property type"])]
+             if t in set(frame["Property layout"])]
 
     def draw(ax):
         n = len(types)
         width = 0.8 / max(n, 1)
         for i, t in enumerate(types):
-            sub = frame[frame["Property type"] == t]
+            sub = frame[frame["Property layout"] == t]
             xs, ys = [], []
             for b_i, b in enumerate(bands):
                 cell = sub[sub["height_band"] == b]
@@ -360,13 +363,13 @@ def _height(rep, df) -> None:
         ax.set_xticks(range(len(bands)))
         ax.set_xticklabels([str(b) for b in bands], fontsize=6.8)
         ax.set_ylabel("Median rate (AED/m²)", fontsize=8, color=R.INK)
-        ax.set_xlabel("Building height band", fontsize=8, color=R.INK)
+        ax.set_xlabel("Floor band", fontsize=8, color=R.INK)
         ax.legend(fontsize=6.6, frameon=False, ncol=min(len(types), 4),
                   loc="upper left")
         ax.yaxis.set_major_formatter(matplotlib_thousands())
 
     rep.chart(draw, height=2.8,
-              title="Median rate per m², by floor band and property type",
+              title="Median rate per m², by floor band and property layout",
               caption="Four fixed floor bands on round thresholds — Low-rise 1–10, Mid-rise "
                       "11–25, High-rise 26–40, Tower 41+ — so a band means the same building "
                       "in every area. This is the height of the BUILDING, not the floor a "
@@ -384,13 +387,13 @@ def _height(rep, df) -> None:
                       f"{audit.get('invalid_floor', 0):,} transactions record zero floors and "
                       f"are excluded as an invalid reading rather than counted as low-rise.")
 
-    rows = [[str(r["height_band"]), r["Property type"], f"{r['median_rate']:,.0f}",
+    rows = [[str(r["height_band"]), r["Property layout"], f"{r['median_rate']:,.0f}",
              f"{r['mean_rate']:,.0f}", f"{int(r['transactions']):,}"]
             for _, r in frame.iterrows()]
-    rep.table(["Height band", "Property type", "Median rate", "Mean rate", "Transactions"],
+    rep.table(["Floor band", "Property layout", "Median rate", "Mean rate", "Transactions"],
               rows, widths=[0.26, 0.22, 0.18, 0.18, 0.16], align_right_from=2,
-              caption=f"Rows use the fixed floor bands above. Height is recorded for "
-                      f"{audit.get('rows_with_height', 0):,} of "
+              caption=f"Rows use the fixed floor bands above. A floor count is recorded "
+                      f"for {audit.get('rows_with_height', 0):,} of "
                       f"{audit.get('rows_total', len(df)):,} transactions here. Cells with "
                       f"fewer than 100 transactions are omitted rather than reported on "
                       f"thin evidence.")
@@ -399,11 +402,10 @@ def _height(rep, df) -> None:
 def _amenity(rep, df, area) -> None:
     rep.h1("Amenity analysis", needs=1.2)
     rep.body(
-        "This section reports how often each amenity appears on the transaction record. "
-        "It is a share of completed, recorded transactions and nothing more: it is not a "
-        "price effect, not a measure of demand, and not a probability that a buyer "
-        "purchases. A zero in an amenity field means the feature was not recorded, which "
-        "is not the same as confirmed absent."
+        "How common each amenity is across the sales in this selection, compared with "
+        "Dubai as a whole. A figure above the Dubai baseline means the feature is more "
+        "typical here than elsewhere; below it, less typical. Use it to understand what "
+        "kind of stock this area is selling."
     )
 
     order = [v for v in mx.PROPERTY_TYPE_LABELS
@@ -422,7 +424,7 @@ def _amenity(rep, df, area) -> None:
                     + [f"{shares.get(a, float('nan')):.1f}%" for a in AMENITIES.values()])
 
     if not rows:
-        rep.body("No property type in this selection has enough transactions to report an "
+        rep.body("No property layout in this selection has enough transactions to report an "
                  "amenity share.")
         return
 
@@ -439,20 +441,20 @@ def _amenity(rep, df, area) -> None:
         ax.set_xticks(range(len(labels)))
         ax.set_xticklabels(labels, fontsize=7.0)
         ax.set_ylabel("Share of recorded transactions (%)", fontsize=8, color=R.INK)
-        ax.set_xlabel("Property type", fontsize=8, color=R.INK)
+        ax.set_xlabel("Property layout", fontsize=8, color=R.INK)
         ax.set_ylim(0, 112)
         ax.legend(fontsize=6.4, frameon=False, ncol=3, loc="upper left")
 
     rep.chart(draw, height=2.7,
               title="Share of recorded transactions associated with each amenity",
-              caption="Height is how often a feature is written on the record. Parking is "
-                      "recorded on the large majority of transactions in every property "
-                      "type, so a tall parking bar reflects record-keeping rather than "
-                      "market importance.")
+              caption="Each bar is the share of sales that record the feature. Parking "
+                      "appears on almost every sale in every layout, so its height "
+                      "reflects how the registry is kept rather than what the market "
+                      "values.")
 
     short = {"Parking": "Parking", "Swimming pool": "Pool", "Balcony": "Balcony",
              "Elevator": "Elevator", "Near a metro station": "Metro"}
-    rep.table(["Property type", "Transactions"] + [short.get(a, a) for a in amen], rows,
+    rep.table(["Property layout", "Transactions"] + [short.get(a, a) for a in amen], rows,
               widths=[0.21, 0.16] + [0.126] * len(amen),
               caption="Shares are of recorded transactions. Column headings are shortened; "
                       "'Pool' is swimming pool and 'Metro' is near a metro station. Property "
@@ -557,79 +559,73 @@ def _brackets(rep, df) -> None:
               caption=caption)
 
 
-def _methodology(rep, df, area) -> None:
-    rep.h1("Methodology and scope")
+def _methodology(rep, df, area, heading: bool = True) -> None:
+    """
+    Written for a reader who wants to act on the numbers, not audit them.
 
-    rep.h2("Data sources", needs=1.0)
-    rep.bullets([
-        "Transaction counts and volume come from the RAW Dubai registry "
-        "(transactions.parquet), which captures every registered sale exactly as filed.",
-        "All price and rate statistics come from the CLEANED dataset "
-        "(latest_combined_data.parquet) — the validated price basis, carrying the enriched "
-        "columns this analysis draws on.",
-        "Where a single figure draws on both, each column is labelled with the file behind "
-        "it, so every number is traceable to its source.",
-    ])
+    This section used to explain how the analysis was performed — file names,
+    percentile cut-offs, the smoother's name. That belongs in the codebase. What
+    a decision-maker needs is what the figures mean, where they are strong, and
+    where to be careful. The findings themselves are unchanged.
+    """
+    if heading:
+        rep.h1("Methodology and scope")
 
-    rep.h2("How this selection was formed", needs=1.0)
-    rep.bullets([
-        f"Global area: {area}. Applied to the dataframe before any grouping or aggregation, "
-        f"so every figure in this report describes the same population.",
-        f"Transactions in scope after all filters: {len(df):,}.",
-        "The sale-price and unit-size sliders default to the 1st–99th percentile, which "
-        "keeps the charts readable; widen them for the full range including the largest "
-        "deals.",
-    ])
-
-    frame, h_audit = mx.rate_by_building_height(df, band_source=df)
-    with_h = h_audit.get("rows_with_height", 0)
-
-    rep.h2("How to read these figures", needs=1.2)
-    rep.bullets([
-        "Coverage is registered residential unit (apartment) sales — the deepest and most "
-        "consistent segment of the Dubai market, and the one with the richest attribute "
-        "data behind it.",
-        "Every figure is dated by registration, so the report reflects the official record "
-        "as filed with the Land Department.",
-        "The most recent year runs to the latest registration date, giving the freshest "
-        "view available; read it as a year in progress.",
-
-        # ── the floor bands ─────────────────────────────────────────────────
-        f"Floor bands are fixed thresholds: Low-rise covers 1–10 floors, Mid-rise 11–25, "
-        f"High-rise 26–40, and Tower 41 and above. Boundaries are inclusive at the top, so "
-        f"a building of exactly 10 floors is Low-rise and one of exactly 11 is Mid-rise. "
-        f"Fixed edges mean a band denotes the same building in every area and holds steady "
-        f"as filters change, which makes areas directly comparable. The bands describe the "
-        f"height of the building, drawn from the `floors` column, and a floor count is "
-        f"present for {with_h:,} transactions in this selection.",
-
-        "Amenity figures describe how often a feature appears on the transaction record, "
-        "which makes them a reliable read on what the registry captures and on how one "
-        "slice of the market differs from the city as a whole.",
-        "Group differences here are observed differences between sets of recorded "
-        "transactions — a sound basis for comparing segments and spotting where a market "
-        "behaves distinctively.",
-        "Any group with fewer than 100 transactions is reported separately rather than "
-        "charted, so every figure you see rests on a solid sample and omissions are always "
-        "named.",
-        "Median and mean are both given wherever they differ. The median describes the "
-        "typical transaction; the mean carries the upper tail, and together they show the "
-        "shape of the market.",
-        "Price brackets are left-closed and right-open, so every transaction with a valid "
-        "sale price lands in exactly one bracket. The classification is audited on every "
-        "run and reported alongside the results.",
-        "Areas are the districts recorded in the registry, which is what makes them "
-        "directly comparable with official published figures.",
-        "The price trend is a smoothing of the observed months, drawn through the real "
-        "data and stopping at the last complete month, so it always reflects what has "
-        "actually been recorded.",
-    ])
-
-    rep.h2("Trend smoothing", needs=1.1)
     rep.body(
-        "The price trend uses a centred LOWESS fit — locally weighted regression over "
-        "neighbouring months. It was chosen over exponential smoothing on measured evidence "
-        "from this series: LOWESS is both calmer and closer to the observations, because it "
-        "is centred and can use the months on either side of a point. The fitted trend "
-        "follows the observed months and holds to the recorded data throughout."
+        f"This report describes {len(df):,} registered apartment sales in "
+        f"{'Dubai' if area == 'All Areas' else area}. Every figure comes from the official "
+        f"transaction record, so it reflects what was actually bought and sold — not "
+        f"asking prices, not listings, and not estimates."
     )
+
+    rep.h2("What this report covers", needs=1.0)
+    rep.bullets([
+        "Registered apartment sales — the largest and best-documented part of the Dubai "
+        "market, and the segment with the most reliable record behind it.",
+        f"One area at a time. Everything here describes {area}, so the figures are "
+        f"directly comparable with the same report run for anywhere else.",
+        "The current year runs to the most recent registration, so it is a year in "
+        "progress rather than a completed one.",
+    ])
+
+    rep.h2("How to read the key numbers", needs=1.2)
+    rep.bullets([
+        "The median is the typical sale — half of transactions sit above it, half below. "
+        "It is the fairest single figure for what a normal buyer pays.",
+        "The average sits higher whenever a handful of large deals are in the mix. Where "
+        "the two are far apart, the market has a wide top end.",
+        "Rate per square metre lets you compare a small apartment with a large one on "
+        "equal terms, which total price cannot do.",
+        "Transaction counts show activity — how busy a segment is — rather than how much "
+        "property exists there.",
+    ])
+
+    rep.h2("What the sections tell you", needs=1.2)
+    rep.bullets([
+        "Transaction volume — whether the area is getting busier or quieter, and when.",
+        "Price levels and movement — the direction of travel, with the month-to-month "
+        "noise smoothed out so the underlying trend is visible.",
+        "Rate by layout — which unit sizes command the strongest rates per m².",
+        "Rate by floor band — how rates differ between low-rise, mid-rise, high-rise and "
+        "tower buildings.",
+        "Amenity analysis — what kind of stock this area sells, compared with Dubai "
+        "overall.",
+        "Registration type — the balance between off-plan and completed sales, which is a "
+        "useful read on where the area is in its development cycle.",
+        "Price brackets — where the volume sits, and which areas are busiest at each "
+        "price point.",
+    ])
+
+    rep.h2("Where to be careful", needs=1.1)
+    rep.bullets([
+        "Differences between groups describe what has been recorded, not what causes a "
+        "price. A tower may sell at a higher rate because of where it is, not how tall "
+        "it is.",
+        "Small groups are set aside rather than charted, so no conclusion here rests on a "
+        "handful of sales. Anything excluded is named.",
+        "Floor bands describe the building, not which floor a unit sits on — the record "
+        "does not carry the individual floor.",
+        "The price trend stops at the last complete month, so a part-month never distorts "
+        "the direction.",
+    ])
+

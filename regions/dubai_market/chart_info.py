@@ -1581,7 +1581,7 @@ CHART_BY_KEY = {c.key: c for c in CHARTS}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# v1.3 — RAW volume · yearly summary · controlled amenity · building height
+# v1.3 — RAW volume · yearly summary · controlled amenity · floor band
 # ─────────────────────────────────────────────────────────────────────────────
 
 SOURCE_RAW_COUNTS = (
@@ -1717,12 +1717,12 @@ _V13 = [
 
     ChartInfo(
         key="height_price",
-        title="Rate by floor band and property type",
+        title="Rate by floor band and property layout",
         section="Price",
         icon="🏢",
         subtitle="Median rate per m² across low-rise, mid-rise, high-rise and tower buildings.",
-        what="Grouped bars: one band of building height along the bottom, one colour per "
-             "property type, and the median rate per m² up the side.",
+        what="Grouped bars: one band of floor band along the bottom, one colour per "
+             "property layout, and the median rate per m² up the side.",
         why="To show whether the rate moves with the height of the building, and whether it "
             "moves the same way for a studio as for a three-bedroom.",
         columns=["floors", "building_name_en", "rooms_en", "meter_sale_price"],
@@ -1731,20 +1731,20 @@ _V13 = [
                     "thousands of sales cannot move the boundaries. Combinations with fewer "
                     "than 100 transactions are omitted and named on screen rather than "
                     "dropped silently.",
-        calculation="Rows are filtered to those with a floor count of at least 1, then placed in one of four FIXED floor bands: Low-rise 1–10, Mid-rise 11–25, High-rise 26–40, Tower 41 and above. Boundaries are inclusive at the top, so exactly 10 floors is Low-rise and exactly 11 is Mid-rise. Within each band × property type: `median(meter_sale_price)`, `mean(meter_sale_price)` and `size()`. Cells below 100 transactions are omitted and named.",
-        x_axis="Building height band.",
+        calculation="Rows are filtered to those with a floor count of at least 1, then placed in one of four FIXED floor bands: Low-rise 1–10, Mid-rise 11–25, High-rise 26–40, Tower 41 and above. Boundaries are inclusive at the top, so exactly 10 floors is Low-rise and exactly 11 is Mid-rise. Within each band × property layout: `median(meter_sale_price)`, `mean(meter_sale_price)` and `size()`. Cells below 100 transactions are omitted and named.",
+        x_axis="Floor band.",
         y_axis="Median rate per m² (AED/m²).",
-        legend="Property type — Studio through 5 BHK and Penthouse, showing only the types "
+        legend="Property layout — Studio through 5 BHK and Penthouse, showing only the types "
                "that have enough transactions in the current selection.",
         how_to_read=[
-            "Follow one colour left to right to see how that property type prices across "
-            "building heights.",
-            "Compare colours within a band to see how property types differ at the same "
+            "Follow one colour left to right to see how that property layout prices across "
+            "floor bands.",
+            "Compare colours within a band to see how property layouts differ at the same "
             "kind of building.",
         ],
         tells_us=[
             "Whether taller buildings carry higher rates per m², and whether that holds "
-            "across property types.",
+            "across property layouts.",
         ],
         does_not_tell=[
             "**It is not the unit's own floor.** The dataset does not record which floor an "
@@ -1796,28 +1796,28 @@ CHARTS.extend([
         title="Unit size — key statistics",
         section="Distribution",
         icon="📐",
-        subtitle="How big the units are, by property type.",
-        what="A table: for each property type, how many transactions there were and how "
+        subtitle="How big the units are, by property layout.",
+        what="A table: for each property layout, how many transactions there were and how "
              "floor area is spread — the smallest, the quarter point, the median, the "
              "three-quarter point and the largest.",
         why="It answers the same question the old unit-size histogram did — how big are "
             "these homes — but gives readable numbers instead of a shape, and splits them "
-            "by property type so the answer is usable.",
+            "by property layout so the answer is usable.",
         columns=["rooms_en", "procedure_area"],
-        preparation="Rows are filtered by the sidebar selection. Only property types present "
+        preparation="Rows are filtered by the sidebar selection. Only property layouts present "
                     "in the selection are listed.",
-        calculation="Per property type: `count(rows)`, `min`, 25th percentile, `median`, "
+        calculation="Per property layout: `count(rows)`, `min`, 25th percentile, `median`, "
                     "75th percentile and `max` of `procedure_area`.",
-        x_axis="Rows are property types.",
+        x_axis="Rows are property layouts.",
         y_axis="Columns are the size statistics, in m².",
         legend="Not applicable — this is a table.",
         how_to_read=[
-            "The median column is the typical size for that property type.",
+            "The median column is the typical size for that property layout.",
             "The 25th and 75th percentile columns bracket the middle half — most units of "
             "that type sit between them.",
             "Smallest and largest are single transactions and are not typical.",
         ],
-        tells_us=["The standard sizes Dubai builds and sells, per property type."],
+        tells_us=["The standard sizes Dubai builds and sells, per property layout."],
         does_not_tell=["Nothing about price — see the Price section for that."],
         limitations=_COMMON_LIMITS + [
             "Floor area is the registered procedure area, which may differ from a "
@@ -1916,11 +1916,11 @@ CHARTS.extend([
         icon="🎛️",
         subtitle="How often each feature appears on the record here, against the Dubai figure.",
         what="One grouped bar chart, two bars per amenity. The coloured bar is the selected "
-             "area and property type; the grey bar is the same measurement across all of "
+             "area and property layout; the grey bar is the same measurement across all of "
              "Dubai under the current filters. The gap between them is the point of the "
              "chart. Amenities are ordered by the size of that gap.",
         why="An earlier version ranked the five amenities by raw recorded share. Parking is "
-            "recorded on between 88.9% and 100% of transactions in every property type, so "
+            "recorded on between 88.9% and 100% of transactions in every property layout, so "
             "it came first every time, in every area, and read as though parking mattered "
             "most. That was a fact about which field the registry fills in, dressed up as a "
             "market finding. Comparing each amenity against its own Dubai-wide figure "
@@ -1932,7 +1932,7 @@ CHARTS.extend([
         preparation="Rows are filtered by the sidebar, then by the panel's Area and Property "
                     "type controls to form the selection. The baseline is the sidebar "
                     "selection before those two controls are applied — every area, every "
-                    "property type. A selection needs at least 100 transactions before any "
+                    "property layout. A selection needs at least 100 transactions before any "
                     "share is reported. Nothing is imputed.",
         calculation="For each amenity, in both the selection and the baseline: "
                     "`(rows where the flag == 1) ÷ (rows) × 100`. The difference column is "
@@ -1941,9 +1941,9 @@ CHARTS.extend([
         x_axis="Amenity, ordered by the size of the difference from the Dubai figure.",
         y_axis="Share of recorded transactions (%).",
         legend="Two series, both named in the legend: the coloured bar is the selected area "
-               "and property type, the grey bar is all Dubai under the current filters. The "
+               "and property layout, the grey bar is all Dubai under the current filters. The "
                "amenity chosen in the third control is drawn in a deeper shade.",
-        filters="All seven Dubai sidebar filters apply, plus the Area, Property type and "
+        filters="All seven Dubai sidebar filters apply, plus the Area, Property layout and "
                 "Amenity controls on the panel itself. All three redraw this one chart.",
         how_to_read=[
             "**Read the gap between the two bars, not the height of either one.** Height is "
@@ -1953,7 +1953,7 @@ CHARTS.extend([
             "this slice is unremarkable for that feature.",
             "A wide gap means the feature is recorded far more, or far less, often here "
             "than across the city. That is the finding.",
-            "Change the area or the property type to move the coloured bars; the grey "
+            "Change the area or the property layout to move the coloured bars; the grey "
             "baseline moves only with the sidebar filters.",
         ],
         tells_us=[
@@ -2329,7 +2329,7 @@ _PLAIN: dict[str, dict] = {
         one_liner="How big Dubai apartments actually are, one row per size of apartment.",
         steps=[
             "Take every sale in your selection that records a floor area.",
-            "Group the sales by property type.",
+            "Group the sales by property layout.",
             "For each type, find the smallest, the typical, and the largest — plus the "
             "quarter and three-quarter points that bracket the middle half.",
         ],
@@ -2362,7 +2362,7 @@ _PLAIN: dict[str, dict] = {
         one_liner="How often each feature shows up on the paperwork here, next to how often "
                   "it shows up across Dubai — the difference between the two is the point.",
         steps=[
-            "Take the sales that match the area and property type you picked.",
+            "Take the sales that match the area and property layout you picked.",
             "For each feature, count how many of those sales have it written on the record, "
             "and turn that into a percentage.",
             "Do exactly the same sum for the whole of Dubai, so there is something to "
@@ -2416,7 +2416,7 @@ _PLAIN: dict[str, dict] = {
                   "of them.",
         steps=[
             "Take every sale where the building's height is recorded.",
-            "Work out the four height bands from the data itself — the quartiles of how "
+            "Work out the four floor bands from the data itself — the quartiles of how "
             "tall the buildings are, counting each building once.",
             "Put every sale into its band.",
             "Inside each band, find the middle price per square metre for each size of "

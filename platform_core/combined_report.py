@@ -64,40 +64,72 @@ def build(df: pd.DataFrame, area: str, all_rows: int, result, inputs: dict,
         ),
     )
 
-    # ── SECTION 1 ───────────────────────────────────────────────────────────
+    # ── THE ORDER OF THIS DOCUMENT ──────────────────────────────────────────
+    # Analysis first, notes last. A reader gets the recorded market, then the
+    # forecast for the same area, and only then the methodology for both. The
+    # market narrative closes the document. Nothing is interleaved: the earlier
+    # layout put the area methodology between the two analyses, which broke the
+    # read exactly where it should have flowed.
+    #
+    #   Section 1  Area-wise analysis          (no methodology)
+    #   Section 2  Forecast analysis           (no narrative, no production notes)
+    #   Section 3  Methodology and scope       (area, through trend smoothing)
+    #              Market context + how the forecast was produced
+    # ────────────────────────────────────────────────────────────────────────
+
+    analysis = [s for s in (sections or dubai_report.ALL_SECTIONS) if s != "method"]
+
     _divider(rep, "SECTION 1", "Area-wise analysis",
              f"What has actually been recorded in {area}: transaction activity, price "
              f"levels and how they have moved, the composition of the market, and where "
              f"activity concentrates across price brackets.")
-    dubai_report.write_sections(rep, df, area, all_rows, period, sections)
+    dubai_report.write_sections(rep, df, area, all_rows, period, analysis)
 
-    # ── SECTION 2 ───────────────────────────────────────────────────────────
     if result is not None:
         _divider(rep, "SECTION 2", "Forecast analysis",
                  f"What the forecast service values one property profile in {area} at "
                  f"today, and the {horizon} month(s) of projection it returns. This "
                  f"section describes a single property profile, not the whole area — the "
-                 f"two sections answer different questions about the same place.")
+                 f"two answer different questions about the same place.")
         forecast_report.write_sections(rep, result, area, inputs,
-                                       window_start=window_start, show_news=show_news)
+                                       window_start=window_start, show_news=show_news,
+                                       closing=False)
+
+    _divider(rep, "SECTION 3", "Methodology and scope",
+             "Where every figure in this document comes from, how the selection was "
+             "formed, and how to read the numbers in both sections above.")
+    dubai_report.write_sections(rep, df, area, all_rows, period, ["method"],
+                                method_heading=False)
+
+    if result is not None:
+        forecast_report.write_closing(rep, result, area, show_news=show_news)
 
     return R.finish(rep, buf)
 
 
 def _divider(rep, eyebrow: str, title: str, lede: str) -> None:
-    """A section-opening page, so the two analyses are never read as one."""
-    rep.new_page()
-    rep.y -= 1.6
+    """
+    A section opening that FLOWS.
+
+    It used to call `new_page()`, which meant every section started at the top
+    of a fresh sheet and left the previous page half empty — two nearly blank
+    pages in a fourteen-page report. It now behaves like any other heading:
+    it takes a new page only if there is not enough room for the heading plus
+    the first block beneath it, so the document reads continuously from cover
+    to close.
+    """
+    rep.space(2.35)
+    rep.y -= 0.34
     rep.fig.text(R._fx(R.M_L), R._fy(rep.y), eyebrow, fontsize=9.5, color=R.ACCENT,
                  fontweight="bold", va="top", ha="left")
-    rep.y -= 0.34
+    rep.y -= 0.30
     rep.fig.add_artist(_rule(rep))
-    rep.y -= 0.30
-    rep.fig.text(R._fx(R.M_L), R._fy(rep.y), title, fontsize=26, color=R.INK,
+    rep.y -= 0.28
+    rep.fig.text(R._fx(R.M_L), R._fy(rep.y), title, fontsize=23, color=R.INK,
                  fontweight="bold", va="top", ha="left")
-    rep.y -= 0.72
-    rep.body(lede, size=10.0)
-    rep.y -= 0.30
+    rep.y -= 0.60
+    rep.body(lede, size=9.6)
+    rep.y -= 0.18
 
 
 def _rule(rep):

@@ -51,8 +51,6 @@ K_RESULT = "dxb_fc_result"      # the parsed response
 K_SIG = "dxb_fc_sig"            # (area, inputs) that produced K_RESULT
 K_ERROR = "dxb_fc_error"        # last failure, with its signature
 K_RESET = "dxb_fc_reset_note"   # fields reset by the last area change
-K_PDF = "dxb_fc_pdf"
-K_PDF_SIG = "dxb_fc_pdf_sig"
 
 #: The historical window. `None` means "everything the response contains" —
 #: which is genuinely more than the written guide suggests: the live API returns
@@ -151,7 +149,7 @@ def _narrative_md(text: str) -> str:
 
 
 def _clear_result() -> None:
-    for key in (K_RESULT, K_SIG, K_ERROR, K_PDF, K_PDF_SIG):
+    for key in (K_RESULT, K_SIG, K_ERROR):
         st.session_state.pop(key, None)
 
 
@@ -457,7 +455,6 @@ def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None
         with st.container(border=True):
             st.markdown("#### 🧠  Market context")
             st.markdown(_narrative_md(result.narrative))
-        st.caption("Supplied by the API as its `narrative` field, reproduced word for word.")
     elif show_news and not result.news_available:
         st.caption("The API reports that no matched news data was available for this area "
                    "on this request, so it returned the macro forecast on its own.")
@@ -512,8 +509,12 @@ def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None
             st.caption(f"{len(table)} month(s) — every row is a value the API returned. "
                        f"All figures are AED per m² except **Difference %**.")
 
-    # ── report + request record ─────────────────────────────────────────────
-    _download(result, area, inputs, window, start, show_news)
+    # The forecast is NOT downloadable from this page. 📄 Download Detailed
+    # Report is the one place reports are produced, and it packages this exact
+    # result — so there is a single, predictable route to every document rather
+    # than a download button on each page that produces one.
+    st.caption("To download this forecast — on its own or combined with the area "
+               "analysis — use 📄 **Download Detailed Report** in the rail.")
 
     with st.expander("🔎  The exact request that produced this"):
         st.caption("Open this URL in a browser and you get the same numbers back — it is "
@@ -521,41 +522,3 @@ def _render_result(result, area: str, inputs: dict, df_area, dark: bool) -> None
         st.code(result.request_url or "—", language="text")
 
 
-def _download(result, area: str, inputs: dict,
-              window: str = "", start=None, show_news: bool = True) -> None:
-    """
-    The Forecast PDF — built from the response already held in session state.
-    The API is not called a second time to produce it.
-    """
-    # The window is part of the signature so the PDF follows the chart when the
-    # historical window changes, rather than going stale against it.
-    # The window and the news toggle are part of the signature, so the PDF
-    # follows the chart instead of going stale against it.
-    sig = _signature(area, inputs) + (window, bool(show_news))
-    if st.session_state.get(K_PDF_SIG) != sig:
-        try:
-            from platform_core import forecast_report as builder
-            with st.spinner("Preparing the forecast report…"):
-                st.session_state[K_PDF] = builder.build(
-                    result, area, inputs, window_start=start, show_news=show_news)
-            st.session_state[K_PDF_SIG] = sig
-        except Exception as exc:  # pragma: no cover - surfaced, never swallowed
-            st.session_state.pop(K_PDF, None)
-            st.session_state.pop(K_PDF_SIG, None)
-            st.error(f"**The forecast report could not be generated.**\n\n"
-                     f"`{type(exc).__name__}: {exc}`", icon="⚠️")
-            return
-
-    pdf = st.session_state.get(K_PDF)
-    if not pdf:
-        return
-
-    safe = "".join(c if c.isalnum() or c in "-_" else "_" for c in area)
-    fname = f"Dubai_Forecast_{safe}_{datetime.now():%Y%m%d}.pdf"
-    st.download_button(
-        f"⬇️   Download the {area} forecast report  ·  PDF",
-        data=pdf, file_name=fname, mime="application/pdf",
-        type="secondary", use_container_width=True, key="dxb_fc_dl")
-    st.caption(
-        f"**{fname}** — {len(pdf) / 1024:,.0f} KB. Built from the forecast already on "
-        f"screen, so the document and the chart carry the same numbers.")

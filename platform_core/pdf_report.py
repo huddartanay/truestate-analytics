@@ -146,8 +146,15 @@ class Report:
             self._finish_page()
 
     def space(self, needed: float) -> None:
-        """Open a new page unless `needed` inches remain."""
-        if self.y - needed < CONTENT_BOTTOM:
+        """
+        Open a new page unless `needed` inches remain.
+
+        Also opens one when there is no current page at all — which is the state
+        immediately after the cover, since `title_page()` closes its own figure.
+        Without this, the first writer after the cover would have nothing to
+        draw on.
+        """
+        if self.fig is None or self.y - needed < CONTENT_BOTTOM:
             self.new_page()
 
     # ── writers ─────────────────────────────────────────────────────────────
@@ -378,10 +385,16 @@ class Report:
             transform=self.fig.transFigure, facecolor=ACCENT, edgecolor="none"))
         y -= 0.40
 
-        # Title
-        self.fig.text(_fx(M_L), _fy(y), self.title,
-                      fontsize=26, color=INK, fontweight="bold", va="top", ha="left")
-        y -= 0.62
+        # Title. Long titles ("Market Analytics & Forecast Report") used to run
+        # past the right margin and into the page border, so the size steps down
+        # and the text wraps to the content width instead of overflowing it.
+        title_size = 26 if len(self.title) <= 26 else 22 if len(self.title) <= 36 else 19
+        wrap_at = max(18, int(CONTENT_W * 72 / (title_size * 0.56)))
+        for line in textwrap.wrap(self.title, wrap_at) or [self.title]:
+            self.fig.text(_fx(M_L), _fy(y), line, fontsize=title_size, color=INK,
+                          fontweight="bold", va="top", ha="left")
+            y -= title_size / 42.0
+        y -= 0.20
 
         # Subtitle
         self.fig.text(_fx(M_L), _fy(y), self.subtitle,

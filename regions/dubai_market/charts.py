@@ -660,7 +660,7 @@ def control_ladder(ladder: pd.DataFrame, label: str, dark: bool = False) -> go.F
 
 
 # ═════════════════════════════════════════════════════════════════════════════
-# v1.3 — RAW transaction volume · amenity within property type · building height
+# v1.3 — RAW transaction volume · amenity within property layout · floor band
 # ═════════════════════════════════════════════════════════════════════════════
 
 
@@ -744,7 +744,7 @@ def raw_transaction_volume(years: pd.DataFrame, partial: dict,
 def amenity_within_property_type(result: dict, dark: bool = False) -> go.Figure:
     """
     Median rate per m² for units recorded WITH and WITHOUT one amenity, inside a
-    single property type.
+    single property layout.
 
     Two bars, each labelled with its own transaction count. The quartile range
     is drawn as an error bar so the reader can see how much the two groups
@@ -786,9 +786,9 @@ def amenity_within_property_type(result: dict, dark: bool = False) -> go.Figure:
 
 def rate_by_building_height(frame: pd.DataFrame, dark: bool = False) -> go.Figure:
     """
-    Median rate per m² by building-height band, one series per property type.
+    Median rate per m² by building-floor band, one series per property layout.
 
-    The legend is the property type, which is the point of the chart: it lets
+    The legend is the property layout, which is the point of the chart: it lets
     the reader see whether height moves price the same way for a studio as for
     a three-bedroom.
     """
@@ -796,10 +796,10 @@ def rate_by_building_height(frame: pd.DataFrame, dark: bool = False) -> go.Figur
         return go.Figure()
 
     order = [l for l in PROPERTY_TYPE_LABELS.values()
-             if l in set(frame["Property type"])]
+             if l in set(frame["Property layout"])]
     fig = go.Figure()
     for i, ptype in enumerate(order):
-        d = frame[frame["Property type"] == ptype]
+        d = frame[frame["Property layout"] == ptype]
         fig.add_trace(go.Bar(
             x=d["height_band"].astype(str), y=d["median_rate"], name=ptype,
             marker_color=CHART_COLORS[i % len(CHART_COLORS)],
@@ -811,7 +811,7 @@ def rate_by_building_height(frame: pd.DataFrame, dark: bool = False) -> go.Figur
 
     fig.update_layout(**layout(height=470, dark=dark, show_legend=True), barmode="group")
     fig.update_yaxes(title_text="Median rate (AED/m²)")
-    fig.update_xaxes(title_text="Building height band")
+    fig.update_xaxes(title_text="Floor band")
     return fig
 
 
@@ -850,7 +850,7 @@ def amenity_share_grouped(table: pd.DataFrame, highlight: str, scope_label: str,
     not a ranking of raw shares.
 
     The previous version ranked amenities by raw recorded share. Parking is
-    recorded on 88.9%-100.0% of transactions in every property type, so it won
+    recorded on 88.9%-100.0% of transactions in every property layout, so it won
     that ranking every time and read as "parking matters most" — which was a
     statement about which field the registry fills in, not about the market.
     Here a near-constant sits level with its own baseline and shows no gap,
@@ -896,11 +896,11 @@ def amenity_share_grouped(table: pd.DataFrame, highlight: str, scope_label: str,
 
 def amenity_share_by_type_bar(table: pd.DataFrame, amenity: str,
                               dark: bool = False) -> go.Figure:
-    """The same share for one amenity, across property types."""
+    """The same share for one amenity, across property layouts."""
     if table.empty:
         return go.Figure()
     fig = go.Figure(go.Bar(
-        x=table["Property type"], y=table["Share of recorded transactions (%)"],
+        x=table["Property layout"], y=table["Share of recorded transactions (%)"],
         marker_color=PRIMARY,
         customdata=table[["Transactions", "With amenity recorded"]],
         text=[f"{v:.1f}%" for v in table["Share of recorded transactions (%)"]],
@@ -912,7 +912,7 @@ def amenity_share_by_type_bar(table: pd.DataFrame, amenity: str,
     fig.update_traces(cliponaxis=False)
     fig.update_layout(**layout(height=360, dark=dark, show_legend=False))
     fig.update_yaxes(title_text=f"Share recorded with {amenity.lower()} (%)", range=[0, 112])
-    fig.update_xaxes(title_text="Property type")
+    fig.update_xaxes(title_text="Property layout")
     return fig
 
 

@@ -530,7 +530,7 @@ def _section_price(df: pd.DataFrame, dark: bool) -> None:
     # ── Amenity association with recorded transactions ───────────────────────
     _amenity_association_panel(df, dark)
 
-    # ── Building height ──────────────────────────────────────────────────────
+    # ── Floor band ──────────────────────────────────────────────────────
     _building_height_panel(df, dark)
 
     # ── Price bands ──────────────────────────────────────────────────────────
@@ -601,23 +601,23 @@ def _amenity_association_panel(df: pd.DataFrame, dark: bool) -> None:
     """
     ci.header("amenity_transaction_share")
 
-    # Two local filters — Property type and Amenity. Area is NOT one of them:
+    # Two local filters — Property layout and Amenity. Area is NOT one of them:
     # it is chosen once in the global 📍 Area section and has already been
     # applied to `df`. Every number below comes from that one frame, so no
     # calculation can silently fall back to the full dataset.
-    # TWO local filters only — Property type and Amenity. The area is global.
+    # TWO local filters only — Property layout and Amenity. The area is global.
     scope, amn_area = df, nav.area()
 
     types = [lbl for val, lbl in mx.PROPERTY_TYPE_LABELS.items()
              if val in set(scope[COL["rooms"]].dropna().unique())]
     if not types:
-        st.info(f"No property types recorded in {amn_area} within the current selection.",
+        st.info(f"No property layouts recorded in {amn_area} within the current selection.",
                 icon="ℹ️")
         return
 
     c1, c2 = st.columns(2)
     with c1:
-        type_label = st.selectbox("Property type", types, key="dxb_amn_type")
+        type_label = st.selectbox("Property layout", types, key="dxb_amn_type")
     with c2:
         amenity_label = st.selectbox("Amenity", list(AMENITIES.values()), key="dxb_amn_field")
 
@@ -625,7 +625,7 @@ def _amenity_association_panel(df: pd.DataFrame, dark: bool) -> None:
     ptype = mx.LABEL_TO_PROPERTY_TYPE[type_label]
 
     # The slice the user chose, and the Dubai-wide reference it is read against.
-    # `df` is the full sidebar selection — every area, every property type.
+    # `df` is the full sidebar selection — every area, every property layout.
     table, aud = mx.amenity_share_vs_baseline(scope, df, ptype)
     within = mx.amenity_transaction_share(scope, ptype)
 
@@ -636,7 +636,7 @@ def _amenity_association_panel(df: pd.DataFrame, dark: bool) -> None:
             f"**Only {n_here:,} {type_label} transactions {where}** — fewer than the "
             f"{mx.MIN_CELL} needed before a share is worth reporting. A percentage from "
             f"this few records would move wildly on one or two transactions, so none is "
-            f"shown. Choose a different area or property type, or widen the sidebar "
+            f"shown. Choose a different area or property layout, or widen the sidebar "
             f"filters.", icon="⚠️")
         return
 
@@ -644,7 +644,7 @@ def _amenity_association_panel(df: pd.DataFrame, dark: bool) -> None:
     # recorded share in the selected slice beside the same figure across Dubai.
     #
     # It is a comparison rather than a ranking on purpose. Parking is recorded
-    # on 88.9%-100.0% of transactions in every property type, so a ranking of
+    # on 88.9%-100.0% of transactions in every property layout, so a ranking of
     # raw shares put parking first every time and looked like "parking matters
     # most" — a fact about record-keeping wearing the clothes of a market
     # finding. Against its own baseline parking shows no gap and stops
@@ -750,18 +750,18 @@ def _volume_vs_price_panel(df: pd.DataFrame, dark: bool) -> None:
 
 def _building_height_panel(df: pd.DataFrame, dark: bool) -> None:
     """
-    Rate per m² by building-height band, split by property type.
+    Rate per m² by building-floor band, split by property layout.
 
     IMPORTANT — what this is and is not. The dataset does not record which
     floor a unit sits on: `floor_bin` is the string "Unknown" wherever it is
     populated, and `floors` is identical for every sale in a given building, so
     it describes the building's height, not the unit's floor. This panel is
-    therefore about building height, and says so. Bands are the quartiles of
+    therefore about floor band, and says so. Bands are the quartiles of
     the height distribution taken one row per building.
     """
     ci.header("height_price")
 
-    # PART 4 — Area selector first; the height bands and every median below are
+    # PART 4 — Area selector first; the floor bands and every median below are
     # computed from the sliced frame, not from all of Dubai.
     # Area comes from the global 📍 Area section, already applied to `df`.
     scope, hgt_area = df, nav.area()
@@ -779,9 +779,9 @@ def _building_height_panel(df: pd.DataFrame, dark: bool) -> None:
     if frame.empty:
         with_height = int(scope[mx.FLOOR_FIELD].notna().sum()) if mx.FLOOR_FIELD in scope else 0
         st.warning(
-            f"**No height-banded figures can be shown for {hgt_area}.** Building height is "
+            f"**No floor-banded figures can be shown for {hgt_area}.** Floor band is "
             f"recorded for {with_height:,} of the {len(scope):,} transactions here, and no "
-            f"height-band × property-type combination reaches the {mx.MIN_CELL}-transaction "
+            f"floor-band × property-layout combination reaches the {mx.MIN_CELL}-transaction "
             f"minimum. Rather than draw medians on a handful of deals, nothing is plotted. "
             f"Choose a larger area or widen the sidebar filters.", icon="⚠️")
         return
@@ -837,9 +837,9 @@ def _building_height_panel(df: pd.DataFrame, dark: bool) -> None:
         )
 
     with st.expander("📋  Median and mean rate behind every bar"):
-        t = frame[["height_band", "Property type", "median_rate", "mean_rate",
+        t = frame[["height_band", "Property layout", "median_rate", "mean_rate",
                    "transactions"]].copy()
-        t.columns = ["Building height band", "Property type", "Median rate (AED/m²)",
+        t.columns = ["Floor band", "Property layout", "Median rate (AED/m²)",
                      "Mean rate (AED/m²)", "Transactions"]
         _fmt(t, {"Median rate (AED/m²)": "{:,.0f}", "Mean rate (AED/m²)": "{:,.0f}",
                  "Transactions": "{:,}"})
@@ -1021,14 +1021,14 @@ def _unit_size_summary(df: pd.DataFrame) -> None:
     Replaces the removed "Unit size distribution" histogram, in its own position.
 
     Same subject — how big the units are — expressed as a compact statistical
-    table by property type instead of a shape. DATA SOURCE: CLEANED.
+    table by property layout instead of a shape. DATA SOURCE: CLEANED.
     """
     ci.header("unit_size_summary")
 
     order = [v for v in mx.PROPERTY_TYPE_LABELS
              if v in set(df[COL["rooms"]].dropna().unique())]
     if not order:
-        st.caption("No property types in the current selection.")
+        st.caption("No property layouts in the current selection.")
         return
 
     g = (df[df[COL["rooms"]].isin(order)]
@@ -1036,9 +1036,9 @@ def _unit_size_summary(df: pd.DataFrame) -> None:
          .agg(Transactions="size", Smallest="min", p25=lambda s: s.quantile(.25),
               Median="median", p75=lambda s: s.quantile(.75), Largest="max")
          .reindex(order).dropna(how="all").reset_index())
-    g["Property type"] = g[COL["rooms"]].map(mx.PROPERTY_TYPE_LABELS)
-    g = g[["Property type", "Transactions", "Smallest", "p25", "Median", "p75", "Largest"]]
-    g.columns = ["Property type", "Transactions", "Smallest (m²)", "25th pct (m²)",
+    g["Property layout"] = g[COL["rooms"]].map(mx.PROPERTY_TYPE_LABELS)
+    g = g[["Property layout", "Transactions", "Smallest", "p25", "Median", "p75", "Largest"]]
+    g.columns = ["Property layout", "Transactions", "Smallest (m²)", "25th pct (m²)",
                  "Median (m²)", "75th pct (m²)", "Largest (m²)"]
     _fmt(g, {"Transactions": "{:,}", "Smallest (m²)": "{:,.0f}", "25th pct (m²)": "{:,.0f}",
              "Median (m²)": "{:,.0f}", "75th pct (m²)": "{:,.0f}", "Largest (m²)": "{:,.0f}"})
@@ -1390,7 +1390,7 @@ def _report_body(df: pd.DataFrame, df_all: pd.DataFrame, area: str) -> None:
     st.info(
         "**What is inside.** Title page with the reporting period and area context; "
         "executive summary with headline figures and key findings; then transaction volume, "
-        "price levels and movement, rate per m² by layout, rate by building height, amenity "
+        "price levels and movement, rate per m² by layout, rate by floor band, amenity "
         "analysis, registration type, and price brackets with the top five areas in each — "
         "each with its chart, its table and a note on what the numbers do and do not mean; "
         "and a closing methodology section covering the data sources, how this selection was "

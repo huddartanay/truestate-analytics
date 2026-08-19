@@ -270,23 +270,12 @@ EXPERIMENTS = [
         ),
         "views": ["External application"],
     },
-    {
-        "id": "smoothing",
-        "legacy": "SMOOTH",
-        "label": "Trend Smoothing · LOWESS vs Exponential",
-        "short": "Smoothing",
-        "icon": "📉",
-        "blurb": "Method comparison for the monthly rate trend.",
-        "detail": (
-            "A new experiment, added alongside the existing generations rather than inside "
-            "any of them. It fits two standard smoothers — LOWESS and Holt exponential "
-            "smoothing — to one identical monthly series and measures which represents it "
-            "more faithfully. Both are smoothers, not forecasts."
-        ),
-        "views": ["LOWESS", "Exponential Smoothing", "Measured comparison"],
-    },
 ]
 
+# The Trend Smoothing comparison was removed from the rail by request. The
+# six original generations are untouched; `metrics.smoothing_experiment()`
+# and its chart remain in the codebase but are no longer reachable from the
+# interface.
 EXPERIMENT_BY_ID = {e["id"]: e for e in EXPERIMENTS}
 DEFAULT_EXPERIMENT = EXPERIMENTS[0]["id"]
 

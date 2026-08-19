@@ -597,9 +597,9 @@ for ptype, label in (("1 B/R", "1 BHK"), ("Studio", "Studio")):
 
 across = metrics.amenity_share_by_property_type(df, "has_parking")
 for _, r in across.iterrows():
-    ptype = metrics.LABEL_TO_PROPERTY_TYPE[r["Property type"]]
+    ptype = metrics.LABEL_TO_PROPERTY_TYPE[r["Property layout"]]
     sub = df[df.rooms_en == ptype]
-    check(f"{r['Property type']}: parking share across types (%)",
+    check(f"{r['Property layout']}: parking share across types (%)",
           round(float((sub.has_parking == 1).mean() * 100), 3),
           round(float(r["Share of recorded transactions (%)"]), 3), tol=0.001)
 check("thin property types are excluded", True,
@@ -659,7 +659,7 @@ check("zero-floor readings are excluded, not counted as low-rise", True,
 for band in labels[:2]:
     for ptype in ["1 BHK", "Studio"]:
         row = frame[(frame["height_band"].astype(str) == band)
-                    & (frame["Property type"] == ptype)]
+                    & (frame["Property layout"] == ptype)]
         if row.empty:
             continue
         lo = edges[labels.index(band)]
