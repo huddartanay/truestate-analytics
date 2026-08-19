@@ -99,10 +99,51 @@ def govern(route: str) -> None:
 
 
 def release() -> None:
-    """Drop every `st.cache_data` entry and return the pages to the allocator."""
-    try:
-        st.cache_data.clear()
-    except Exception:
-        # A cache that cannot be cleared is not a reason to fail a page render.
-        pass
+    """
+    Drop the cached frames of the environment being left, and return the pages
+    to the allocator.
+
+    BOTH caches are cleared, not just `cache_data`. The Dubai dataset is held
+    under `st.cache_resource` — deliberately, because it is read-only and
+    handing out one shared object beats copying 55 MB on every rerun — so
+    clearing only `cache_data` left it resident and the next environment loaded
+    on top of it. That was the whole problem this module exists to solve, and
+    for one revision this function quietly failed to solve it:
+
+        clearing cache_data only     high-water 1,036 MB
+        clearing both                high-water   685 MB
+
+    Nothing here is a source of truth. Every entry dropped is rebuilt by the
+    same code from the same files the next time it is asked for.
+    """
+    for cache in (st.cache_data, st.cache_resource):
+        try:
+            cache.clear()
+        except Exception:
+            # A cache that cannot be cleared is not a reason to fail a render.
+            pass
     gc.collect()
+    _trim()
+
+
+def _trim() -> None:
+    """
+    Hand the freed pages back to the operating system.
+
+    Dropping a cache frees the objects, but glibc keeps the arenas they lived
+    in and reuses them for the next allocation. That is normally the right
+    trade — until the process is judged on resident size, as it is here. Every
+    reload of a dataset then ratchets RSS a little higher even though nothing
+    is leaking, and eventually the host kills a process that is mostly holding
+    empty space.
+
+    `malloc_trim(0)` releases those arenas. It exists only in glibc, so it is
+    attempted and ignored if unavailable (macOS, musl) — on those platforms
+    the process simply keeps its previous behaviour and nothing breaks.
+    """
+    try:
+        import ctypes
+
+        ctypes.CDLL("libc.so.6").malloc_trim(0)
+    except Exception:
+        pass

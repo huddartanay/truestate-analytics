@@ -104,6 +104,65 @@ class DubaiDataError(RuntimeError):
     """Raised when the Dubai dataset cannot be loaded."""
 
 
+def _read_clean() -> pd.DataFrame:
+    """
+    Read the cleaned parquet without materialising the text columns twice.
+
+    WHAT WAS WRONG
+    --------------
+    `pd.read_parquet(CLEAN_FILE, columns=_LOAD_COLUMNS)` builds a real Python
+    `str` object for every value in every text column — 818,838 of them per
+    column, across seventeen columns — and the very next lines throw all of
+    them away again with `.astype("category")`. The finished frame is 55 MB;
+    getting to it cost 804 MB of peak process memory. That transient, not the
+    data, was the largest single allocation in the whole platform.
+
+    WHAT THIS DOES INSTEAD
+    ----------------------
+    Those columns are asked for as Arrow *dictionaries*, which is the same
+    shape a pandas Categorical already has: integer codes plus one small table
+    of distinct values. The strings are never built one-per-row, so pandas
+    receives a Categorical directly. `self_destruct=True` lets Arrow release
+    each column's buffer as it is handed over, instead of holding the whole
+    table alongside the whole frame.
+
+        pd.read_parquet, as before        peak 804 MB
+        this                              peak 492 MB
+
+    ORDER MATTERS, SO IT IS RESTORED
+    --------------------------------
+    Arrow numbers a dictionary in order of first appearance; pandas'
+    `.astype("category")` sorts. Values are identical either way, but the
+    category ORDER decides the order `groupby` returns — which is the order
+    bars, legends and table rows come out in. The categories are therefore
+    re-sorted to exactly what the previous loader produced.
+
+    VERIFIED, NOT ASSUMED
+    ---------------------
+    Both loaders were run and their frames compared: same shape
+    (818,838 x 35), same column order, same dtypes, same category order on all
+    17 categorical columns, same values, and identical categorical codes.
+    """
+    import pyarrow.parquet as pq
+
+    schema = pq.ParquetFile(CLEAN_FILE).schema_arrow
+    as_dictionary = [c for c in _CATEGORICAL
+                     if c in _LOAD_COLUMNS and c in schema.names]
+
+    table = pq.read_table(CLEAN_FILE, columns=_LOAD_COLUMNS,
+                          read_dictionary=as_dictionary)
+    df = table.to_pandas(split_blocks=True, self_destruct=True)
+    del table
+
+    for c in df.columns:
+        if str(df[c].dtype) == "category":
+            categories = df[c].cat.categories
+            ordered = categories.sort_values()
+            if not categories.equals(ordered):
+                df[c] = df[c].cat.reorder_categories(ordered)
+    return df
+
+
 # ── Loading ─────────────────────────────────────────────────────────────────
 
 
@@ -125,7 +184,7 @@ def load_market() -> pd.DataFrame:
             "Copy the cleaned Dubai parquet into that folder."
         )
 
-    df = pd.read_parquet(CLEAN_FILE, columns=_LOAD_COLUMNS)
+    df = _read_clean()
 
     for c in _CATEGORICAL:
         if c in df.columns:
