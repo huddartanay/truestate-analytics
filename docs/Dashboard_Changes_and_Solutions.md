@@ -1,6 +1,6 @@
 # Dashboard Changes and Solutions
 
-**Scope:** the Dubai section of the unified TruEstates Analytics platform.
+**Scope:** the Dubai section of the unified TruEstates analytics platform.
 Abu Dhabi, the Experimental Analysis environment, navigation, styling, theme and
 the platform shell were not modified. Local build — not deployed.
 

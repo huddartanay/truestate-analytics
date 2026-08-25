@@ -26,7 +26,7 @@ def render() -> None:
     env = C.REGIONS[C.ROUTE_EXPERIMENTAL]
     exp = C.EXPERIMENT_BY_ID.get(nav.experiment_id(), C.EXPERIMENTS[0])
 
-    ui.breadcrumb("TruEstates Analytics", "Experimental Analysis", exp["short"])
+    ui.breadcrumb("TruEstates analytics", "Experimental Analysis", exp["short"])
     ui.region_header(
         env,
         chips=[f"{exp['icon']} {exp['label']}", "Original logic preserved"],

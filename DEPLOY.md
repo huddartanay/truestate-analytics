@@ -1,4 +1,4 @@
-# Deploying TruEstates Analytics to Streamlit Community Cloud
+# Deploying TruEstates analytics to Streamlit Community Cloud
 
 This folder is deploy-ready. Every route in it has been rendered headlessly and
 all six test suites pass against it.
@@ -69,7 +69,7 @@ rm -rf regions/dubai
 
 git init -b main
 git add -A
-git commit -m "TruEstates Analytics"
+git commit -m "TruEstates analytics"
 ```
 
 Create an empty repository at <https://github.com/new> — **public**, and do not

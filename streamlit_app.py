@@ -1,5 +1,5 @@
 """
-TRUESTATES ANALYTICS — unified platform entry point.
+TruEstates analytics — unified platform entry point.
 ════════════════════════════════════════════════════════════════════════════
 
     streamlit run streamlit_app.py

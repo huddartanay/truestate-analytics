@@ -9,7 +9,7 @@ from platform_core import config as C
 
 
 def render() -> None:
-    ui.breadcrumb("TruEstates Analytics", "About")
+    ui.breadcrumb("TruEstates analytics", "About")
 
     ui.hero(
         eyebrow="ℹ️ About",
@@ -119,7 +119,7 @@ produced by the original modelling notebooks. It does not retrain anything at ru
     )
 
     st.caption(
-        f"TruEstates Analytics · v{C.PLATFORM_VERSION} · local development build · "
+        f"TruEstates analytics · v{C.PLATFORM_VERSION} · local development build · "
         "not deployed"
     )
 

@@ -67,7 +67,7 @@ def build(df: pd.DataFrame, area: str, all_rows: int,
         lede=(
             "An analysis of registered residential unit sales in Dubai, prepared from the "
             "Dubai Land Department transaction records held by the TruEstates "
-            "Analytics platform. The report covers transaction activity, price levels and "
+            "analytics platform. The report covers transaction activity, price levels and "
             "how they have moved, the composition of the market by layout, floor band "
             "and registration type, and where transactions concentrate across price "
             "brackets and areas."

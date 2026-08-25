@@ -270,6 +270,12 @@ html, body, .stApp, [class*="css"] {{
 }}
 .uae-topbar .sep {{ opacity: 0.45; }}
 .uae-topbar .here {{ color: {t['accent']}; }}
+/* The company name is a name, not a label, so it keeps the capitalisation it
+   is written with. The rest of the trail ("Locations", "Abu Dhabi") stays in
+   the small-caps style this header was designed around. Without this rule the
+   breadcrumb rendered the brand as TruEstates analytics on every page — the
+   string was already correct, the stylesheet was shouting it. */
+.uae-topbar .brand {{ text-transform: none; letter-spacing: 0.02em; }}
 
 .uae-region-header {{
   position: relative; overflow: hidden;

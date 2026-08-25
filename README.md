@@ -1,4 +1,4 @@
-# 🏙️ TruEstates Analytics
+# 🏙️ TruEstates analytics
 
 One unified analytics platform for the UAE property market.
 

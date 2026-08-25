@@ -74,7 +74,7 @@ def _excel_writer_engine():
 def render() -> None:
     region = C.REGIONS[C.ROUTE_ABU_DHABI]
 
-    ui.breadcrumb("TruEstates Analytics", "Locations", "Abu Dhabi")
+    ui.breadcrumb("TruEstates analytics", "Locations", "Abu Dhabi")
     ui.region_header(
         region,
         chips=["12 analytical tabs", "Live filters", "Abu Dhabi DMT data"],

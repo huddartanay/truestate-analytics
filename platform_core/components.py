@@ -25,10 +25,19 @@ def _clean(html: str) -> str:
 
 
 def breadcrumb(*crumbs: str) -> None:
-    """Render a small 'you are here' trail above the page content."""
+    """
+    Render a small 'you are here' trail above the page content.
+
+    The first crumb is the company name and is marked `brand`, which exempts it
+    from the trail's small-caps styling (see `.uae-topbar .brand`). Everything
+    after it — "Locations", "Abu Dhabi", "Forecast" — keeps the uppercase look
+    the header was designed with.
+    """
     parts = []
+    last = len(crumbs) - 1
     for i, crumb in enumerate(crumbs):
-        cls = "here" if i == len(crumbs) - 1 else ""
+        cls = " ".join(c for c in ("brand" if i == 0 else "",
+                                   "here" if i == last else "") if c)
         if i:
             parts.append('<span class="sep">›</span>')
         parts.append(f'<span class="{cls}">{crumb}</span>')
@@ -212,7 +221,7 @@ def platform_map(branches: list[dict]) -> None:
     """
     A compact tree of the whole platform:
 
-                  TruEstates Analytics
+                  TruEstates analytics
               ┌───────────────┼───────────────┐
           Abu Dhabi         Dubai       Experimental
               │               │               │
@@ -245,7 +254,7 @@ def platform_map(branches: list[dict]) -> None:
     <div class="uae-map">
       <div class="uae-map-root">
         <div class="uae-node root">
-          <span class="n-title">TruEstates Analytics</span>
+          <span class="n-title">TruEstates analytics</span>
           <span class="n-sub">TruEstates platform shell</span>
         </div>
       </div>
@@ -266,7 +275,7 @@ def footer(version: str, context: str = "") -> None:
     st.markdown(
         _clean(
             f'<div class="uae-footer">'
-            f"<div><b>TruEstates Analytics</b> &nbsp;·&nbsp; Abu Dhabi &amp; Dubai{ctx}</div>"
+            f"<div><b>TruEstates analytics</b> &nbsp;·&nbsp; Abu Dhabi &amp; Dubai{ctx}</div>"
             f"<div>Streamlit + Plotly &nbsp;·&nbsp; v{version} &nbsp;·&nbsp; "
             f"Analytical &amp; informational use only</div>"
             f"</div>"

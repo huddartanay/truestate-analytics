@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build the deploy folder for TruEstates Analytics.
+# Build the deploy folder for TruEstates analytics.
 #
 #   ./build_deploy.sh          -> ~/Downloads/truestate-deploy
 #   ./build_deploy.sh --lean   -> the same, without the Experimental artefacts

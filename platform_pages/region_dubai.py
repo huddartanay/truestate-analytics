@@ -25,7 +25,7 @@ def render() -> None:
     region = C.REGIONS[C.ROUTE_DUBAI]
     dark = nav.is_dark()
 
-    ui.breadcrumb("TruEstates Analytics", "Locations", "Dubai")
+    ui.breadcrumb("TruEstates analytics", "Locations", "Dubai")
     ui.region_header(
         region,
         chips=["6 analytical sections", "Residential unit sales", "2010 – 2026"],

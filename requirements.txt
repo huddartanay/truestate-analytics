@@ -1,5 +1,5 @@
 # ════════════════════════════════════════════════════════════════════════════
-# TruEstates Analytics — unified requirements
+# TruEstates analytics — unified requirements
 # Union of regions/abu_dhabi/requirements.txt and the Dubai requirements,
 # with conflicts resolved. See docs/ARCHITECTURE.md §Dependencies.
 # ════════════════════════════════════════════════════════════════════════════
