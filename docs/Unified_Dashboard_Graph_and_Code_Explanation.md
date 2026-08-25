@@ -1,4 +1,4 @@
-# TruEstate Analytics — Graph and Code Explanation
+# TruEstates Analytics — Graph and Code Explanation
 
 **Companion to** `notebooks/Unified_Dashboard_Graph_Analysis.ipynb`.
 **Scope:** the eleven dashboard visualisations named for this task, and nothing else.

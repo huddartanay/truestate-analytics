@@ -92,7 +92,7 @@ def build(result, area: str, inputs: dict, window_start=None,
     rep, buf = R.new_document(
         title="Dubai Forecast Report",
         subtitle=f"{area} · price per m²",
-        footer_note="TruEstate Forecast API",
+        footer_note="TruEstates Forecast API",
     )
 
     now_ts = result.now_timestamp
@@ -114,7 +114,7 @@ def build(result, area: str, inputs: dict, window_start=None,
         ],
         lede=(
             "A forecast of price per square metre for the property profile above, "
-            "produced by the TruEstate Forecast API. The figures in this report are "
+            "produced by the TruEstates Forecast API. The figures in this report are "
             "the values the API returned for this request — they are reproduced here "
             "without smoothing, rescaling or extension."
         ),

@@ -164,7 +164,7 @@ def render(area: str, df_area: pd.DataFrame | None = None, dark: bool = False) -
     `df_area` is the dashboard's already-filtered frame for that area.
     """
     ui.section("Forecast",
-               "Price per m² for one property profile, from the TruEstate Forecast API.",
+               "Price per m² for one property profile, from the TruEstates Forecast API.",
                "🔮")
 
     # ── the input configuration ─────────────────────────────────────────────

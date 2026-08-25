@@ -41,7 +41,7 @@ def _area_counts() -> pd.DataFrame:
 
 
 def render() -> None:
-    ui.breadcrumb("TruEstate Analytics", "Area")
+    ui.breadcrumb("TruEstates Analytics", "Area")
 
     st.markdown(
         '<div class="uae-card uae-d1" style="margin-bottom:1.1rem">'

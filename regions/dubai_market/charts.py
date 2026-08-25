@@ -1148,7 +1148,7 @@ def smoothing_experiment_chart(frame: pd.DataFrame, report: dict, view: str = "B
 
 
 # ═════════════════════════════════════════════════════════════════════════════
-# FORECAST API — the live TruEstate forecast endpoint
+# FORECAST API — the live TruEstates forecast endpoint
 #
 # Everything drawn below is a value returned by the API. Nothing on this chart
 # is smoothed, interpolated, extrapolated or padded here:

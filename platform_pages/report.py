@@ -70,7 +70,7 @@ def _offer(pdf: bytes, filename: str, label: str, key: str) -> None:
 
 
 def render() -> None:
-    ui.breadcrumb("TruEstate Analytics", "Download Detailed Report")
+    ui.breadcrumb("TruEstates Analytics", "Download Detailed Report")
 
     area = nav.area()
 

@@ -107,7 +107,7 @@ _LOGO_PATH = Path(__file__).resolve().parent / "assets" / "truestates_logo.png"
 @lru_cache(maxsize=1)
 def _logo_data_uri() -> str:
     """
-    The TruEstate.ai mark as a base64 data URI.
+    The TruEstates.ai mark as a base64 data URI.
 
     Inlined rather than served as a static file because Streamlit's static
     file serving is disabled by default, and a broken <img> on the opening
@@ -136,7 +136,7 @@ def brand_mark(width: int = 210, align: str = "left", caption: str = "") -> None
         _clean(
             f'<div style="display:flex;flex-direction:column;align-items:{just};'
             f'margin:.2rem 0 1.15rem 0">'
-            f'<img src="{uri}" alt="TruEstate.ai" style="width:{width}px;height:auto;'
+            f'<img src="{uri}" alt="TruEstates.ai" style="width:{width}px;height:auto;'
             f'border-radius:12px;display:block">{cap}</div>'
         ),
         unsafe_allow_html=True,
@@ -212,7 +212,7 @@ def platform_map(branches: list[dict]) -> None:
     """
     A compact tree of the whole platform:
 
-                  TruEstate Analytics
+                  TruEstates Analytics
               ┌───────────────┼───────────────┐
           Abu Dhabi         Dubai       Experimental
               │               │               │
@@ -245,8 +245,8 @@ def platform_map(branches: list[dict]) -> None:
     <div class="uae-map">
       <div class="uae-map-root">
         <div class="uae-node root">
-          <span class="n-title">TruEstate Analytics</span>
-          <span class="n-sub">TruEstate platform shell</span>
+          <span class="n-title">TruEstates Analytics</span>
+          <span class="n-sub">TruEstates platform shell</span>
         </div>
       </div>
       <div class="uae-connector"></div>
@@ -266,7 +266,7 @@ def footer(version: str, context: str = "") -> None:
     st.markdown(
         _clean(
             f'<div class="uae-footer">'
-            f"<div><b>TruEstate Analytics</b> &nbsp;·&nbsp; Abu Dhabi &amp; Dubai{ctx}</div>"
+            f"<div><b>TruEstates Analytics</b> &nbsp;·&nbsp; Abu Dhabi &amp; Dubai{ctx}</div>"
             f"<div>Streamlit + Plotly &nbsp;·&nbsp; v{version} &nbsp;·&nbsp; "
             f"Analytical &amp; informational use only</div>"
             f"</div>"

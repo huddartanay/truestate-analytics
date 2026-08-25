@@ -184,7 +184,7 @@ def build(district: str = ALL_AREAS) -> bytes:
         ],
         lede=(
             "An analysis of recorded residential apartment sales in Abu Dhabi, prepared "
-            "from the Abu Dhabi transaction records held by the TruEstate Analytics "
+            "from the Abu Dhabi transaction records held by the TruEstates Analytics "
             "platform. The report covers transaction activity, price and rate levels, "
             "how they have moved, the mix of layouts and unit sizes, sale type, and where "
             "activity concentrates by community and project."

@@ -19,7 +19,7 @@ def render() -> None:
     dxb = C.REGIONS[C.ROUTE_DUBAI]
     exp = C.REGIONS[C.ROUTE_EXPERIMENTAL]
 
-    ui.breadcrumb("TruEstate Analytics", "Explore Platform")
+    ui.breadcrumb("TruEstates Analytics", "Explore Platform")
 
     ui.hero(
         eyebrow="🧭 Orientation",

@@ -19,14 +19,14 @@ from platform_core import navigation as nav
 
 
 def render() -> None:
-    ui.breadcrumb("TruEstate Analytics", "Forecast")
+    ui.breadcrumb("TruEstates Analytics", "Forecast")
 
     area = nav.area()
     st.markdown(
         '<div class="uae-card uae-d1" style="margin-bottom:1.1rem">'
         '<p class="uae-h3">🔮 Price forecast</p>'
         '<p class="uae-sub" style="max-width:96ch">Describe a property — rooms, floor, '
-        'size, grades, amenities — and the TruEstate Forecast API returns what it is '
+        'size, grades, amenities — and the TruEstates Forecast API returns what it is '
         'worth per square metre now and where it is heading over the months ahead, with '
         'and without recent news weighed in. The area follows whatever is set under '
         '📍 Area; every other attribute is chosen below, from the values recorded for '

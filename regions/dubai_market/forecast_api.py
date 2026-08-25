@@ -1,5 +1,5 @@
 """
-Client for the TruEstate Forecast API.
+Client for the TruEstates Forecast API.
 
     GET http://51.38.112.237:9500/forecast
 
@@ -29,7 +29,7 @@ WHAT THIS MODULE DELIBERATELY DOES NOT DO
   the global Area selector, and the dataset carries no coordinates. Inventing
   them would be inventing data.
 
-Reference: `api_documentation_guide.docx` — "TruEstate Forecast API:
+Reference: `api_documentation_guide.docx` — "TruEstates Forecast API:
 Complete Reference & Integration Guide", §2 request parameters, §4 response
 structure, §5 error handling.
 """

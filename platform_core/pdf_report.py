@@ -95,7 +95,7 @@ class Report:
     y: float = CONTENT_TOP
     page_no: int = 0
     footer_note: str = ""
-    eyebrow: str = "TRUESTATE ANALYTICS"
+    eyebrow: str = "TRUESTATES ANALYTICS"
     _pages: list = field(default_factory=list)
 
     # ── page lifecycle ──────────────────────────────────────────────────────
@@ -424,7 +424,7 @@ class Report:
             y -= 0.31
 
         self.fig.text(_fx(M_L), _fy(1.34),
-                      "Generated from the TruEstate Analytics platform.",
+                      "Generated from the TruEstates Analytics platform.",
                       fontsize=8.0, color=MUTED, va="top", ha="left")
         self.fig.text(_fx(M_L), _fy(1.16),
                       "Every figure in this report is computed from the transaction data at "

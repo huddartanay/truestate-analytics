@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Live check of the TruEstate Forecast API.
+Live check of the TruEstates Forecast API.
 
 RUN THIS ON A MACHINE THAT CAN REACH THE ENDPOINT.
 

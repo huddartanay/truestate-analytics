@@ -38,14 +38,14 @@ DUBAI_MARKET_DIR = REGIONS_DIR / "dubai_market"
 # BRANDING
 # ─────────────────────────────────────────────────────────────────────────────
 
-PLATFORM_NAME = "TruEstate"
+PLATFORM_NAME = "TruEstates"
 PLATFORM_NAME_2 = "Analytics"
 PLATFORM_TAGLINE = "Regional Property Intelligence"
 PLATFORM_VERSION = "1.1.0"
 PLATFORM_ICON = "🏙️"
 
 PAGE_CONFIG = dict(
-    page_title="TruEstate Analytics",
+    page_title="TruEstates Analytics",
     page_icon="🏙️",
     layout="wide",
     initial_sidebar_state="expanded",

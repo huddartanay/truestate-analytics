@@ -1,5 +1,5 @@
 """
-TRUESTATE ANALYTICS — unified platform entry point.
+TRUESTATES ANALYTICS — unified platform entry point.
 ════════════════════════════════════════════════════════════════════════════
 
     streamlit run streamlit_app.py
@@ -26,10 +26,39 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from platform_core import config as C  # noqa: E402
-from platform_core import design_system as ds  # noqa: E402
-from platform_core import memory as mem  # noqa: E402
-from platform_core import navigation as nav  # noqa: E402
+def _import_platform():
+    """
+    Import the four shell modules, retrying once if `sys.modules` is pulled out
+    from under the import.
+
+    Belt to `.streamlit/config.toml`'s braces. That file turns off the file
+    watcher, which is what was evicting `platform_core.config` from
+    `sys.modules` mid-import on every deploy and killing the hosted app with
+
+        KeyError: 'platform_core.config'   (in importlib's _load_unlocked)
+
+    Anything that empties `sys.modules` of a half-imported package leaves the
+    package in a partial state, so the retry clears the partial entries first
+    and then imports cleanly. If the second attempt fails the error is raised
+    normally — a real broken import must still be visible, not retried away.
+    """
+    def _load():
+        from platform_core import config as C
+        from platform_core import design_system as ds
+        from platform_core import memory as mem
+        from platform_core import navigation as nav
+        return C, ds, mem, nav
+
+    try:
+        return _load()
+    except KeyError:
+        for name in [n for n in list(sys.modules)
+                     if n == "platform_core" or n.startswith("platform_core.")]:
+            sys.modules.pop(name, None)
+        return _load()
+
+
+C, ds, mem, nav = _import_platform()  # noqa: E402
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 1. GLOBAL PAGE CONFIGURATION — must be the first Streamlit call

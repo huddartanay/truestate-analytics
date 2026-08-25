@@ -1,5 +1,5 @@
 """
-TruEstate Analytics — TruEstate Platform Shell.
+TruEstates Analytics — TruEstates Platform Shell.
 
 This package contains ONLY the new global platform layer:
 branding, design system, navigation, landing pages and the

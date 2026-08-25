@@ -24,7 +24,7 @@ at the end of the script run. Region content styling is left untouched.
 # ─────────────────────────────────────────────────────────────────────────────
 
 # The sidebar is intentionally dark in BOTH themes. It now carries the
-# TruEstate ground colour, so the rail reads as the brand and the workspace
+# TruEstates ground colour, so the rail reads as the brand and the workspace
 # reads as the document sitting on it.
 SIDEBAR_BG = "linear-gradient(180deg, #0C0C0D 0%, #131211 55%, #0A0A0B 100%)"
 SIDEBAR_TEXT = "#D6D0C8"
@@ -37,7 +37,7 @@ SIDEBAR_ACTIVE_TEXT = "#FFFFFF"
 SIDEBAR_ACTIVE_BAR = "#C9973F"
 
 # ── Brand ────────────────────────────────────────────────────────────────────
-# The palette is taken from the TruEstate.ai mark: a near-black ground with a
+# The palette is taken from the TruEstates.ai mark: a near-black ground with a
 # bronze accent. The values below are the actual colours sampled from the logo,
 # not approximations — #0A0A0B is 78% of its pixels and #B8731B is the accent
 # on the wordmark and the bar-chart glyph.

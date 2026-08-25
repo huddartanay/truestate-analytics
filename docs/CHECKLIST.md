@@ -9,7 +9,7 @@ Status: **complete and ready for company review. Not deployed.**
 Three environments behind one shell:
 
 ```
-                        TRUESTATE ANALYTICS
+                        TRUESTATES ANALYTICS
                                     │
         ┌───────────────────────────┼───────────────────────────┐
         ↓                           ↓                           ↓

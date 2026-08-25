@@ -16,3 +16,39 @@ toolbarMode = "minimal"
 
 [server]
 maxUploadSize = 500
+
+# Do not watch source files for changes.
+#
+# THIS IS THE FIX FOR THE HOSTED CRASH, and it is worth writing down why.
+#
+# The hosted log showed:
+#
+#     [10:01:33] 🐙 Pulling code changes from Github...
+#     streamlit_app.py:29 in <module>
+#       from platform_core import config as C
+#     in _load_unlocked:949
+#     KeyError: 'platform_core.config'
+#
+# Streamlit's LocalSourcesWatcher exists for local development: when a source
+# file changes it removes every watched module from `sys.modules`, so the next
+# script run picks the new code up without a restart. See
+# `streamlit/watcher/local_sources_watcher.py::flush_pending_evictions` —
+# it literally calls `sys.modules.pop(name, None)` on each of them.
+#
+# On Community Cloud a deploy rewrites the whole repository at once. That fires
+# the watcher while a script run is already in flight, and `platform_core.config`
+# is removed from `sys.modules` in the middle of being imported. CPython's
+# importer finishes executing the module and then does
+# `module = sys.modules.pop(spec.name)` — which is the KeyError above. The app
+# process dies, and the browser shows "Oh no. Error running app." with no
+# traceback of its own.
+#
+# The watcher earns nothing here. Hot reload is a development convenience;
+# hosted code only ever changes by redeploying, which restarts the process
+# anyway. Turning it off removes the only thing that mutates `sys.modules`
+# behind the running script, so the failure cannot recur.
+#
+# Local development is unaffected: this file is read by `streamlit run` too, so
+# if you want live reload while working locally, comment this line out — you
+# will just need to stop and restart the app to see code changes.
+fileWatcherType = "none"

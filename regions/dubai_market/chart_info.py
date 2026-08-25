@@ -2649,7 +2649,7 @@ for _c in CHARTS:
     _c.terms = _p.get("terms", [])
 
 # ═════════════════════════════════════════════════════════════════════════════
-# FORECAST — the live TruEstate Forecast API
+# FORECAST — the live TruEstates Forecast API
 #
 # A fourth source label. The three above describe files in this repository;
 # this one describes an answer fetched over the network at the moment it is
@@ -2663,7 +2663,7 @@ for _c in CHARTS:
 SOURCE_API = (
     "FORECAST API",
     "GET http://51.38.112.237:9500/forecast",
-    "The TruEstate Forecast API. Returns up to 6 months of LOWESS-smoothed history "
+    "The TruEstates Forecast API. Returns up to 6 months of LOWESS-smoothed history "
     "for one property profile, a single current valuation point, and 5–6 months of "
     "projection — optionally with a second, news-adjusted trajectory and a written "
     "market narrative. Nothing is stored; each answer is fetched when it is asked for.",

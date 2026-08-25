@@ -57,7 +57,7 @@ def build(df: pd.DataFrame, area: str, all_rows: int, result, inputs: dict,
         lede=(
             "Two analyses of the same area in one document. Section 1 is the recorded "
             "market: registered residential unit sales in Dubai, what has been "
-            "transacted and at what level. Section 2 is the forecast: what the TruEstate "
+            "transacted and at what level. Section 2 is the forecast: what the TruEstates "
             "Forecast API values one property profile at today, and where it puts that "
             "profile over the months ahead. Every figure in both sections is computed or "
             "returned at generation time — none is stored or hard-coded."
