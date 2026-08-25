@@ -402,11 +402,23 @@ class Report:
                       fontsize=12, color=MUTED, va="top", ha="left")
         y -= 0.58
 
-        # Lede
-        for line in textwrap.wrap(lede, 88):
-            self.fig.text(_fx(M_L), _fy(y), line, fontsize=9.3, color=INK,
-                          va="top", ha="left")
-            y -= 0.185
+        # Lede.
+        #
+        # Paragraph breaks are honoured: a newline in `lede` starts a new block
+        # and a blank line puts a gap between blocks. A lede written as one long
+        # string behaves exactly as it did before, because a string with no
+        # newline is simply one block. This is what lets a cover lay out "what
+        # Section 1 shows / what Section 2 shows / what Section 3 shows" as
+        # separate lines a reader can scan, instead of one dense paragraph they
+        # have to pick apart.
+        for block in lede.split("\n"):
+            if not block.strip():
+                y -= 0.10          # a blank line becomes a gap, not an empty row
+                continue
+            for line in textwrap.wrap(block, 88):
+                self.fig.text(_fx(M_L), _fy(y), line, fontsize=9.3, color=INK,
+                              va="top", ha="left")
+                y -= 0.175
 
         # Separator
         y -= 0.34
