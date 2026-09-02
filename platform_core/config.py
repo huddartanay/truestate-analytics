@@ -59,6 +59,10 @@ PAGE_CONFIG = dict(
 ROUTE_OVERVIEW = "overview"
 ROUTE_ABU_DHABI = "abu_dhabi"
 ROUTE_DUBAI = "dubai"
+# Sharjah — report-sourced regional dashboard, added directly under Dubai.
+ROUTE_SHARJAH = "sharjah"
+# RAK (Ras Al Khaimah) — report-sourced regional dashboard, added directly under Sharjah.
+ROUTE_RAK = "rak"
 ROUTE_AREA = "area"
 ROUTE_EXPERIMENTAL = "experimental"
 ROUTE_REPORT = "report"
@@ -127,6 +131,48 @@ REGIONS = {
             "69 areas · 2010–2026",
             "Amenity price analysis",
             "Published forecasts",
+        ],
+    },
+    ROUTE_SHARJAH: {
+        "id": ROUTE_SHARJAH,
+        "name": "Sharjah",
+        "flag": "🇦🇪",
+        "kicker": "Real Estate Market Intelligence",
+        "subtitle": "Report-sourced residential market intelligence for Sharjah",
+        "accent": "#9333EA",
+        "accent_soft": "rgba(147, 51, 234, 0.10)",
+        "description": (
+            "Sharjah regional analytics, built entirely from three published research "
+            "reports — Savills' Q1 2026 Sharjah residential dossier and two Marmore/Markaz "
+            "UAE reports contributing Sharjah-specific regulatory content. Nothing is "
+            "inferred from Dubai or Abu Dhabi."
+        ),
+        "highlights": [
+            "Q1 2026 · Savills primary source",
+            "Report-sourced KPIs",
+            "SRERD digital deeds",
+            "Sharjah Leasing Law 5/2024",
+        ],
+    },
+    ROUTE_RAK: {
+        "id": ROUTE_RAK,
+        "name": "RAK",
+        "flag": "🇦🇪",
+        "kicker": "Real Estate Market Intelligence",
+        "subtitle": "Report-sourced real-estate transactions for Ras Al Khaimah",
+        "accent": "#059669",
+        "accent_soft": "rgba(5, 150, 105, 0.10)",
+        "description": (
+            "Ras Al Khaimah regional analytics, built entirely from three official "
+            "reports issued by the RAK Statistics Office (Lands & Properties Sector) — "
+            "the 2024–2025 and 2020–2021 annual reports plus the January 2026 monthly "
+            "report. No value is carried over from Dubai, Sharjah or any other emirate."
+        ),
+        "highlights": [
+            "2024–2025 annual snapshot",
+            "2020–2021 historical context",
+            "January 2026 monthly report",
+            "Top areas · property use · investors",
         ],
     },
     ROUTE_EXPERIMENTAL: {

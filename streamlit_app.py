@@ -112,6 +112,16 @@ try:
 
         region_dubai.render()
 
+    elif route == C.ROUTE_SHARJAH:
+        from platform_pages import region_sharjah
+
+        region_sharjah.render()
+
+    elif route == C.ROUTE_RAK:
+        from platform_pages import region_rak
+
+        region_rak.render()
+
     elif route == C.ROUTE_AREA:
         from platform_pages import area as area_page
 

@@ -85,6 +85,10 @@ def render() -> None:
 
     _dubai_block(area)
     st.markdown("---")
+    _sharjah_block()
+    st.markdown("---")
+    _rak_block()
+    st.markdown("---")
     _abu_dhabi_block()
 
     ui.footer(C.PLATFORM_VERSION, f"Download Detailed Report · {area}")
@@ -228,6 +232,80 @@ def _prepare_both(df, area, all_rows, result, inputs, show_news) -> None:
         st.session_state.pop(K_BOTH_SIG, None)
         st.error(f"**The combined report could not be built.**\n\n"
                  f"`{type(exc).__name__}: {exc}`", icon="⚠️")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SHARJAH — report-sourced. Uses the same report registry as the Sharjah tab.
+# ─────────────────────────────────────────────────────────────────────────────
+
+K_SHJ_PDF = "uae.rep_shj_pdf"
+
+
+def _sharjah_block() -> None:
+    ui.section("Sharjah", "Report-sourced Sharjah market analytics PDF.", "🇦🇪")
+
+    try:
+        from platform_core import sharjah_report as builder
+    except Exception as exc:  # pragma: no cover
+        st.error("**The Sharjah report module could not be loaded.**\n\n"
+                 f"`{type(exc).__name__}: {exc}`", icon="⚠️")
+        return
+
+    st.caption("Built from three published research reports (Savills Q1 2026 + two "
+               "Marmore/Markaz UAE reports). Nothing is inferred from Dubai or "
+               "Abu Dhabi.")
+
+    if st.button("Prepare Sharjah report", use_container_width=True,
+                 key="rep_prep_shj"):
+        try:
+            with st.spinner("Building the Sharjah report…"):
+                st.session_state[K_SHJ_PDF] = builder.build()
+        except Exception as exc:  # pragma: no cover
+            st.session_state.pop(K_SHJ_PDF, None)
+            st.error(f"**The Sharjah report could not be built.**\n\n"
+                     f"`{type(exc).__name__}: {exc}`", icon="⚠️")
+
+    if _get(K_SHJ_PDF):
+        _offer(_get(K_SHJ_PDF),
+               f"Sharjah_Market_Analytics_Report_{datetime.now():%Y%m%d}.pdf",
+               "⬇️  Download Sharjah report", "rep_dl_shj")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# RAK — report-sourced. Uses the same registry as the RAK tab.
+# ─────────────────────────────────────────────────────────────────────────────
+
+K_RAK_PDF = "uae.rep_rak_pdf"
+
+
+def _rak_block() -> None:
+    ui.section("RAK", "Report-sourced RAK market analytics PDF.", "🇦🇪")
+
+    try:
+        from platform_core import rak_report as builder
+    except Exception as exc:  # pragma: no cover
+        st.error("**The RAK report module could not be loaded.**\n\n"
+                 f"`{type(exc).__name__}: {exc}`", icon="⚠️")
+        return
+
+    st.caption("Built from three RAK Statistics Office reports (2024–2025 annual, "
+               "2020–2021 annual, January 2026 monthly). Nothing is carried over "
+               "from Dubai, Sharjah or any other emirate.")
+
+    if st.button("Prepare RAK report", use_container_width=True,
+                 key="rep_prep_rak"):
+        try:
+            with st.spinner("Building the RAK report…"):
+                st.session_state[K_RAK_PDF] = builder.build()
+        except Exception as exc:  # pragma: no cover
+            st.session_state.pop(K_RAK_PDF, None)
+            st.error(f"**The RAK report could not be built.**\n\n"
+                     f"`{type(exc).__name__}: {exc}`", icon="⚠️")
+
+    if _get(K_RAK_PDF):
+        _offer(_get(K_RAK_PDF),
+               f"RAK_Market_Analytics_Report_{datetime.now():%Y%m%d}.pdf",
+               "⬇️  Download RAK report", "rep_dl_rak")
 
 
 # ─────────────────────────────────────────────────────────────────────────────

@@ -132,6 +132,15 @@ def render_sidebar() -> str:
         if _nav_item("🇦🇪   Dubai", C.ROUTE_DUBAI, current == C.ROUTE_DUBAI):
             goto(C.ROUTE_DUBAI)
 
+        # Sharjah — sits directly under Dubai, before every other item.
+        # Report-sourced regional dashboard (see regions/sharjah/).
+        if _nav_item("🇦🇪   Sharjah", C.ROUTE_SHARJAH, current == C.ROUTE_SHARJAH):
+            goto(C.ROUTE_SHARJAH)
+
+        # RAK — sits directly under Sharjah. Report-sourced (see regions/rak/).
+        if _nav_item("🇦🇪   RAK", C.ROUTE_RAK, current == C.ROUTE_RAK):
+            goto(C.ROUTE_RAK)
+
         # One global Dubai area selector. Deliberately a top-level destination
         # rather than a control repeated inside each graph.
         _area = area()
