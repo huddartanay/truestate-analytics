@@ -74,7 +74,7 @@ def _excel_writer_engine():
 def render() -> None:
     region = C.REGIONS[C.ROUTE_ABU_DHABI]
 
-    ui.breadcrumb("TruEstates analytics", "Locations", "Abu Dhabi")
+    ui.breadcrumb("TruEstate Analytics", "Locations", "Abu Dhabi")
     ui.region_header(
         region,
         chips=["12 analytical tabs", "Live filters", "Abu Dhabi DMT data"],
@@ -111,5 +111,14 @@ handful of luxury deals can pull upward.
             working_dir=C.ABU_DHABI_DIR,
             region_label="Abu Dhabi",
         )
+
+    # ── Report downloads ────────────────────────────────────────────────────
+    # The Abu Dhabi report block previously lived on the global "Download
+    # Detailed Report" page (report.py :: _abu_dhabi_block). It is called from
+    # here now so Abu Dhabi owns its own report functionality. The block itself
+    # is UNCHANGED — including the district picker it already carries.
+    st.markdown("---")
+    from platform_pages.report import _abu_dhabi_block
+    _abu_dhabi_block()
 
     ui.footer(C.PLATFORM_VERSION, "Abu Dhabi · Real Estate Analytics")

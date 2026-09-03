@@ -70,7 +70,11 @@ def _offer(pdf: bytes, filename: str, label: str, key: str) -> None:
 
 
 def render() -> None:
-    ui.breadcrumb("TruEstates analytics", "Download Detailed Report")
+    # Reached only from Dubai's sub-navigation now. Sharjah and RAK have their
+    # own in-tab download sections; Abu Dhabi's report block has been relocated
+    # into region_abu_dhabi.py. This page therefore renders only Dubai's block —
+    # the block function itself is unchanged.
+    ui.breadcrumb("TruEstate Analytics", "Locations", "Dubai", "Download Reports")
 
     area = nav.area()
 
@@ -78,20 +82,14 @@ def render() -> None:
         '<div class="uae-card uae-d1" style="margin-bottom:1.1rem">'
         '<p class="uae-h3">📄 Download detailed report</p>'
         '<p class="uae-sub" style="max-width:96ch">Print-ready PDFs, built from the live '
-        'data at the moment you ask for them. Dubai\'s reports follow whatever is selected '
-        'under 📍 Area; Abu Dhabi\'s follows the district chosen below.</p></div>',
+        'Dubai data at the moment you ask for them. Reports follow whatever is selected '
+        'under 📍 Area Selection above.</p></div>',
         unsafe_allow_html=True,
     )
 
     _dubai_block(area)
-    st.markdown("---")
-    _sharjah_block()
-    st.markdown("---")
-    _rak_block()
-    st.markdown("---")
-    _abu_dhabi_block()
 
-    ui.footer(C.PLATFORM_VERSION, f"Download Detailed Report · {area}")
+    ui.footer(C.PLATFORM_VERSION, f"Dubai · Download Reports · {area}")
 
 
 # ─────────────────────────────────────────────────────────────────────────────

@@ -132,7 +132,27 @@ def render_sidebar() -> str:
         if _nav_item("🇦🇪   Dubai", C.ROUTE_DUBAI, current == C.ROUTE_DUBAI):
             goto(C.ROUTE_DUBAI)
 
-        # Sharjah — sits directly under Dubai, before every other item.
+        # Dubai sub-navigation — Area Selection, Forecast, Download Reports.
+        # Expanded whenever Dubai or any of its sub-destinations is active,
+        # exactly the way Experimental Analysis expands its generations below.
+        # The routes themselves are unchanged; only the entry point has moved.
+        DUBAI_SUB = (C.ROUTE_DUBAI, C.ROUTE_AREA, C.ROUTE_FORECAST, C.ROUTE_REPORT)
+        if current in DUBAI_SUB:
+            _area = area()
+            _area_label = "📍   Area Selection" + (
+                "" if _area == C.ALL_AREAS else f"  ·  {_area}"
+            )
+            if _nav_item(_area_label, C.ROUTE_AREA,
+                         current == C.ROUTE_AREA, prefix="uaesub"):
+                goto(C.ROUTE_AREA)
+            if _nav_item("🔮   Forecast", C.ROUTE_FORECAST,
+                         current == C.ROUTE_FORECAST, prefix="uaesub"):
+                goto(C.ROUTE_FORECAST)
+            if _nav_item("📄   Download Reports", C.ROUTE_REPORT,
+                         current == C.ROUTE_REPORT, prefix="uaesub"):
+                goto(C.ROUTE_REPORT)
+
+        # Sharjah — sits directly under Dubai's sub-nav.
         # Report-sourced regional dashboard (see regions/sharjah/).
         if _nav_item("🇦🇪   Sharjah", C.ROUTE_SHARJAH, current == C.ROUTE_SHARJAH):
             goto(C.ROUTE_SHARJAH)
@@ -140,23 +160,6 @@ def render_sidebar() -> str:
         # RAK — sits directly under Sharjah. Report-sourced (see regions/rak/).
         if _nav_item("🇦🇪   RAK", C.ROUTE_RAK, current == C.ROUTE_RAK):
             goto(C.ROUTE_RAK)
-
-        # One global Dubai area selector. Deliberately a top-level destination
-        # rather than a control repeated inside each graph.
-        _area = area()
-        _area_label = "📍   Area" + ("" if _area == C.ALL_AREAS else f"  ·  {_area}")
-        if _nav_item(_area_label, C.ROUTE_AREA, current == C.ROUTE_AREA):
-            goto(C.ROUTE_AREA)
-
-        # Sits directly under Area because it reports on whatever Area holds.
-        if _nav_item("📄   Download Detailed Report", C.ROUTE_REPORT,
-                     current == C.ROUTE_REPORT):
-            goto(C.ROUTE_REPORT)
-
-        # Directly under the report, above Experimental Analysis. It reads the
-        # same Area as everything above it and never offers its own.
-        if _nav_item("🔮   Forecast", C.ROUTE_FORECAST, current == C.ROUTE_FORECAST):
-            goto(C.ROUTE_FORECAST)
 
         if _nav_item("🧪   Experimental Analysis", C.ROUTE_EXPERIMENTAL,
                      current == C.ROUTE_EXPERIMENTAL):
