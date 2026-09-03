@@ -40,6 +40,14 @@ RAK_ANNUAL_2021 = {
     "citation": "RAK Statistics Office, Real Estate Report on Lands and Properties Sector Transactions 2020–2021.",
 }
 
+RAK_ANNUAL_2022 = {
+    "id": "rak_annual_2022",
+    "publisher": "RAK Statistics Office — Lands & Properties Sector",
+    "title": "Real Estate Report on Lands and Properties Sector Transactions 2021–2022",
+    "period": "2021–2022",
+    "citation": "RAK Statistics Office, Real Estate Report on Lands and Properties Sector Transactions 2021–2022.",
+}
+
 RAK_MONTHLY_JAN26 = {
     "id": "rak_monthly_jan26",
     "publisher": "RAK Statistics Office — Lands & Properties Sector",
@@ -48,7 +56,7 @@ RAK_MONTHLY_JAN26 = {
     "citation": "RAK Statistics Office, Real Estate Trading Report — January 2025–2026.",
 }
 
-REPORTS = [RAK_ANNUAL_2025, RAK_ANNUAL_2021, RAK_MONTHLY_JAN26]
+REPORTS = [RAK_ANNUAL_2025, RAK_ANNUAL_2022, RAK_ANNUAL_2021, RAK_MONTHLY_JAN26]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -142,6 +150,106 @@ RAK_ANNUAL_2020_2021_COUNT = [
     {"category": "Total Number of Transactions", "y2020": 2792, "y2021": 4082,
      "share_2020": 100, "share_2021": 100, "change_pct": 46, "source": RAK_ANNUAL_2021},
 ]
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2021–2022 ANNUAL (RAK Annual 2022 = r3.pdf) — Table 1
+# ─────────────────────────────────────────────────────────────────────────────
+
+RAK_ANNUAL_2021_2022_VALUE = [
+    {"category": "Real Estate Sales Volume",     "y2021_aed": 1_738_994_965, "y2022_aed": 2_184_141_723,
+     "share_2021": 27, "share_2022": 30, "change_pct": 26, "source": RAK_ANNUAL_2022},
+    {"category": "Real Estate Mortgages Volume", "y2021_aed": 4_152_346_223, "y2022_aed": 4_088_088_578,
+     "share_2021": 63, "share_2022": 56, "change_pct": -2, "source": RAK_ANNUAL_2022},
+    {"category": "Waiver Market Value",          "y2021_aed":   667_421_666, "y2022_aed": 1_060_154_758,
+     "share_2021": 10, "share_2022": 14, "change_pct": 59, "source": RAK_ANNUAL_2022},
+    {"category": "Total Transactions",           "y2021_aed": 6_558_762_854, "y2022_aed": 7_332_385_059,
+     "share_2021": 100, "share_2022": 100, "change_pct": 12, "source": RAK_ANNUAL_2022},
+]
+
+RAK_ANNUAL_2021_2022_COUNT = [
+    {"category": "Real Estate Sales Number",     "y2021": 2406, "y2022": 2279,
+     "share_2021": 59, "share_2022": 58, "change_pct": -5, "source": RAK_ANNUAL_2022},
+    {"category": "Real Estate Mortgages Number", "y2021": 1147, "y2022": 942,
+     "share_2021": 28, "share_2022": 24, "change_pct": -18, "source": RAK_ANNUAL_2022},
+    {"category": "Waivers Number",               "y2021": 529,  "y2022": 720,
+     "share_2021": 13, "share_2022": 18, "change_pct": 36, "source": RAK_ANNUAL_2022},
+    {"category": "Total Number of Transactions", "y2021": 4082, "y2022": 3941,
+     "share_2021": 100, "share_2022": 100, "change_pct": -3, "source": RAK_ANNUAL_2022},
+]
+
+RAK_TOP_REGION_2022 = {
+    "year": 2022,
+    "region": "AL Jazeera AL Hamra Qaryat Al Hamra",
+    "source": RAK_ANNUAL_2022,
+}
+
+RAK_POPULAR_AREAS_2022 = [
+    {"rank": 1, "region": "AL Jazeera AL Hamra Qaryat Al Hamra",
+     "sales_value_2022_aed": 698_213_762, "sales_number_2022": 401,
+     "source": RAK_ANNUAL_2022},
+    {"rank": 2, "region": "Jazeerat AL Marjan",
+     "sales_value_2022_aed": 405_595_563, "sales_number_2022": 278,
+     "source": RAK_ANNUAL_2022},
+    {"rank": 3, "region": "AL Riffa",
+     "sales_value_2022_aed": 188_581_031, "sales_number_2022": 146,
+     "source": RAK_ANNUAL_2022},
+]
+
+# Property Use — 2021 vs 2022 (RAK Annual 2022 Table 3)
+RAK_PROPERTY_USE_2021_2022 = [
+    {"use": "Commercial Lands",       "y2021_aed":  28_375_000, "y2021_n":  34, "y2021_share": 1.4,
+                                       "y2022_aed":  11_192_177, "y2022_n": None, "y2022_share": 0.8, "change_pct": -61},
+    {"use": "Agricultural Lands",     "y2021_aed": 164_358_932, "y2021_n":  86, "y2021_share": 3.6,
+                                       "y2022_aed":  97_213_454, "y2022_n":  67, "y2022_share": 2.9, "change_pct": -41},
+    {"use": "Popular Houses",         "y2021_aed":  14_127_000, "y2021_n":  32, "y2021_share": 1.3,
+                                       "y2022_aed":  12_002_968, "y2022_n":  25, "y2022_share": 1.1, "change_pct": -15},
+    {"use": "Free Residential",       "y2021_aed": 249_072_687, "y2021_n": 836, "y2021_share": 34.7,
+                                       "y2022_aed": 221_984_259, "y2022_n": 692, "y2022_share": 30.4, "change_pct": -11},
+    {"use": "Built Residential",      "y2021_aed": 223_603_862, "y2021_n": 325, "y2021_share": 13.5,
+                                       "y2022_aed": 240_316_885, "y2022_n": 355, "y2022_share": 15.6, "change_pct":   7},
+    {"use": "Apartments (Investment)", "y2021_aed": 301_529_488, "y2021_n": 603, "y2021_share": 25.1,
+                                       "y2022_aed": 289_561_215, "y2022_n": 622, "y2022_share": 27.3, "change_pct":  -4},
+    {"use": "Villas (Investment)",    "y2021_aed": 261_613_103, "y2021_n": 180, "y2021_share": 7.5,
+                                       "y2022_aed": 286_495_639, "y2022_n": 193, "y2022_share": 8.5, "change_pct":  10},
+    {"use": "Commercial Residential", "y2021_aed": 160_614_010, "y2021_n": 144, "y2021_share": 6.0,
+                                       "y2022_aed": 218_184_380, "y2022_n": 148, "y2022_share": 6.5, "change_pct":  36},
+    {"use": "Investment Residential", "y2021_aed":  94_419_850, "y2021_n": 146, "y2021_share": 6.1,
+                                       "y2022_aed": 130_936_811, "y2022_n": 134, "y2022_share": 5.9, "change_pct":  80},
+    {"use": "Touristic Lands",        "y2021_aed": 226_377_780, "y2021_n":   3, "y2021_share": 0.1,
+                                       "y2022_aed": 661_607_500, "y2022_n":   4, "y2022_share": 0.2, "change_pct": 192},
+    {"use": "Commercial Unit",        "y2021_aed":   3_341_453, "y2021_n":  14, "y2021_share": 0.6,
+                                       "y2022_aed":  14_646_436, "y2022_n":  20, "y2022_share": 0.9, "change_pct":  76},
+]
+
+# Investors — 2022 (RAK Annual 2022 Tables 4 & 5)
+RAK_INVESTORS_BY_VALUE_2022 = [
+    {"rank":  1, "nationality": "UAE",                "value_aed": 892_242_650, "source": RAK_ANNUAL_2022},
+    {"rank":  2, "nationality": "UK",                 "value_aed":  81_486_431, "source": RAK_ANNUAL_2022},
+    {"rank":  3, "nationality": "India",              "value_aed":  75_424_828, "source": RAK_ANNUAL_2022},
+    {"rank":  4, "nationality": "The Russian Union",  "value_aed":  44_887_561, "source": RAK_ANNUAL_2022},
+    {"rank":  5, "nationality": "Austria",            "value_aed":  38_652_372, "source": RAK_ANNUAL_2022},
+    {"rank":  6, "nationality": "Kuwait",             "value_aed":  36_661_188, "source": RAK_ANNUAL_2022},
+    {"rank":  7, "nationality": "Germany",            "value_aed":  20_489_254, "source": RAK_ANNUAL_2022},
+    {"rank":  8, "nationality": "Bahrain",            "value_aed":  17_581_059, "source": RAK_ANNUAL_2022},
+    {"rank":  9, "nationality": "Canada",             "value_aed":  15_579_415, "source": RAK_ANNUAL_2022},
+    {"rank": 10, "nationality": "Pakistan",           "value_aed":  12_726_130, "source": RAK_ANNUAL_2022},
+]
+
+RAK_INVESTORS_BY_NUMBER_2022 = [
+    {"rank":  1, "nationality": "UAE",                "count": 1393, "source": RAK_ANNUAL_2022},
+    {"rank":  2, "nationality": "India",              "count":  111, "source": RAK_ANNUAL_2022},
+    {"rank":  3, "nationality": "UK",                 "count":  106, "source": RAK_ANNUAL_2022},
+    {"rank":  4, "nationality": "The Russian Union",  "count":   68, "source": RAK_ANNUAL_2022},
+    {"rank":  5, "nationality": "Kuwait",             "count":   59, "source": RAK_ANNUAL_2022},
+    {"rank":  6, "nationality": "Austria",            "count":   35, "source": RAK_ANNUAL_2022},
+    {"rank":  7, "nationality": "Germany",            "count":   30, "source": RAK_ANNUAL_2022},
+    {"rank":  8, "nationality": "Czech Republic",     "count":   26, "source": RAK_ANNUAL_2022},
+    {"rank":  9, "nationality": "Oman",               "count":   21, "source": RAK_ANNUAL_2022},
+    {"rank": 10, "nationality": "Jordan",             "count":   21, "source": RAK_ANNUAL_2022},
+]
+
+RAK_TOTAL_INVESTORS_2022 = 2279
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -478,13 +586,17 @@ def all_sources() -> list[dict]:
 
 def source_index() -> list[tuple[str, str]]:
     return [
-        ("Overview / Key stats",         RAK_ANNUAL_2025["citation"]),
-        ("2024–2025 transactions",       RAK_ANNUAL_2025["citation"]),
-        ("2020–2021 transactions",       RAK_ANNUAL_2021["citation"]),
-        ("Popular areas 2025",           RAK_ANNUAL_2025["citation"]),
-        ("Popular areas 2021",           RAK_ANNUAL_2021["citation"]),
-        ("Property use 2024–2025",       RAK_ANNUAL_2025["citation"]),
-        ("Investors 2024 & 2025",        RAK_ANNUAL_2025["citation"]),
-        ("Latest monthly (January 2026)", RAK_MONTHLY_JAN26["citation"]),
-        ("Monthly time series 2019–2026", "RAK Statistics Office monthly reports (26 PDFs; 35 data points extracted)."),
+        ("Overview / Key stats",           RAK_ANNUAL_2025["citation"]),
+        ("2024–2025 transactions",         RAK_ANNUAL_2025["citation"]),
+        ("2021–2022 transactions",         RAK_ANNUAL_2022["citation"]),
+        ("2020–2021 transactions",         RAK_ANNUAL_2021["citation"]),
+        ("Popular areas 2025",             RAK_ANNUAL_2025["citation"]),
+        ("Popular areas 2022",             RAK_ANNUAL_2022["citation"]),
+        ("Popular areas 2021",             RAK_ANNUAL_2021["citation"]),
+        ("Property use 2024–2025",         RAK_ANNUAL_2025["citation"]),
+        ("Property use 2021–2022",         RAK_ANNUAL_2022["citation"]),
+        ("Investors 2024 & 2025",          RAK_ANNUAL_2025["citation"]),
+        ("Investors 2022",                 RAK_ANNUAL_2022["citation"]),
+        ("Latest monthly (January 2026)",  RAK_MONTHLY_JAN26["citation"]),
+        ("Monthly time series 2019–2026",  "RAK Statistics Office monthly reports (27 PDFs; 35 data points extracted)."),
     ]

@@ -109,6 +109,29 @@ def _section_annual() -> None:
         _fmt(pd.DataFrame(rows, columns=["Category", "2024 count", "2024 share",
                                           "2025 count", "2025 share", "Δ count"]), {})
 
+    # ── 2021 vs 2022 (from r3.pdf) ─────────────────────────────────────────
+    ui.block("2021 vs 2022 — from the RAK Annual 2021-2022 report", "", "📚")
+    st.plotly_chart(ch.annual_value_2021_2022(), use_container_width=True, config=PC)
+    ui.chart_note(
+        "Reproduces RAK Annual 2022 Figure 1. Total Transactions rose 12% year-on-year "
+        "while the Total Number of Transactions fell 3%."
+    )
+    with st.expander("📋  RAK Annual 2022 Table 1 — full 2021 vs 2022 breakdown"):
+        rows = [[r["category"], _aed(r["y2021_aed"]), f"{r['share_2021']}%",
+                 _aed(r["y2022_aed"]), f"{r['share_2022']}%",
+                 f"{r['change_pct']:+d}%"]
+                for r in S.RAK_ANNUAL_2021_2022_VALUE]
+        _fmt(pd.DataFrame(rows, columns=["Category", "2021 value", "2021 share",
+                                          "2022 value", "2022 share", "Δ value"]), {})
+        rows = [[r["category"], f"{r['y2021']:,}", f"{r['share_2021']}%",
+                 f"{r['y2022']:,}", f"{r['share_2022']}%",
+                 f"{r['change_pct']:+d}%"]
+                for r in S.RAK_ANNUAL_2021_2022_COUNT]
+        _fmt(pd.DataFrame(rows, columns=["Category", "2021 count", "2021 share",
+                                          "2022 count", "2022 share", "Δ count"]), {})
+    st.caption(f"Source: {S.RAK_ANNUAL_2022['citation']}")
+
+    # ── 2020 vs 2021 historical context ────────────────────────────────────
     ui.block("Historical context — 2020 vs 2021", "", "📚")
     with st.expander("📋  RAK Annual 2021 Table 1 — full 2020 vs 2021 breakdown"):
         rows = [[r["category"], _aed(r["y2020_aed"]), f"{r['share_2020']}%",
@@ -153,6 +176,15 @@ def _section_areas() -> None:
                                       "2024 sales value", "2024 sales #",
                                       "Δ value"]), {})
     st.caption(f"Source: {S.RAK_ANNUAL_2025['citation']}")
+
+    with st.expander("📋  Historical — top three regions in 2022 (RAK Annual 2022 Table 2)"):
+        rows = [[r["rank"], r["region"],
+                 _aed(r["sales_value_2022_aed"]), f"{r['sales_number_2022']:,}"]
+                for r in S.RAK_POPULAR_AREAS_2022]
+        _fmt(pd.DataFrame(rows, columns=["Rank", "Region",
+                                          "2022 sales value", "2022 sales #"]), {})
+        st.caption(f"Top region in 2022 by transaction value: {S.RAK_TOP_REGION_2022['region']}. "
+                   f"Source: {S.RAK_ANNUAL_2022['citation']}")
 
     with st.expander("📋  Historical — top three regions in 2021 (RAK Annual 2021 Table 2)"):
         rows = [[r["rank"], r["region"],
@@ -205,6 +237,24 @@ def _section_property() -> None:
                                       "Δ value"]), {})
     st.caption(f"Source: {S.RAK_ANNUAL_2025['citation']}. {S.RAK_PROPERTY_USE_NOTE}")
 
+    with st.expander("📋  Historical — Property Use 2021 vs 2022 (RAK Annual 2022 Table 3)"):
+        rows = []
+        for r in S.RAK_PROPERTY_USE_2021_2022:
+            rows.append([
+                r["use"],
+                _aed(r["y2021_aed"]), f"{r['y2021_n']:,}" if r["y2021_n"] else "—",
+                f"{r['y2021_share']}%",
+                _aed(r["y2022_aed"]), f"{r['y2022_n']:,}" if r["y2022_n"] else "—",
+                f"{r['y2022_share']}%",
+                f"{r['change_pct']:+d}%" if r["change_pct"] is not None else "—",
+            ])
+        _fmt(pd.DataFrame(rows, columns=["Property use",
+                                          "2021 sales value", "2021 #", "2021 share",
+                                          "2022 sales value", "2022 #", "2022 share",
+                                          "Δ value"]), {})
+        st.caption(f"Source: {S.RAK_ANNUAL_2022['citation']}. Sharp increases: Touristic Lands "
+                   f"+192%, Commercial Unit +76%; sharp decrease: Commercial Lands -61%.")
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SECTION 5 — INVESTORS
@@ -246,6 +296,16 @@ def _section_investors() -> None:
                   for r in S.RAK_INVESTORS_BY_VALUE_2024]
         _fmt(pd.DataFrame(rows24, columns=["Rank", "Nationality", "2024 value"]), {})
     st.caption(f"Source: {S.RAK_ANNUAL_2025['citation']}")
+
+    with st.expander("📋  Historical — Investors 2022 (RAK Annual 2022 Tables 4 & 5)"):
+        st.caption(f"Total Investors in 2022: {S.RAK_TOTAL_INVESTORS_2022:,}. "
+                   f"Source: {S.RAK_ANNUAL_2022['citation']}")
+        rows_v = [[r["rank"], r["nationality"], _aed(r["value_aed"])]
+                  for r in S.RAK_INVESTORS_BY_VALUE_2022]
+        _fmt(pd.DataFrame(rows_v, columns=["Rank", "Nationality", "2022 value"]), {})
+        rows_n = [[r["rank"], r["nationality"], f"{r['count']:,}"]
+                  for r in S.RAK_INVESTORS_BY_NUMBER_2022]
+        _fmt(pd.DataFrame(rows_n, columns=["Rank", "Nationality", "2022 investor count"]), {})
 
 
 # ─────────────────────────────────────────────────────────────────────────────

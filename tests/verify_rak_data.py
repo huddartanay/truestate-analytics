@@ -57,6 +57,46 @@ check("Waivers # 2025 = 825",           825,  c["Waivers Number"]["y2025"])
 check("Total # 2025 = 5,269",           5269, c["Total Number of Transactions"]["y2025"])
 check("Total # 2024 = 5,054",           5054, c["Total Number of Transactions"]["y2024"])
 
+# ── 2021–2022 annual (r3.pdf / RAK Annual 2022 Table 1) ───────────────────
+section("2021–2022 annual (RAK Annual 2022 = r3.pdf)")
+v = {r["category"]: r for r in S.RAK_ANNUAL_2021_2022_VALUE}
+check("Sales 2022 = 2,184,141,723",     2_184_141_723, v["Real Estate Sales Volume"]["y2022_aed"])
+check("Mortgages 2022 = 4,088,088,578", 4_088_088_578, v["Real Estate Mortgages Volume"]["y2022_aed"])
+check("Waivers 2022 = 1,060,154,758",   1_060_154_758, v["Waiver Market Value"]["y2022_aed"])
+check("Total 2022 = 7,332,385,059",     7_332_385_059, v["Total Transactions"]["y2022_aed"])
+check("Total Δ 2021→2022 = +12%",       12, v["Total Transactions"]["change_pct"])
+
+c = {r["category"]: r for r in S.RAK_ANNUAL_2021_2022_COUNT}
+check("Sales # 2022 = 2,279",           2279, c["Real Estate Sales Number"]["y2022"])
+check("Mortgages # 2022 = 942",         942,  c["Real Estate Mortgages Number"]["y2022"])
+check("Waivers # 2022 = 720",           720,  c["Waivers Number"]["y2022"])
+check("Total # 2022 = 3,941",           3941, c["Total Number of Transactions"]["y2022"])
+check("Top region 2022 = AL Jazeera AL Hamra Qaryat Al Hamra",
+      "AL Jazeera AL Hamra Qaryat Al Hamra", S.RAK_TOP_REGION_2022["region"])
+
+# Popular areas 2022
+areas22 = {a["region"]: a for a in S.RAK_POPULAR_AREAS_2022}
+check("AL Jazeera AL Hamra 2022 = 698,213,762",
+      698_213_762, areas22["AL Jazeera AL Hamra Qaryat Al Hamra"]["sales_value_2022_aed"])
+check("Jazeerat AL Marjan 2022 = 405,595,563",
+      405_595_563, areas22["Jazeerat AL Marjan"]["sales_value_2022_aed"])
+check("AL Riffa 2022 = 188,581,031",
+      188_581_031, areas22["AL Riffa"]["sales_value_2022_aed"])
+
+# Property Use 2022 spot checks
+pu22 = {r["use"]: r for r in S.RAK_PROPERTY_USE_2021_2022}
+check("Touristic Lands 2022 Δ = +192%", 192, pu22["Touristic Lands"]["change_pct"])
+check("Commercial Lands 2022 Δ = -61%", -61, pu22["Commercial Lands"]["change_pct"])
+check("Free Residential 2022 = 221,984,259",
+      221_984_259, pu22["Free Residential"]["y2022_aed"])
+
+# Investors 2022
+inv22_v = {r["nationality"]: r["value_aed"] for r in S.RAK_INVESTORS_BY_VALUE_2022}
+check("UAE 2022 by value = 892,242,650",  892_242_650, inv22_v["UAE"])
+check("India 2022 by value = 75,424,828", 75_424_828,  inv22_v["India"])
+check("Total Investors 2022 = 2,279",     2279, S.RAK_TOTAL_INVESTORS_2022)
+
+
 # ── 2020–2021 historical totals (RAK Annual 2021 Table 1) ─────────────────
 section("2020–2021 historical totals (RAK Annual 2021 Table 1)")
 v = {r["category"]: r for r in S.RAK_ANNUAL_2020_2021_VALUE}

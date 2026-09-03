@@ -47,6 +47,32 @@ def annual_value_2024_2025(dark: bool = False) -> go.Figure:
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# ANNUAL VALUE 2021 vs 2022 (from r3.pdf) — grouped bar
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def annual_value_2021_2022(dark: bool = False) -> go.Figure:
+    rows = [r for r in S.RAK_ANNUAL_2021_2022_VALUE if r["category"] != "Total Transactions"]
+    cats = [r["category"] for r in rows]
+    y2021 = [r["y2021_aed"] / 1e9 for r in rows]
+    y2022 = [r["y2022_aed"] / 1e9 for r in rows]
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(name="2021", x=cats, y=y2021, marker_color=SECONDARY,
+                         text=[f"{v:.2f}B" for v in y2021], textposition="outside",
+                         hovertemplate="2021<br>%{x}<br>AED %{y:.2f}B<extra></extra>"))
+    fig.add_trace(go.Bar(name="2022", x=cats, y=y2022, marker_color=PRIMARY,
+                         text=[f"{v:.2f}B" for v in y2022], textposition="outside",
+                         hovertemplate="2022<br>%{x}<br>AED %{y:.2f}B<extra></extra>"))
+    lo = layout(title="Value of Real Estate Transactions in 2021 – 2022 (AED billion)",
+                height=420, show_legend=True, dark=dark, hovermode="x")
+    lo["barmode"] = "group"
+    lo["yaxis"]["title"] = {"text": "AED billion"}
+    fig.update_layout(**lo)
+    return fig
+
+
 def annual_count_2024_2025(dark: bool = False) -> go.Figure:
     rows = [r for r in S.RAK_ANNUAL_2024_2025_COUNT if r["category"] != "Total Number of Transactions"]
     cats = [r["category"] for r in rows]

@@ -58,6 +58,7 @@ def build() -> bytes:
     rep.new_page()
     _overview(rep)
     _annual_2024_2025(rep)
+    _annual_2021_2022(rep)
     _annual_2020_2021(rep)
     _monthly_series(rep)
     _popular_areas(rep)
@@ -125,6 +126,61 @@ def _annual_2024_2025(rep) -> None:
               widths=[0.28, 0.16, 0.12, 0.16, 0.12, 0.16],
               caption="Top Region in Terms of Real Estate Transaction Value 2025: "
                       "Jazeerat AL Marjan (2024 also).")
+
+
+def _annual_2021_2022(rep) -> None:
+    rep.h1("Annual Transactions — 2021 vs 2022", needs=2.4)
+    rep.body(
+        "Reproduced from the RAK Annual 2021–2022 report. Total Transactions rose 12% "
+        "year-on-year while the Total Number of Real Estate Transactions decreased 3%."
+    )
+    rows = [[r["category"], _aed(r["y2021_aed"]), f"{r['share_2021']}%",
+             _aed(r["y2022_aed"]), f"{r['share_2022']}%",
+             f"{r['change_pct']:+d}%"]
+            for r in S.RAK_ANNUAL_2021_2022_VALUE]
+    rep.table(["Category", "2021 value", "2021 share",
+               "2022 value", "2022 share", "Δ value"], rows,
+              widths=[0.28, 0.16, 0.12, 0.16, 0.12, 0.16],
+              caption=f"Source: {S.RAK_ANNUAL_2022['citation']}. Top region 2022: "
+                      f"{S.RAK_TOP_REGION_2022['region']}.")
+
+    rows = [[r["category"], f"{r['y2021']:,}", f"{r['share_2021']}%",
+             f"{r['y2022']:,}", f"{r['share_2022']}%",
+             f"{r['change_pct']:+d}%"]
+            for r in S.RAK_ANNUAL_2021_2022_COUNT]
+    rep.table(["Category", "2021 count", "2021 share",
+               "2022 count", "2022 share", "Δ count"], rows,
+              widths=[0.28, 0.16, 0.12, 0.16, 0.12, 0.16])
+
+    rep.h2("Popular Areas 2022", needs=1.4)
+    rows = [[a["rank"], a["region"], _aed(a["sales_value_2022_aed"]),
+             f"{a['sales_number_2022']:,}"] for a in S.RAK_POPULAR_AREAS_2022]
+    rep.table(["Rank", "Region", "2022 sales value", "2022 sales #"], rows,
+              widths=[0.08, 0.52, 0.24, 0.16],
+              caption=f"Source: {S.RAK_ANNUAL_2022['citation']}.")
+
+    rep.h2("Property Use 2021 vs 2022", needs=3.4)
+    rows = []
+    for r in S.RAK_PROPERTY_USE_2021_2022:
+        rows.append([
+            r["use"], _aed(r["y2021_aed"]), f"{r['y2021_share']}%",
+            _aed(r["y2022_aed"]), f"{r['y2022_share']}%",
+            f"{r['change_pct']:+d}%",
+        ])
+    rep.table(["Property use", "2021 value", "2021 share",
+               "2022 value", "2022 share", "Δ value"], rows,
+              widths=[0.30, 0.16, 0.12, 0.16, 0.12, 0.14],
+              caption=f"Source: {S.RAK_ANNUAL_2022['citation']}. "
+                      f"Touristic Lands +192%, Commercial Unit +76%, "
+                      f"Commercial Lands -61%.")
+
+    rep.h2("Investors 2022 — top ten by transaction value", needs=1.6)
+    rows = [[r["rank"], r["nationality"], _aed(r["value_aed"])]
+            for r in S.RAK_INVESTORS_BY_VALUE_2022]
+    rep.table(["Rank", "Nationality", "2022 value"], rows,
+              widths=[0.12, 0.58, 0.30],
+              caption=f"Total Investors in 2022: {S.RAK_TOTAL_INVESTORS_2022:,}. "
+                      f"Source: {S.RAK_ANNUAL_2022['citation']}.")
 
 
 def _annual_2020_2021(rep) -> None:
