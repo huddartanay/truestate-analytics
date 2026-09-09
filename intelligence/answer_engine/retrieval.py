@@ -58,7 +58,7 @@ def _bounded(facts,*,must_preserve_all=False,limit=MAX_FACTS):
     selected.sort(key=_order)
     return tuple(f.model_copy(update={'evidence_id':'E'+str(i+1)}) for i,f in enumerate(selected)),len(selected)<len(ordered)
 
-def from_response(response,mode='HELP'):
+def from_response(response,mode='HELP',*,max_facts=MAX_FACTS):
     response=QueryResponse.model_validate(response);result=response.result;route=response.route
     scope=REGISTRY.entities[route.filters.entity_ids[0]].canonical_name if route.filters.entity_ids else route.filters.emirate.value.replace('_',' ').title()
     if scope=='Uae Wide':scope='UAE'
@@ -78,7 +78,7 @@ def from_response(response,mode='HELP'):
             provenance=record.provenance or 'SOURCE_REPORTED',nature=record.nature or 'OBSERVED',
             rank=record.rank_number,position=record.position,group_id=record.group_id,title=record.title,
             source=lineage[0].source_name,published_at=lineage[0].published_at.isoformat() if lineage[0].published_at else None,lineage=lineage))
-    facts,truncated=_bounded(facts,must_preserve_all=route.intent.value.startswith('COMPARE'))
+    facts,truncated=_bounded(facts,must_preserve_all=route.intent.value.startswith('COMPARE'),limit=max_facts)
     missing=tuple(REGISTRY.entities[s.name].canonical_name if s.name in REGISTRY.entities else s.name.replace('_',' ')
                   for s in result.sections if s.status.value!='AVAILABLE')
     partial=result.status.value=='PARTIAL' or truncated
@@ -105,7 +105,7 @@ def retrieve(question,page_context=None,*,as_of=None,limit=MAX_FACTS):
         response=service.query(request.model_copy(update={'question':replacement}))
     return from_response(response).model_copy(update={'question':question}),response
 
-def dashboard(page_context,dashboard_facts,intelligence_context=None):
+def dashboard(page_context,dashboard_facts,intelligence_context=None,*,summary_limit=MAX_FACTS):
     ctx=context(page_context)
     if ctx is None:raise ValueError('DASHBOARD_CONTEXT_REQUIRED')
     question='UAE market outlook' if ctx.page_type=='OUTLOOK' else 'How is the property market here?'
@@ -127,12 +127,12 @@ def dashboard(page_context,dashboard_facts,intelligence_context=None):
     supplemental=QueryResponse.model_validate(intelligence_context) if intelligence_context is not None else response
     if supplemental.route.filters.emirate!=response.route.filters.emirate or supplemental.route.filters.entity_ids!=response.route.filters.entity_ids:
         raise ValueError('SUPPLEMENT_SCOPE_MISMATCH')
-    extra=from_response(supplemental,'DASHBOARD')
+    extra=from_response(supplemental,'DASHBOARD',max_facts=summary_limit)
     available=list(extra.facts)
-    room=MAX_FACTS-len(facts)
+    room=summary_limit-len(facts)
     selected,extra_truncated=_bounded(available,limit=room) if room else ((),bool(available))
     # Website analytics always have priority; never replace or recompute them.
-    facts.extend(selected);facts,truncated=_bounded(facts,must_preserve_all=True)
+    facts.extend(selected);facts,truncated=_bounded(facts,must_preserve_all=True,limit=summary_limit)
     groups={}
     for f in facts:
         if f.value is not None and f.rank is None:groups.setdefault(_group(f),set()).add(f.value)

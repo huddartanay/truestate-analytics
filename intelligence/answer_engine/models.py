@@ -6,6 +6,7 @@ from intelligence.query.models import Evidence
 
 SYSTEM_PROMPT_VERSION=ANSWER_ENGINE_VERSION=RETRIEVAL_VERSION='stage16-v1'
 MAX_FACTS=6
+MAX_SUMMARY_FACTS=10
 MAX_CONTEXT_BYTES=18000
 Provenance=Literal['SYSTEM_CALCULATED','SOURCE_REPORTED']
 Nature=Literal['OBSERVED','SOURCE_REPORTED_FORECAST']
@@ -37,9 +38,9 @@ class DashboardFact(Model):
         return self
 
 class Fact(Model):
-    evidence_id:str=Field(pattern=r'^E[1-6]$')
+    evidence_id:str=Field(pattern=r'^E(?:[1-9]|10)$')
     identity:str
-    origin:Literal['INTELLIGENCE','DASHBOARD']
+    origin:Literal['INTELLIGENCE','DASHBOARD','CURRENT_RSS']
     kind:str
     location:str
     metric:str|None=None
@@ -58,6 +59,7 @@ class Fact(Model):
     title:str|None=None
     source:str
     published_at:str|None=None
+    excerpt:str|None=Field(default=None,max_length=600)
     reference:str|None=None
     lineage:tuple[Evidence,...]=()
 
@@ -68,14 +70,19 @@ class Package(Model):
     intent:str
     action:str|None
     scope:str
-    facts:tuple[Fact,...]=Field(default=(),max_length=MAX_FACTS)
+    facts:tuple[Fact,...]=Field(default=(),max_length=MAX_SUMMARY_FACTS)
     missing:tuple[str,...]=()
     source_disagreement:bool=False
     truncated:bool=False
     retrieval_version:str=RETRIEVAL_VERSION
 
+    @model_validator(mode='after')
+    def mode_limit(self):
+        if self.mode=='HELP' and len(self.facts)>MAX_FACTS:raise ValueError('HELP_EVIDENCE_LIMIT')
+        return self
+
 class Claim(Model):
-    evidence_id:str=Field(pattern=r'^E[1-6]$')
+    evidence_id:str=Field(pattern=r'^E(?:[1-9]|10)$')
     value:str|None
     unit:str|None
     location:str
@@ -88,6 +95,23 @@ class Claim(Model):
 class Generated(Model):
     status:Literal['ANSWER','PARTIAL_DATA']
     claims:list[Claim]=Field(min_length=1,max_length=MAX_FACTS)
+
+class SummaryClaim(Claim):
+    # Short schema keys keep ten fully checked facts within the unchanged
+    # provider output cap. Internal field names/validation remain identical.
+    model_config=ConfigDict(extra='forbid',frozen=True,populate_by_name=True)
+    evidence_id:str=Field(alias='id',pattern=r'^E(?:[1-9]|10)$')
+    value:str|None=Field(alias='v')
+    unit:str|None=Field(alias='u')
+    location:str=Field(alias='l')
+    period:str|None=Field(alias='p')
+    provenance:Provenance=Field(alias='pr')
+    nature:Nature=Field(alias='n')
+    rank:int|None=Field(alias='r',ge=1,strict=True)
+    text:str|None=Field(alias='t',max_length=500)
+
+class RichGenerated(Generated):
+    claims:list[SummaryClaim]=Field(min_length=1,max_length=MAX_SUMMARY_FACTS)
 
 class RenderedClaim(Model):
     evidence_id:str

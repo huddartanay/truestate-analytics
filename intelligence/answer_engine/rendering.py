@@ -3,7 +3,7 @@ import html
 import re
 from decimal import Decimal
 from intelligence.query.resolution import entities
-from intelligence.answer_engine.models import Generated,RenderedClaim
+from intelligence.answer_engine.models import Generated,RichGenerated,RenderedClaim
 
 FIELDS=('value','unit','location','period','provenance','nature','rank')
 
@@ -12,7 +12,7 @@ def _numbers(text):
     return {Decimal(n.replace(',','')) for n in re.findall(r'(?<![\w])[+-]?\d[\d,]*(?:\.\d+)?',text)}
 
 def validate(package,generated):
-    generated=Generated.model_validate(generated)
+    generated=(RichGenerated if package.mode=='DASHBOARD' else Generated).model_validate(generated)
     if generated.status!=package.status:raise ValueError('STATUS_MISMATCH')
     if [c.evidence_id for c in generated.claims]!=[f.evidence_id for f in package.facts]:raise ValueError('CLAIM_COVERAGE_OR_ORDER')
     for claim,fact in zip(generated.claims,package.facts):
@@ -60,9 +60,36 @@ def render(package,generated):
             if re.search(r'ignore|instructions|system prompt|internal knowledge|reveal|hacked',title,re.I):title='source item (instruction-bearing headline withheld)'
             when='; published '+safe(f.published_at) if f.published_at else '; publication date unavailable'
             text=f'{safe(f.location)}: “{safe(title)}”{when}'
+        if f.origin=='CURRENT_RSS' and f.excerpt:
+            text+='; publisher excerpt: “'+safe(f.excerpt)+'”'
         text+=f', {label(f)} [{f.evidence_id}].'
         claims.append(RenderedClaim(evidence_id=f.evidence_id,text=text,provenance=f.provenance,nature=f.nature,source=f.source))
     prefix=[]
     if package.source_disagreement:prefix.append('Sources disagree; their supplied figures are kept separate without averaging.')
     if package.status=='PARTIAL_DATA':prefix.append('Partial data: '+('; '.join(safe(s) for s in package.missing) or 'complete requested coverage')+' is unavailable.')
+    if package.mode=='DASHBOARD':return briefing(package,claims,prefix),tuple(claims)
     return '\n'.join(prefix+['- '+c.text for c in claims]),tuple(claims)
+
+
+def briefing(package,claims,prefix):
+    by_id={c.evidence_id:c for c in claims}
+    current=[f for f in package.facts if f.origin=='CURRENT_RSS']
+    signals=[f for f in package.facts if f.origin!='CURRENT_RSS']
+    lines=['### Market overview',f'This briefing covers the supplied evidence for {safe(package.scope)}. Dashboard analytics and publisher reports retain their own dates and provenance; publication recency does not make historical measurements current.']+prefix
+    if signals:
+        lines+=['### Key market signals']+['- '+by_id[f.evidence_id].text for f in signals]
+    if current:
+        lines+=['### Latest intelligence']+['- '+by_id[f.evidence_id].text for f in current]
+    interpretation=[]
+    if any(f.provenance=='SYSTEM_CALCULATED' for f in package.facts):interpretation.append('Dashboard calculations describe the displayed dataset and reporting period; they are not real-time RSS measurements.')
+    if any(f.provenance=='SOURCE_REPORTED' for f in package.facts):interpretation.append('Publisher claims describe the cited reporting; they do not establish a system-calculated market trend.')
+    if any(f.nature=='SOURCE_REPORTED_FORECAST' for f in package.facts):interpretation.append('Forecast evidence describes expectations, not observed outcomes.')
+    if any(not f.period for f in package.facts if f.value is not None):interpretation.append('Some supplied figures lack a normalized period, which limits time-based comparisons.')
+    if current:interpretation.append('The current developments cover only the matched approved RSS articles; they are not comprehensive coverage of the whole market.')
+    if interpretation:lines+=['### What it means']+['- '+s for s in interpretation]
+    watch=[]
+    if current:watch.append('Monitor follow-up reporting on the cited developments before treating them as completed outcomes. '+ ' '.join('['+f.evidence_id+']' for f in current))
+    if signals:watch.append('Monitor the next comparable observation for the cited metrics; no missing movement or ranking has been calculated here. '+ ' '.join('['+f.evidence_id+']' for f in signals))
+    if watch:lines+=['### Watchlist']+['- '+s for s in watch]
+    lines+=['### Sources']+['- ['+f.evidence_id+'] '+safe(f.source)+(' — current RSS reporting' if f.origin=='CURRENT_RSS' else ' — '+label(f)) for f in package.facts]
+    return '\n\n'.join(lines)

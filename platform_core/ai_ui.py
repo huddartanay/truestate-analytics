@@ -17,6 +17,7 @@ def show(view):
             with st.expander('Sources and dates'):
                 for source in view.sources:
                     st.text(f"[{source['evidence_id']}] {source['source']}")
+                    if source.get('article_title'):st.text(source['article_title'])
                     if source.get('url'):st.link_button('Open source article',source['url'])
                     elif source.get('reference'):st.caption(source['reference'])
                     if source.get('published_at'):st.caption('Published: '+source['published_at'])
@@ -31,7 +32,7 @@ def render(snapshot):
         except ProductionUnavailable:
             st.info('TruEstate intelligence data is currently unavailable.')
             build=None
-        as_of=build.completed_at if build else datetime.now().astimezone().replace(hour=0,minute=0,second=0,microsecond=0).isoformat()
+        as_of=datetime.now().astimezone().replace(hour=0,minute=0,second=0,microsecond=0).isoformat()
         key=service.context_key(snapshot.context,snapshot.facts,snapshot.selection,build,as_of)
         state=st.session_state.get('truestate.ai')
         if not state or state['context_key']!=key:
@@ -40,12 +41,15 @@ def render(snapshot):
             st.session_state['truestate.ai']=state
         if build:st.caption('Intelligence updated: '+build.completed_at+' · Summary runs only when requested.')
         if st.button('Refresh summary' if state['summary'] else 'Generate summary',key='truestate.ai.summary'):
-            with st.spinner('Checking the available evidence and preparing your summary… This may take a little longer when the service is busy.'):
+            with st.spinner('Refreshing current TruEstate intelligence if needed, then analyzing the available evidence…'):
                 result=service.display_result(service.call('summary',build,context=snapshot.context,facts=snapshot.facts,secrets=st.secrets))
             # Failures are displayed but never treated as a reusable successful summary.
             state['summary']=asdict(result) if result.status in ('ANSWER','PARTIAL_DATA') else None
             if state['summary'] is None:show(result)
         if state['summary']:show(service.View(**state['summary']))
+        from intelligence.current.cache import read,root_path
+        current=read(root_path())
+        if current:st.caption('Current RSS intelligence processed: '+current[1]['processed_at']+' · Sources successful in last check: '+str(current[1]['sources_successful']))
         with st.expander('Ask TruEstate',expanded=False):
             st.caption('Ask about UAE property markets. Suggested questions use available intelligence; dashboard filters do not constrain explicit questions about another UAE location.')
             chosen=None
@@ -59,9 +63,10 @@ def render(snapshot):
                 question=st.text_input('Your UAE real-estate question',max_chars=1000)
                 submitted=st.form_submit_button('Ask TruEstate')
             if submitted and question.strip():
-                chosen=QueryRequest(question=question.strip(),page_context=snapshot.context,as_of=datetime.fromisoformat(as_of))
+                chosen=QueryRequest(question=question.strip(),page_context=snapshot.context,as_of=datetime.now().astimezone())
             if chosen:
-                with st.spinner('Retrieving and checking TruEstate evidence…'):
+                chosen=chosen.model_copy(update={'as_of':datetime.now().astimezone()})
+                with st.spinner('Analyzing current UAE real-estate intelligence…'):
                     result=service.display_result(service.call('help',build,request=chosen,secrets=st.secrets))
                 state['history'].append(dict(question=chosen.question,**asdict(result)))
                 state['history']=state['history'][-8:]

@@ -39,8 +39,9 @@ def dispatch(payload):
         try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         except BlockingIOError:return {'error':'BUSY'}
         engine=AnswerEngine()
-        if operation=='summary':result=engine.generate_dashboard_summary(context,payload['facts'])
-        else:result=engine.answer_request(request)
+        from intelligence.current.retrieval import summary_package,help_package
+        if operation=='summary':result=engine._answer(lambda:summary_package(context,payload['facts']))
+        else:result=engine._answer(lambda:help_package(request))
         return result.model_dump(mode='json')
 
 

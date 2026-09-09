@@ -37,3 +37,6 @@ intelligence/llm/mvp_selection.py
 intelligence/llm/final_qualification_gate.py
 intelligence/llm/targeted_qualification_gate.py
 deploy/stage18_refresh.cron.example
+
+# Bounded current RSS cache and private acquisition history.
+data/current_intelligence/

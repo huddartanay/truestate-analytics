@@ -12,7 +12,7 @@ from urllib.error import HTTPError
 from intelligence.llm import openrouter_settings as settings
 from intelligence.llm.openrouter import OpenRouterClient,ProviderError,InvalidStructuredOutput
 from intelligence.answer_engine import retrieval
-from intelligence.answer_engine.models import Answer,Audit,Generated,Package
+from intelligence.answer_engine.models import Answer,Audit,Generated,RichGenerated,Package
 from intelligence.answer_engine.prompt import messages
 from intelligence.answer_engine.rendering import render
 
@@ -87,8 +87,9 @@ class AnswerEngine:
             if observer:client.opener=observer
             for attempt in range(1,self.max_attempts+1):
                 try:
-                    result=client.structured(model=MODEL,messages=prompt,output_type=Generated,**settings.SELECTED_PROVIDER)
-                    output=Generated.model_validate(result['contract'])
+                    output_type=RichGenerated if package.mode=='DASHBOARD' else Generated
+                    result=client.structured(model=MODEL,messages=prompt,output_type=output_type,**settings.SELECTED_PROVIDER)
+                    output=output_type.model_validate(result['contract'])
                     answer,claims=render(package,output)
                 except (InvalidStructuredOutput,ValueError,KeyError,TypeError):
                     return self._finish(package,start,retrieval_ms,'VALIDATION_FAILED',attempts=attempt,validation='FAIL',error='GENERATED_CONTRACT_INVALID',request_id=request_id)

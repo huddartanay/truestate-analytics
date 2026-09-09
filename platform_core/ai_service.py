@@ -24,7 +24,7 @@ class View:
 
 def context_key(context,facts,selection,build,as_of):
     value=dict(context=context.model_dump(mode='json'),facts=[f.model_dump(mode='json') for f in facts],
-        selection=selection,build_id=build.build_id if build else None,artifact=build.sha256 if build else None,as_of=as_of,engine=ANSWER_ENGINE_VERSION)
+        selection=selection,build_id=build.build_id if build else None,artifact=build.sha256 if build else None,as_of=as_of,engine=ANSWER_ENGINE_VERSION,current_contract='current-rss-rich-summary-v1')
     return hashlib.sha256(json.dumps(value,sort_keys=True,default=str).encode()).hexdigest()
 
 
@@ -54,7 +54,7 @@ def call(operation,build,*,context=None,facts=(),request=None,as_of=None,secrets
     try:
         result=subprocess.run([sys.executable,'-m','intelligence.production.worker'],
             input=json.dumps(payload),capture_output=True,text=True,cwd=ROOT,env=env,
-            timeout=345 if operation in ('help','summary') else 20)
+            timeout=650 if operation in ('help','summary') else 20)
         return json.loads(result.stdout) if result.returncode==0 else {'error':'TEMPORARILY_UNAVAILABLE'}
     except Exception:return {'error':'TEMPORARILY_UNAVAILABLE'}
 
@@ -75,7 +75,7 @@ def display_result(raw):
                 published_at=None,retrieved_at=None))
         for e in f.lineage:
             sources.append(dict(evidence_id=f.evidence_id,source=e.source_name,reference=e.reference_id,
-                url=safe_url(e.article_url),published_at=e.published_at.isoformat() if e.published_at else None,
+                url=safe_url(e.article_url),source_id=e.source_id,article_title=f.title,published_at=e.published_at.isoformat() if e.published_at else None,
                 retrieved_at=e.retrieved_at.isoformat()))
     return View(answer.status,answer.answer,tuple(sources))
 
