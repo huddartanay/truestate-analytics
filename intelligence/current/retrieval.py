@@ -107,7 +107,7 @@ def current_package(request,build,mode='HELP'):
         if term and normalized(term) not in content:continue
         if terms and not re.search(r'\b'+r'\s+'.join(re.escape(t) for t in terms)+r'\b',content):continue
         seen.add(e.metric_result_id)
-        candidates.append(fact.model_copy(update={'origin':'CURRENT_RSS','excerpt':excerpt(a['clean_body'],term)}))
+        candidates.append(fact.model_copy(update={'origin':'CURRENT_RSS','title':fact.title or a['clean_title'],'excerpt':excerpt(a['clean_body'],term)}))
     candidates.sort(key=lambda f:(f.published_at or '',trust.get(f.lineage[0].source_id,0),f.identity),reverse=True)
     bound=5 if mode=='DASHBOARD' else MAX_FACTS
     selected=candidates[:bound]

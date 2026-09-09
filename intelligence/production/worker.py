@@ -12,23 +12,18 @@ def dispatch(payload):
     from intelligence import config as cfg
     from intelligence.query.models import QueryRequest,PageContext
     from intelligence.query.service import query
-    from intelligence.query.suggestions import get_context_suggestions
+    from intelligence.current.suggestions import available_suggestions
+    from intelligence.query.suggestions import SuggestionResult
     from intelligence.answer_engine import AnswerEngine
     if payload['operation']=='suggestions' and payload.get('artifact') is None:
-        # Deterministic catalog only, with a guaranteed absent database. This
-        # cannot accidentally read a local development or fixture build.
-        from tempfile import TemporaryDirectory
-        from pathlib import Path
-        with TemporaryDirectory(prefix='truestate-empty-catalog-') as directory:
-            cfg.DB_PATH=Path(directory)/'absent.db'
-            return get_context_suggestions(payload.get('context'),as_of=payload.get('as_of')).model_dump(mode='json')
+        return SuggestionResult(suggestions=(),status='NO_AVAILABLE_QUESTIONS').model_dump(mode='json')
     build=load_build(payload['root'])
     if build.sha256!=payload['artifact']:return {'error':'BUILD_CHANGED'}
     cfg.DB_PATH=build.path
     request=QueryRequest.model_validate(payload['request']) if payload.get('request') else None
     context=PageContext.model_validate(payload['context']) if payload.get('context') else None
     operation=payload['operation']
-    if operation=='suggestions':return get_context_suggestions(context,as_of=payload.get('as_of')).model_dump(mode='json')
+    if operation=='suggestions':return available_suggestions(context,as_of=payload.get('as_of')).model_dump(mode='json')
     if operation=='query':return query(request).model_dump(mode='json')
     if operation not in ('summary','help'):return {'error':'INVALID_OPERATION'}
     # Cross-process concurrency = 1 on this host. No waiting queue or UI retries.

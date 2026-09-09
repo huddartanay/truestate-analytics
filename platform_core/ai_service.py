@@ -6,13 +6,12 @@ from dataclasses import dataclass
 import hashlib
 import json
 import os
-from pathlib import Path
 import subprocess
 import sys
-from intelligence.answer_engine.models import ANSWER_ENGINE_VERSION,Answer,DashboardFact
-from intelligence.answer_engine.engine import STOP_TEXT
-from intelligence.production.store import ROOT,load_build,production_root,safe_url,ProductionUnavailable
-from intelligence.query.models import PageContext,QueryRequest
+from intelligence.answer_engine.models import ANSWER_ENGINE_VERSION,Answer
+from platform_core import ai_presentation as presentation
+from intelligence.production.store import ROOT,production_root
+from intelligence.query.models import QueryRequest
 from intelligence.query.suggestions import SuggestionResult
 
 @dataclass(frozen=True)
@@ -20,11 +19,12 @@ class View:
     status: str
     answer: str
     sources: tuple=()
+    alternatives: tuple=()
 
 
-def context_key(context,facts,selection,build,as_of):
+def context_key(context,facts,selection,build,as_of,*,current_fingerprint=None):
     value=dict(context=context.model_dump(mode='json'),facts=[f.model_dump(mode='json') for f in facts],
-        selection=selection,build_id=build.build_id if build else None,artifact=build.sha256 if build else None,as_of=as_of,engine=ANSWER_ENGINE_VERSION,current_contract='current-rss-rich-summary-v1')
+        selection=selection,build_id=build.build_id if build else None,artifact=build.sha256 if build else None,as_of=as_of,engine=ANSWER_ENGINE_VERSION,current_contract='market-assistant-ux-v1',current_fingerprint=current_fingerprint)
     return hashlib.sha256(json.dumps(value,sort_keys=True,default=str).encode()).hexdigest()
 
 
@@ -59,30 +59,41 @@ def call(operation,build,*,context=None,facts=(),request=None,as_of=None,secrets
     except Exception:return {'error':'TEMPORARILY_UNAVAILABLE'}
 
 
-def display_result(raw):
-    if raw.get('stopped') in ('NO_DATA','OUT_OF_SCOPE'):return View(raw['stopped'],STOP_TEXT[raw['stopped']])
-    if 'error' in raw:return View('TEMPORARILY_UNAVAILABLE',STOP_TEXT['TEMPORARILY_UNAVAILABLE'])
+def request_key(request,build,current_fingerprint=None):
+    """Identity for audit/history only; generated chat answers are never reused."""
+    import unicodedata
+    data=QueryRequest.model_validate(request).model_dump(mode='json')
+    data['question']=' '.join(unicodedata.normalize('NFKC',data['question']).casefold().split())
+    return hashlib.sha256(json.dumps({'request':data,'historical':build.sha256 if build else None,
+        'current':current_fingerprint},sort_keys=True).encode()).hexdigest()
+
+
+def display_result(raw,*,summary=False,request=None,alternatives=()):
+    def stopped(status):
+        text=presentation.MESSAGES.get(status,presentation.MESSAGES['TEMPORARILY_UNAVAILABLE'])
+        if status=='NO_DATA' and request:
+            from intelligence.current.retrieval import subject
+            from intelligence.query.router import route
+            name=subject(request);decision=route(request)
+            if name:text="I couldn't find enough verified information about "+presentation.clean(name)+" in the available market information."
+            elif decision.action_id=='get_latest_projects':
+                location=decision.filters.emirate.value.replace('_',' ').title().replace('Uae Wide','the UAE')
+                text="I don't currently have enough verified project information for "+location+" to answer that reliably."
+        return View(status,text,alternatives=tuple(alternatives[:3]) if status=='NO_DATA' else ())
+    if raw.get('stopped') in ('NO_DATA','OUT_OF_SCOPE'):return stopped(raw['stopped'])
+    if 'error' in raw:return stopped('TEMPORARILY_UNAVAILABLE')
     try:answer=Answer.model_validate(raw)
-    except Exception:return View('VALIDATION_FAILED',STOP_TEXT['VALIDATION_FAILED'])
-    if answer.status not in ('ANSWER','PARTIAL_DATA'):
-        status=answer.status if answer.status in STOP_TEXT else 'TEMPORARILY_UNAVAILABLE'
-        return View(status,STOP_TEXT[status])
-    if answer.audit.validation!='PASS' or not answer.claims:return View('VALIDATION_FAILED',STOP_TEXT['VALIDATION_FAILED'])
-    sources=[]
-    for f in answer.evidence:
-        if not f.lineage:
-            sources.append(dict(evidence_id=f.evidence_id,source=f.source,reference=f.reference,url=None,
-                published_at=None,retrieved_at=None))
-        for e in f.lineage:
-            sources.append(dict(evidence_id=f.evidence_id,source=e.source_name,reference=e.reference_id,
-                url=safe_url(e.article_url),source_id=e.source_id,article_title=f.title,published_at=e.published_at.isoformat() if e.published_at else None,
-                retrieved_at=e.retrieved_at.isoformat()))
-    return View(answer.status,answer.answer,tuple(sources))
+    except Exception:return stopped('VALIDATION_FAILED')
+    if answer.status not in ('ANSWER','PARTIAL_DATA'):return stopped(answer.status if answer.status in presentation.MESSAGES else 'TEMPORARILY_UNAVAILABLE')
+    if answer.audit.validation!='PASS' or not answer.claims:return stopped('VALIDATION_FAILED')
+    # Exact IDs/claims remain internal. Only already-validated facts enter the
+    # plain-language presenter; raw model drafts and exception bodies never do.
+    return View(answer.status,presentation.business_answer(answer,summary=summary),presentation.public_sources(answer))
 
 
 def suggestions(build,context,as_of):
     result=call('suggestions',build,context=context,as_of=as_of)
     try:
         typed=SuggestionResult.model_validate(result)
-        return typed.suggestions if len(typed.suggestions)==5 else ()
+        return tuple(s for s in typed.suggestions if s.data_status.value in ('AVAILABLE','PARTIAL'))
     except Exception:return ()
