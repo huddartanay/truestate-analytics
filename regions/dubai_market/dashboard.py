@@ -1507,6 +1507,9 @@ def render(dark: bool = False) -> None:
     ui.section("Executive KPIs", f"Live indicators across {scope} in the current selection.", "📊")
     ui.kpi_grid(mx.executive_kpis(df))
 
+    from platform_core import ai_ui, ai_facts
+    ai_ui.safe_render(lambda: ai_facts.dubai(df, area=None if global_area == C.ALL_AREAS else global_area, filters=filters))
+
     # ── 2. Smart Business Insights ───────────────────────────────────────────
     ui.section("Smart Business Insights",
                "Observations derived automatically from the filtered Dubai data.", "💡")

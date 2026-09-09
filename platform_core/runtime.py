@@ -64,7 +64,7 @@ def _error_card(title: str, detail: str, hint: str = "") -> None:
     )
 
 
-def run_region(entry: Path, working_dir: Path, region_label: str) -> None:
+def run_region(entry: Path, working_dir: Path, region_label: str) -> dict | None:
     """
     Execute a regional Streamlit script inside the platform shell.
 
@@ -96,7 +96,7 @@ def run_region(entry: Path, working_dir: Path, region_label: str) -> None:
         os.chdir(working_dir)
 
         try:
-            runpy.run_path(str(entry), run_name="__main__")
+            return runpy.run_path(str(entry), run_name="__main__")
 
         except BaseException as exc:  # noqa: BLE001 — deliberate broad guard
             if _is_control_flow(exc):

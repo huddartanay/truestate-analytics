@@ -1,0 +1,839 @@
+{
+  "version": "entity-registry-v1",
+  "entities": [
+    {
+      "entity_id": "country:uae",
+      "canonical_name": "United Arab Emirates",
+      "entity_type": "COUNTRY",
+      "aliases": [
+        {
+          "text": "United Arab Emirates",
+          "language": "en"
+        },
+        {
+          "text": "UAE",
+          "language": "en"
+        },
+        {
+          "text": "الإمارات",
+          "language": "ar"
+        },
+        {
+          "text": "الإمارات العربية المتحدة",
+          "language": "ar"
+        }
+      ],
+      "parent_entity_id": null,
+      "emirate": null,
+      "active": true,
+      "provenance": [
+        "Stage 10 authorization sections 11-13; explicit country/emirate aliases and qualified same-name city policy"
+      ]
+    },
+    {
+      "entity_id": "emirate:dubai",
+      "canonical_name": "Dubai",
+      "entity_type": "EMIRATE",
+      "aliases": [
+        {
+          "text": "Dubai",
+          "language": "en"
+        },
+        {
+          "text": "دبي",
+          "language": "ar"
+        }
+      ],
+      "parent_entity_id": "country:uae",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "Stage 10 authorization sections 11-13; explicit country/emirate aliases and qualified same-name city policy"
+      ]
+    },
+    {
+      "entity_id": "emirate:abu_dhabi",
+      "canonical_name": "Abu Dhabi",
+      "entity_type": "EMIRATE",
+      "aliases": [
+        {
+          "text": "Abu Dhabi",
+          "language": "en"
+        },
+        {
+          "text": "أبوظبي",
+          "language": "ar"
+        },
+        {
+          "text": "أبو ظبي",
+          "language": "ar"
+        }
+      ],
+      "parent_entity_id": "country:uae",
+      "emirate": "ABU_DHABI",
+      "active": true,
+      "provenance": [
+        "Stage 10 authorization sections 11-13; explicit country/emirate aliases and qualified same-name city policy"
+      ]
+    },
+    {
+      "entity_id": "emirate:sharjah",
+      "canonical_name": "Sharjah",
+      "entity_type": "EMIRATE",
+      "aliases": [
+        {
+          "text": "Sharjah",
+          "language": "en"
+        },
+        {
+          "text": "الشارقة",
+          "language": "ar"
+        }
+      ],
+      "parent_entity_id": "country:uae",
+      "emirate": "SHARJAH",
+      "active": true,
+      "provenance": [
+        "Stage 10 authorization sections 11-13; explicit country/emirate aliases and qualified same-name city policy"
+      ]
+    },
+    {
+      "entity_id": "emirate:ajman",
+      "canonical_name": "Ajman",
+      "entity_type": "EMIRATE",
+      "aliases": [
+        {
+          "text": "Ajman",
+          "language": "en"
+        },
+        {
+          "text": "عجمان",
+          "language": "ar"
+        }
+      ],
+      "parent_entity_id": "country:uae",
+      "emirate": "AJMAN",
+      "active": true,
+      "provenance": [
+        "Stage 10 authorization sections 11-13; explicit country/emirate aliases and qualified same-name city policy"
+      ]
+    },
+    {
+      "entity_id": "emirate:ras_al_khaimah",
+      "canonical_name": "Ras Al Khaimah",
+      "entity_type": "EMIRATE",
+      "aliases": [
+        {
+          "text": "Ras Al Khaimah",
+          "language": "en"
+        },
+        {
+          "text": "رأس الخيمة",
+          "language": "ar"
+        },
+        {
+          "text": "RAK",
+          "language": "en",
+          "abbreviation": true
+        }
+      ],
+      "parent_entity_id": "country:uae",
+      "emirate": "RAS_AL_KHAIMAH",
+      "active": true,
+      "provenance": [
+        "Stage 10 authorization sections 11-13; explicit country/emirate aliases and qualified same-name city policy"
+      ]
+    },
+    {
+      "entity_id": "emirate:fujairah",
+      "canonical_name": "Fujairah",
+      "entity_type": "EMIRATE",
+      "aliases": [
+        {
+          "text": "Fujairah",
+          "language": "en"
+        },
+        {
+          "text": "الفجيرة",
+          "language": "ar"
+        }
+      ],
+      "parent_entity_id": "country:uae",
+      "emirate": "FUJAIRAH",
+      "active": true,
+      "provenance": [
+        "Stage 10 authorization sections 11-13; explicit country/emirate aliases and qualified same-name city policy"
+      ]
+    },
+    {
+      "entity_id": "emirate:umm_al_quwain",
+      "canonical_name": "Umm Al Quwain",
+      "entity_type": "EMIRATE",
+      "aliases": [
+        {
+          "text": "Umm Al Quwain",
+          "language": "en"
+        },
+        {
+          "text": "أم القيوين",
+          "language": "ar"
+        },
+        {
+          "text": "UAQ",
+          "language": "en",
+          "abbreviation": true
+        }
+      ],
+      "parent_entity_id": "country:uae",
+      "emirate": "UMM_AL_QUWAIN",
+      "active": true,
+      "provenance": [
+        "Stage 10 authorization sections 11-13; explicit country/emirate aliases and qualified same-name city policy"
+      ]
+    },
+    {
+      "entity_id": "city:dubai",
+      "canonical_name": "Dubai City",
+      "entity_type": "CITY",
+      "aliases": [
+        {
+          "text": "Dubai City",
+          "language": "en"
+        },
+        {
+          "text": "City of Dubai",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:dubai",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "Stage 10 authorization sections 11-13; explicit country/emirate aliases and qualified same-name city policy"
+      ]
+    },
+    {
+      "entity_id": "city:abu_dhabi",
+      "canonical_name": "Abu Dhabi City",
+      "entity_type": "CITY",
+      "aliases": [
+        {
+          "text": "Abu Dhabi City",
+          "language": "en"
+        },
+        {
+          "text": "City of Abu Dhabi",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:abu_dhabi",
+      "emirate": "ABU_DHABI",
+      "active": true,
+      "provenance": [
+        "Stage 10 authorization sections 11-13; explicit country/emirate aliases and qualified same-name city policy"
+      ]
+    },
+    {
+      "entity_id": "area:dubai:business_bay",
+      "canonical_name": "Business Bay",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Business Bay",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:dubai",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#area_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "area:dubai:marsa_dubai",
+      "canonical_name": "Marsa Dubai",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Marsa Dubai",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:dubai",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#area_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "area:dubai:al_barsha_south_fourth",
+      "canonical_name": "Al Barsha South Fourth",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Al Barsha South Fourth",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:dubai",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#area_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "area:dubai:al_khairan_first",
+      "canonical_name": "Al Khairan First",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Al Khairan First",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:dubai",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#area_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "area:dubai:al_hebiah_first",
+      "canonical_name": "Al Hebiah First",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Al Hebiah First",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:dubai",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#area_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "area:dubai:al_merkadh",
+      "canonical_name": "Al Merkadh",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Al Merkadh",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:dubai",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#area_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "area:dubai:al_wasl",
+      "canonical_name": "Al Wasl",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Al Wasl",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:dubai",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#area_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "community:dubai:dubai_marina",
+      "canonical_name": "Dubai Marina",
+      "entity_type": "COMMUNITY",
+      "aliases": [
+        {
+          "text": "Dubai Marina",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "area:dubai:marsa_dubai",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#master_project_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "community:dubai:jumeirah_village_circle",
+      "canonical_name": "Jumeirah Village Circle",
+      "entity_type": "COMMUNITY",
+      "aliases": [
+        {
+          "text": "Jumeirah Village Circle",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "area:dubai:al_barsha_south_fourth",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#master_project_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "community:dubai:dubai_creek_harbour",
+      "canonical_name": "Dubai Creek Harbour",
+      "entity_type": "COMMUNITY",
+      "aliases": [
+        {
+          "text": "Dubai Creek Harbour",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "area:dubai:al_khairan_first",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#master_project_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "community:dubai:motor_city",
+      "canonical_name": "Motor City",
+      "entity_type": "COMMUNITY",
+      "aliases": [
+        {
+          "text": "Motor City",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "area:dubai:al_hebiah_first",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#master_project_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "community:dubai:sobha_hartland",
+      "canonical_name": "SOBHA HARTLAND",
+      "entity_type": "COMMUNITY",
+      "aliases": [
+        {
+          "text": "SOBHA HARTLAND",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "area:dubai:al_merkadh",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#master_project_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "community:dubai:city_walk",
+      "canonical_name": "City Walk",
+      "entity_type": "COMMUNITY",
+      "aliases": [
+        {
+          "text": "City Walk",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "area:dubai:al_wasl",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#master_project_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "community:dubai:downtown_dubai",
+      "canonical_name": "DownTown Dubai",
+      "entity_type": "COMMUNITY",
+      "aliases": [
+        {
+          "text": "DownTown Dubai",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:dubai",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#master_project_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "project:dubai:sobha_solis",
+      "canonical_name": "Sobha Solis",
+      "entity_type": "PROJECT",
+      "aliases": [
+        {
+          "text": "Sobha Solis",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "community:dubai:motor_city",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#project_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "project:dubai:kensington_waters",
+      "canonical_name": "KENSINGTON WATERS",
+      "entity_type": "PROJECT",
+      "aliases": [
+        {
+          "text": "KENSINGTON WATERS",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "community:dubai:sobha_hartland",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#project_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "project:dubai:city_walk_crestlane_1",
+      "canonical_name": "City Walk Crestlane 1",
+      "entity_type": "PROJECT",
+      "aliases": [
+        {
+          "text": "City Walk Crestlane 1",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "community:dubai:city_walk",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#project_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "project:dubai:creek_beach_summer",
+      "canonical_name": "Creek Beach - Summer",
+      "entity_type": "PROJECT",
+      "aliases": [
+        {
+          "text": "Creek Beach - Summer",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "community:dubai:dubai_creek_harbour",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#project_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "building:dubai:sobha_solis_tower_c",
+      "canonical_name": "Sobha Solis Tower C",
+      "entity_type": "BUILDING",
+      "aliases": [
+        {
+          "text": "Sobha Solis Tower C",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "project:dubai:sobha_solis",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#building_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "building:dubai:kensington_waters_a",
+      "canonical_name": "KENSINGTON WATERS A",
+      "entity_type": "BUILDING",
+      "aliases": [
+        {
+          "text": "KENSINGTON WATERS A",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "project:dubai:kensington_waters",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#building_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "building:dubai:city_walk_crestlane_1_a",
+      "canonical_name": "City Walk Crestlane 1 Building A",
+      "entity_type": "BUILDING",
+      "aliases": [
+        {
+          "text": "City Walk Crestlane 1 Building A",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "project:dubai:city_walk_crestlane_1",
+      "emirate": "DUBAI",
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#building_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "developer:sobha_realty",
+      "canonical_name": "Sobha Realty",
+      "entity_type": "DEVELOPER",
+      "aliases": [
+        {
+          "text": "Sobha Realty",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": null,
+      "emirate": null,
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#developer_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "developer:dubai_creek_harbour_llc",
+      "canonical_name": "DUBAI CREEK HARBOUR L.L.C",
+      "entity_type": "DEVELOPER",
+      "aliases": [
+        {
+          "text": "DUBAI CREEK HARBOUR L.L.C",
+          "language": "en"
+        },
+        {
+          "text": "Dubai Creek Harbour LLC",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": null,
+      "emirate": null,
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#developer_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "developer:emaar_properties",
+      "canonical_name": "EMAAR PROPERTIES (P.J.S.C)",
+      "entity_type": "DEVELOPER",
+      "aliases": [
+        {
+          "text": "EMAAR PROPERTIES (P.J.S.C)",
+          "language": "en"
+        },
+        {
+          "text": "Emaar Properties",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": null,
+      "emirate": null,
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#developer_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "developer:damac_properties",
+      "canonical_name": "DAMAC Properties",
+      "entity_type": "DEVELOPER",
+      "aliases": [
+        {
+          "text": "DAMAC Properties",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": null,
+      "emirate": null,
+      "active": true,
+      "provenance": [
+        "data/dubai/latest_combined_data.parquet#developer_name_en",
+        "sha256:af11b45a3264d46586397fe46cb41686a55daed7a598eae89e61d3ecc5d9d335"
+      ]
+    },
+    {
+      "entity_id": "area:abu_dhabi:yas_island",
+      "canonical_name": "Yas Island",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Yas Island",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:abu_dhabi",
+      "emirate": "ABU_DHABI",
+      "active": true,
+      "provenance": [
+        "regions/abu_dhabi/Abu_Dhabi_Sales_Cleaned (1).csv#District",
+        "sha256:8e63124b58155e780c98e227fcc480643dcf437632e1dbb2d22a5834cb085785"
+      ]
+    },
+    {
+      "entity_id": "area:abu_dhabi:al_reem_island",
+      "canonical_name": "Al Reem Island",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Al Reem Island",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:abu_dhabi",
+      "emirate": "ABU_DHABI",
+      "active": true,
+      "provenance": [
+        "regions/abu_dhabi/Abu_Dhabi_Sales_Cleaned (1).csv#District",
+        "sha256:8e63124b58155e780c98e227fcc480643dcf437632e1dbb2d22a5834cb085785"
+      ]
+    },
+    {
+      "entity_id": "area:abu_dhabi:al_saadiyat_island",
+      "canonical_name": "Al Saadiyat Island",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Al Saadiyat Island",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:abu_dhabi",
+      "emirate": "ABU_DHABI",
+      "active": true,
+      "provenance": [
+        "regions/abu_dhabi/Abu_Dhabi_Sales_Cleaned (1).csv#District",
+        "sha256:8e63124b58155e780c98e227fcc480643dcf437632e1dbb2d22a5834cb085785"
+      ]
+    },
+    {
+      "entity_id": "project:abu_dhabi:gardenia_bay",
+      "canonical_name": "Gardenia Bay",
+      "entity_type": "PROJECT",
+      "aliases": [
+        {
+          "text": "Gardenia Bay",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "area:abu_dhabi:yas_island",
+      "emirate": "ABU_DHABI",
+      "active": true,
+      "provenance": [
+        "regions/abu_dhabi/Abu_Dhabi_Sales_Cleaned (1).csv#Project Name -> District; coded Community deliberately omitted",
+        "sha256:8e63124b58155e780c98e227fcc480643dcf437632e1dbb2d22a5834cb085785"
+      ]
+    },
+    {
+      "entity_id": "project:abu_dhabi:radiant_square",
+      "canonical_name": "Radiant Square",
+      "entity_type": "PROJECT",
+      "aliases": [
+        {
+          "text": "Radiant Square",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "area:abu_dhabi:al_reem_island",
+      "emirate": "ABU_DHABI",
+      "active": true,
+      "provenance": [
+        "regions/abu_dhabi/Abu_Dhabi_Sales_Cleaned (1).csv#Project Name -> District; coded Community deliberately omitted",
+        "sha256:8e63124b58155e780c98e227fcc480643dcf437632e1dbb2d22a5834cb085785"
+      ]
+    },
+    {
+      "entity_id": "area:sharjah:al_khan",
+      "canonical_name": "Al Khan",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Al Khan",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:sharjah",
+      "emirate": "SHARJAH",
+      "active": true,
+      "provenance": [
+        "regions/sharjah/sources.py#published popular-area table",
+        "sha256:af102a60064bf0c1de817641735e882a8521adade151da11b4571568bbc29578"
+      ]
+    },
+    {
+      "entity_id": "area:sharjah:muwaileh_commercial",
+      "canonical_name": "Muwaileh Commercial",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Muwaileh Commercial",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:sharjah",
+      "emirate": "SHARJAH",
+      "active": true,
+      "provenance": [
+        "regions/sharjah/sources.py#published popular-area table",
+        "sha256:af102a60064bf0c1de817641735e882a8521adade151da11b4571568bbc29578"
+      ]
+    },
+    {
+      "entity_id": "area:ras_al_khaimah:jazeerat_al_marjan",
+      "canonical_name": "Jazeerat AL Marjan",
+      "entity_type": "AREA",
+      "aliases": [
+        {
+          "text": "Jazeerat AL Marjan",
+          "language": "en"
+        }
+      ],
+      "parent_entity_id": "emirate:ras_al_khaimah",
+      "emirate": "RAS_AL_KHAIMAH",
+      "active": true,
+      "provenance": [
+        "regions/rak/sources.py#published popular-area table",
+        "sha256:b0fb66e1665b15abaf07ae3fa3a975152000262a29c65ba59b783cb6dfd2072e"
+      ]
+    }
+  ]
+}

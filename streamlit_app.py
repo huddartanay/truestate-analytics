@@ -66,6 +66,14 @@ C, ds, mem, nav = _import_platform()  # noqa: E402
 
 st.set_page_config(**C.PAGE_CONFIG)
 
+# Controlled production artifact retrieval only; no ingestion or inference.
+try:
+    from intelligence.production.startup import initialize as _initialize_intelligence
+    _initialize_intelligence()
+except Exception:
+    pass  # Existing dashboards remain available; the AI component shows no-data.
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # 2. STATE + GLOBAL DESIGN SYSTEM
 # ─────────────────────────────────────────────────────────────────────────────

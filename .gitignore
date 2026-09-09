@@ -5,3 +5,35 @@ __pycache__/
 data/dubai/transactions.parquet
 _backup_v1.1/
 _patched/
+
+# Intelligence-layer runtime data (never commit local DB or logs)
+data/intelligence/
+!data/intelligence/.gitkeep
+
+# Stage 18: credentials and mutable production jobs never enter source control.
+.streamlit/secrets.toml
+.env
+.env.*
+data/production_intelligence/
+
+# Proposed deployment synchronization exclusions (source history only).
+.pytest_cache/
+.ipynb_checkpoints/
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.sqlite-wal
+*.sqlite-shm
+*.tmp
+*.log
+intelligence/validation/
+intelligence/benchmarks/
+intelligence/tests/
+# Model-development helpers are preserved locally, not part of the serving package.
+intelligence/llm/ollama.py
+intelligence/llm/mvp_selection.py
+intelligence/llm/final_qualification_gate.py
+intelligence/llm/targeted_qualification_gate.py
+deploy/stage18_refresh.cron.example

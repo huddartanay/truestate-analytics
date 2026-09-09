@@ -106,11 +106,15 @@ handful of luxury deals can pull upward.
     nav.region_controls_divider("Abu Dhabi controls")
 
     with _excel_writer_engine():
-        runtime.run_region(
+        analytics = runtime.run_region(
             entry=C.ABU_DHABI_ENTRY,
             working_dir=C.ABU_DHABI_DIR,
             region_label="Abu Dhabi",
         )
+
+    from platform_core import ai_ui, ai_facts
+    if analytics is not None:
+        ai_ui.safe_render(lambda: ai_facts.abu_dhabi(analytics))
 
     # ── Report downloads ────────────────────────────────────────────────────
     # The Abu Dhabi report block previously lived on the global "Download

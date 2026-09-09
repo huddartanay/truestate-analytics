@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build the deploy folder for TruEstates analytics.
+# Build the deploy folder for TruEstate Analytics.
 #
 #   ./build_deploy.sh          -> ~/Downloads/truestate-deploy
 #   ./build_deploy.sh --lean   -> the same, without the Experimental artefacts
@@ -47,6 +47,9 @@ EXCLUDES=(
   --exclude="data/dubai/transactions.parquet"
   --exclude="_backup_v1.1" --exclude="_patched" --exclude="build"
   --exclude=".git" --exclude="truestate-deploy"
+  --exclude=".streamlit/secrets.toml" --exclude=".env" --exclude=".env.*"
+  --exclude="data/intelligence" --exclude="data/production_intelligence"
+  --exclude="intelligence/tests" --exclude="intelligence/validation" --exclude="intelligence/benchmarks"
 )
 if [ "$MODE" = "--lean" ]; then
   EXCLUDES+=( --exclude="regions/dubai" )
@@ -57,15 +60,7 @@ fi
 
 ( cd "$SRC" && tar -cf - "${EXCLUDES[@]}" . ) | ( cd "$DEST" && tar -xf - )
 
-cat > "$DEST/.gitignore" <<'GI'
-.venv/
-__pycache__/
-*.pyc
-.DS_Store
-data/dubai/transactions.parquet
-_backup_v1.1/
-_patched/
-GI
+cp "$SRC/.gitignore" "$DEST/.gitignore"
 
 echo
 echo "Done: $DEST  ($(du -sh "$DEST" | cut -f1))"

@@ -121,4 +121,11 @@ def render() -> None:
                    "applied, so they describe the area itself rather than your current "
                    "selection. Median rate is the median of `meter_sale_price` for that area.")
 
+    from platform_core import ai_ui, ai_facts
+    from regions.dubai_market.data import COL, load_market
+    ai_frame = load_market()
+    if chosen != C.ALL_AREAS:
+        ai_frame = ai_frame[ai_frame[COL['area']] == chosen]
+    ai_ui.safe_render(lambda: ai_facts.dubai(ai_frame, page='area', area=None if chosen == C.ALL_AREAS else chosen))
+
     ui.footer(C.PLATFORM_VERSION, f"Area · {chosen}")

@@ -67,4 +67,7 @@ def render() -> None:
         st.exception(exc)
         return
 
+    from platform_core import ai_ui, ai_facts
+    ai_ui.safe_render(lambda: ai_facts.outlook(df, None if area == C.ALL_AREAS else area))
+
     ui.footer(C.PLATFORM_VERSION, f"Forecast · {area}")

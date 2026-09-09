@@ -98,3 +98,7 @@ streamlit run regions/dubai/trial.py       # the experiments, Data Summary inclu
 - [`docs/INTEGRATION_CHANGES.md`](docs/INTEGRATION_CHANGES.md) — every line that changed, and why
 - [`docs/CHECKLIST.md`](docs/CHECKLIST.md) — build status, test results, known issues
 - [`docs/Dubai_Analytics_Chart_Reference_Guide.docx`](docs/Dubai_Analytics_Chart_Reference_Guide.docx) — every Dubai chart explained, for company review
+
+## Production intelligence deployment
+
+See [the deployment contract](intelligence/PRODUCTION_DEPLOYMENT.md) and [the Streamlit plan](intelligence/STREAMLIT_DEPLOYMENT_PLAN.md). Production data must be supplied through a verified persistent artifact; test fixtures are never a deployment source.

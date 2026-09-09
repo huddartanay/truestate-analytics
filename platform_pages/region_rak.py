@@ -50,6 +50,9 @@ is not explicitly present in the reports is invented.
             """
         )
 
+    from platform_core import ai_ui, ai_facts
+    ai_ui.safe_render(lambda: ai_facts.report('RAS_AL_KHAIMAH'))
+
     rak.render(dark=dark)
 
     ui.footer(C.PLATFORM_VERSION, "RAK · Real Estate Analytics")

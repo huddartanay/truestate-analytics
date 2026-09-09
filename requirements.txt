@@ -1,5 +1,5 @@
 # ════════════════════════════════════════════════════════════════════════════
-# TruEstates analytics — unified requirements
+# TruEstate Analytics — unified requirements
 # Union of regions/abu_dhabi/requirements.txt and the Dubai requirements,
 # with conflicts resolved. See docs/ARCHITECTURE.md §Dependencies.
 # ════════════════════════════════════════════════════════════════════════════
@@ -38,3 +38,14 @@ pillow>=10.0
 # are part of the project's declared environment and are used by its notebooks.
 matplotlib>=3.7
 seaborn>=0.13
+
+# ── Intelligence layer (Stage 3 — RSS source registry) ─────────────────────
+# Required for the integrated intelligence backend. Importing the package
+# does not run ingestion or inference:
+feedparser>=6.0        # RSS/Atom parsing (source registry health probe)
+pydantic>=2.5          # Strict Pydantic v2 schemas for every LLM boundary
+beautifulsoup4>=4.12   # Deterministic HTML cleaning (later stages) + probe
+lxml>=5.0              # feedparser & bs4 fast backend
+python-dateutil>=2.8   # Robust RSS date parsing (later stages)
+rapidfuzz>=3.0         # Near-duplicate detection (later stages)
+certifi>=2024.0        # CA bundle for RSS TLS verification across hosts
