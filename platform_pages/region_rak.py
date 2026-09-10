@@ -30,6 +30,8 @@ def render() -> None:
             "Annual + monthly",
         ],
     )
+    from platform_core import ai_ui
+    ai_ui.render_trigger()
 
     with st.expander("🧭  What am I looking at?", expanded=False):
         st.markdown(
@@ -50,7 +52,7 @@ is not explicitly present in the reports is invented.
             """
         )
 
-    from platform_core import ai_ui, ai_facts
+    from platform_core import ai_facts
     ai_ui.safe_render(lambda: ai_facts.report('RAS_AL_KHAIMAH'))
 
     rak.render(dark=dark)

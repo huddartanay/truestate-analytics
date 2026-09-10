@@ -5,6 +5,8 @@ Global navigation: the single sidebar for the whole platform.
     LOCATIONS
         🇦🇪 Abu Dhabi
         🇦🇪 Dubai
+        🇦🇪 Sharjah
+        🇦🇪 RAK
         🧪 Experimental Analysis
     PLATFORM
         🧭 Explore Platform
@@ -206,7 +208,7 @@ def render_sidebar_footer() -> None:
     """
     st.sidebar.markdown(
         f'<div class="uae-side-footer">v{C.PLATFORM_VERSION} · Local build<br>'
-        "Abu Dhabi · Dubai · Experimental</div>",
+        "Abu Dhabi · Dubai · Sharjah · RAK</div>",
         unsafe_allow_html=True,
     )
 

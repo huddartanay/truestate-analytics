@@ -31,6 +31,8 @@ def render() -> None:
             "3 source publications",
         ],
     )
+    from platform_core import ai_ui
+    ai_ui.render_trigger()
 
     with st.expander("🧭  What am I looking at?", expanded=False):
         st.markdown(
@@ -55,7 +57,7 @@ only values the reports state numerically are shown.
             """
         )
 
-    from platform_core import ai_ui, ai_facts
+    from platform_core import ai_facts
     ai_ui.safe_render(lambda: ai_facts.report('SHARJAH'))
 
     shj.render(dark=dark)

@@ -42,6 +42,8 @@ def _area_counts() -> pd.DataFrame:
 
 def render() -> None:
     ui.breadcrumb("TruEstates analytics", "Area")
+    from platform_core import ai_ui
+    ai_ui.render_trigger()
 
     st.markdown(
         '<div class="uae-card uae-d1" style="margin-bottom:1.1rem">'

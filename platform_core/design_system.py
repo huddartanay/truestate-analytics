@@ -571,6 +571,129 @@ html, body, .stApp, [class*="css"] {{
 .stApp [data-testid="stPopoverBody"] table {{ font-size: 0.78rem; }}
 .stApp [data-testid="stPopoverBody"] li {{ font-size: 0.82rem; line-height: 1.6; }}
 
+/* ══════════════════════════════════════════════════════════════════════════
+   5a. MARKET INTELLIGENCE PRESENTATION
+   The data and answer contracts remain backend-owned. These rules only style
+   the always-visible summary and the shared assistant dialog.
+══════════════════════════════════════════════════════════════════════════ */
+.stApp [class*="st-key-truestate-ai-summary"] {{
+  background: {t['surface']};
+  border: 1px solid {t['border']};
+  border-left: 4px solid {t['accent']};
+  border-radius: var(--uae-radius-lg);
+  padding: 1.25rem 1.35rem 1.35rem 1.35rem;
+  margin: 1.25rem 0 1.45rem 0;
+  box-shadow: {t['shadow']};
+}}
+.stApp .truestate-ai-summary-heading {{ padding: 0.1rem 0 0.2rem 0; }}
+.stApp .truestate-ai-kicker,
+.stApp .truestate-ai-dialog-label {{
+  color: {t['accent']};
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}}
+.stApp .truestate-ai-summary-heading h2 {{
+  color: {t['text']};
+  font-size: 1.22rem;
+  font-weight: 800;
+  letter-spacing: -0.018em;
+  margin: 0.2rem 0 0.28rem 0;
+}}
+.stApp .truestate-ai-summary-heading p {{
+  color: {t['text_muted']};
+  font-size: 0.84rem;
+  line-height: 1.55;
+  margin: 0;
+}}
+.stApp [class*="st-key-truestate-ai-summary"] [data-testid="stCaptionContainer"] {{
+  color: {t['text_muted']} !important;
+}}
+
+/* Shared themed action controls. Native Streamlit buttons retain keyboard
+   focus and semantics; only their visual treatment is customized. */
+.stApp [class*="st-key-truestate-ai-trigger"] .stButton > button,
+.stApp [class*="st-key-truestate-ai-summary"] .stButton > button,
+.stApp [data-testid="stDialog"] .stButton > button {{
+  background: {t['surface']} !important;
+  border: 1px solid {t['accent']} !important;
+  border-radius: 10px !important;
+  color: {t['accent']} !important;
+  font-size: 0.79rem !important;
+  font-weight: 700 !important;
+  min-height: 0 !important;
+  padding: 0.52rem 0.78rem !important;
+  box-shadow: none !important;
+  transition: background 0.2s var(--uae-ease), color 0.2s var(--uae-ease),
+              border-color 0.2s var(--uae-ease), transform 0.2s var(--uae-ease);
+}}
+.stApp [class*="st-key-truestate-ai-trigger"] .stButton > button p,
+.stApp [class*="st-key-truestate-ai-summary"] .stButton > button p,
+.stApp [data-testid="stDialog"] .stButton > button p {{
+  color: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}}
+.stApp [class*="st-key-truestate-ai-trigger"] .stButton > button:hover,
+.stApp [class*="st-key-truestate-ai-summary"] .stButton > button:hover,
+.stApp [data-testid="stDialog"] .stButton > button:hover {{
+  background: {t['accent_soft']} !important;
+  border-color: {t['accent']} !important;
+  color: {t['accent']} !important;
+  transform: translateY(-1px);
+}}
+.stApp [class*="st-key-truestate-ai-trigger"] .stButton > button:focus-visible,
+.stApp [class*="st-key-truestate-ai-summary"] .stButton > button:focus-visible,
+.stApp [data-testid="stDialog"] .stButton > button:focus-visible {{
+  outline: 2px solid {t['accent']} !important;
+  outline-offset: 2px;
+}}
+.stApp [class*="st-key-truestate-ai-trigger"] .stButton > button {{
+  border-radius: 999px !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}}
+.stApp [class*="st-key-truestate-ai-summary"] .stButton > button {{
+  white-space: nowrap;
+}}
+
+/* Suggestions are compact, calm secondary controls rather than saturated
+   full-width blue blocks. */
+.stApp [data-testid="stDialog"] [class*="st-key-truestate-ai-suggestion-"] {{
+  margin-bottom: 0.35rem;
+}}
+.stApp [data-testid="stDialog"] [class*="st-key-truestate-ai-suggestion-"] .stButton > button {{
+  width: 100%;
+  justify-content: flex-start !important;
+  text-align: left !important;
+  color: {t['text_soft']} !important;
+  border-color: {t['border']} !important;
+  background: {t['surface_alt']} !important;
+}}
+.stApp [data-testid="stDialog"] [class*="st-key-truestate-ai-suggestion-"] .stButton > button:hover {{
+  color: {t['accent']} !important;
+  border-color: {t['accent']} !important;
+  background: {t['accent_soft']} !important;
+}}
+.stApp [data-testid="stDialog"] .truestate-ai-dialog-label {{ margin: 1.05rem 0 0.55rem 0; }}
+.stApp [data-testid="stDialog"] [data-testid="stTextInput"] input {{
+  background: {t['surface']};
+  color: {t['text']};
+  border-color: {t['border']};
+}}
+.stApp [data-testid="stDialog"] [data-testid="stChatMessage"] {{
+  border-color: {t['border']};
+}}
+.stApp [data-testid="stDialog"] [data-testid="stMarkdownContainer"] {{
+  color: {t['text_soft']};
+}}
+.stApp [data-testid="stDialog"] [data-testid="stMarkdownContainer"] strong,
+.stApp [data-testid="stDialog"] [data-testid="stMarkdownContainer"] b,
+.stApp [data-testid="stDialog"] h1,
+.stApp [data-testid="stDialog"] h2,
+.stApp [data-testid="stDialog"] h3 {{ color: {t['text']} !important; }}
+
 /* Chart note */
 .uae-chart-note {{
   font-size: 0.78rem; line-height: 1.6; color: {t['text_muted']};
@@ -759,6 +882,8 @@ html, body, .stApp, [class*="css"] {{
   .uae-region-title {{ font-size: 1.2rem; }}
   .uae-branch {{ gap: 1.1rem; }}
   .uae-footer {{ flex-direction: column; align-items: flex-start; }}
+  .stApp [class*="st-key-truestate-ai-trigger"] .stButton > button {{ width: 100%; }}
+  .stApp [class*="st-key-truestate-ai-summary"] {{ padding: 1rem; }}
 }}
 
 /* Charts and tables must never overflow their container at any width */
@@ -1015,6 +1140,8 @@ def build_shell_lock_css(dark: bool = False) -> str:
 
 .stApp [class*="st-key-uaecta-abu_dhabi"] .stButton > button {{ --cta: {BRAND_BLUE}; }}
 .stApp [class*="st-key-uaecta-dubai"] .stButton > button {{ --cta: {BRAND_TEAL}; }}
+.stApp [class*="st-key-uaecta-sharjah"] .stButton > button {{ --cta: #9333EA; }}
+.stApp [class*="st-key-uaecta-rak"] .stButton > button {{ --cta: #059669; }}
 .stApp [class*="st-key-uaecta-experimental"] .stButton > button {{ --cta: #7C3AED; }}
 
 /* ── Theme toggle button in the rail ─────────────────────────────────── */

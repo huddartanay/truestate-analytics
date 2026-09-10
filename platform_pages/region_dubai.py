@@ -30,6 +30,8 @@ def render() -> None:
         region,
         chips=["6 analytical sections", "Residential unit sales", "2010 – 2026"],
     )
+    from platform_core import ai_ui
+    ai_ui.render_trigger()
 
     with st.expander("🧭  What am I looking at?", expanded=False):
         st.markdown(

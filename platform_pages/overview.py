@@ -13,6 +13,8 @@ from platform_core.navigation import _keyed
 def render() -> None:
     ad = C.REGIONS[C.ROUTE_ABU_DHABI]
     dxb = C.REGIONS[C.ROUTE_DUBAI]
+    shj = C.REGIONS[C.ROUTE_SHARJAH]
+    rak = C.REGIONS[C.ROUTE_RAK]
     exp = C.REGIONS[C.ROUTE_EXPERIMENTAL]
 
     # ── Brand + hero ─────────────────────────────────────────────────────────
@@ -23,17 +25,17 @@ def render() -> None:
         eyebrow="🇦🇪 United Arab Emirates · Property Intelligence",
         title_html='Tru<span class="accent">Estate</span><br>Analytics',
         lede=(
-            "One platform for the UAE property market. Abu Dhabi and Dubai each have a full "
-            "regional dashboard — headline KPIs, automatic business insights and deep "
-            "analytical sections — alongside a separate research environment holding the "
-            "modelling experiments behind them."
+            "Explore regional property analytics across Abu Dhabi, Dubai, Sharjah and Ras Al "
+            "Khaimah, with capabilities tailored to the available market data — alongside a "
+            "separate research environment holding the modelling experiments behind the "
+            "platform."
         ),
     )
 
     ui.stat_strip(
         [
-            ("2", "Regional dashboards"),
-            ("18", "Analytical sections"),
+            ("4", "Regional experiences"),
+            ("2", "Transaction dashboards"),
             ("6", "Research experiments"),
             ("1", "Entry point"),
         ]
@@ -44,8 +46,8 @@ def render() -> None:
     # ── Region cards ─────────────────────────────────────────────────────────
     ui.section(
         "Choose a region",
-        "Both dashboards are laid out the same way, so what you learn in one transfers to "
-        "the other.",
+        "Explore four regional experiences, each shaped around the market data and source "
+        "depth available for that location.",
         "🗺️",
     )
 
@@ -63,10 +65,22 @@ def render() -> None:
             if st.button("Explore Analytics  →", key="ov-go-dxb", use_container_width=True):
                 nav.goto(C.ROUTE_DUBAI)
 
+    with col_a:
+        ui.region_card(shj, delay=3)
+        with _keyed("uaecta-sharjah"):
+            if st.button("Explore Analytics  →", key="ov-go-sharjah", use_container_width=True):
+                nav.goto(C.ROUTE_SHARJAH)
+
+    with col_b:
+        ui.region_card(rak, delay=4)
+        with _keyed("uaecta-rak"):
+            if st.button("Explore Analytics  →", key="ov-go-rak", use_container_width=True):
+                nav.goto(C.ROUTE_RAK)
+
     # ── Research environment ─────────────────────────────────────────────────
     ui.section(
         "Research environment",
-        "Kept separate from the regional dashboards on purpose.",
+        "Kept separate from the regional experiences on purpose.",
         "🧪",
     )
 
@@ -98,7 +112,7 @@ def render() -> None:
     # ── What you can do ──────────────────────────────────────────────────────
     ui.section(
         "What the platform gives you",
-        "The same four capabilities, applied to two different markets.",
+        "Core analytical capabilities across the supported markets.",
         "◆",
     )
 
@@ -112,11 +126,8 @@ def render() -> None:
         ("🏗️", "Property & location",
          "How layout, unit size, off-plan status, locality and amenities relate to what "
          "buyers actually pay."),
-        ("📈", "Forecasting",
-         "Published SARIMA / ARIMA forecasts with confidence bands and accuracy metrics, "
-         "reported per area."),
     ]
-    cols = st.columns(4, gap="medium")
+    cols = st.columns(3, gap="medium")
     for i, (icon, title, text) in enumerate(tiles):
         with cols[i]:
             ui.tile(icon, title, text, delay=i + 1)

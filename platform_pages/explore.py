@@ -17,6 +17,8 @@ from platform_core import navigation as nav
 def render() -> None:
     ad = C.REGIONS[C.ROUTE_ABU_DHABI]
     dxb = C.REGIONS[C.ROUTE_DUBAI]
+    shj = C.REGIONS[C.ROUTE_SHARJAH]
+    rak = C.REGIONS[C.ROUTE_RAK]
     exp = C.REGIONS[C.ROUTE_EXPERIMENTAL]
 
     ui.breadcrumb("TruEstates analytics", "Explore Platform")
@@ -25,13 +27,14 @@ def render() -> None:
         eyebrow="🧭 Orientation",
         title_html='Explore the <span class="accent">platform</span>',
         lede=(
-            "Three environments, each with a lot inside it. This page is the map: everything "
-            "that exists, what it does, and a direct route to it."
+            "Four regional experiences and one research environment, each with a clear role. "
+            "This page is the map: everything that exists, what it does, and a direct route "
+            "to it."
         ),
     )
 
     # ── Tree ─────────────────────────────────────────────────────────────────
-    ui.section("Platform structure", "How the three environments fit together.", "🗂️")
+    ui.section("Platform structure", "How the four regional experiences and research environment fit together.", "🗂️")
 
     ui.platform_map(
         branches=[
@@ -51,6 +54,28 @@ def render() -> None:
                 ),
             },
             {
+                "title": f"{shj['flag']} Sharjah",
+                "subtitle": "Report-sourced regional intelligence · 14 sections",
+                "accent": shj["accent"], "soft": shj["accent_soft"],
+                "leaves": [(badge, label) for badge, label in [
+                    ("", "Overview"), ("", "Key Stats"), ("", "Monthly Dynamics"),
+                    ("", "Transaction Value"), ("", "Transaction Volume"),
+                    ("", "Investors"), ("", "Property Type"), ("", "Top Areas"),
+                    ("", "Notable Transactions"), ("", "New Projects"),
+                    ("", "Regulation"), ("", "Infrastructure"), ("", "Outlook"),
+                    ("", "Sources & Report"),
+                ]],
+            },
+            {
+                "title": f"{rak['flag']} Ras Al Khaimah / RAK",
+                "subtitle": "Report-sourced regional intelligence · 6 sections",
+                "accent": rak["accent"], "soft": rak["accent_soft"],
+                "leaves": [("", label) for label in [
+                    "Overview", "Annual Transactions", "Popular Areas",
+                    "Property Use", "Investors", "Monthly Time Series & Report",
+                ]],
+            },
+            {
                 "title": f"{exp['flag']} Experimental",
                 "subtitle": "Research · 6 generations",
                 "accent": exp["accent"], "soft": exp["accent_soft"],
@@ -61,9 +86,9 @@ def render() -> None:
     )
 
     ui.note(
-        "The two <b>regional dashboards</b> answer \"what is the market doing?\". The "
-        "<b>research environment</b> holds the modelling work behind them and is kept "
-        "separate so its older figures never get mistaken for the current market view.",
+        "The <b>regional experiences</b> answer \"what is happening in each market?\". "
+        "The <b>research environment</b> holds the modelling work behind the platform and is "
+        "kept separate so its older figures never get mistaken for the current market view.",
         icon="🧭",
     )
 
@@ -108,6 +133,51 @@ def render() -> None:
 
     if st.button("🇦🇪  Open Dubai Analytics  →", key="ex-go-dxb"):
         nav.goto(C.ROUTE_DUBAI)
+
+    # ── Sharjah directory ───────────────────────────────────────────────────
+    ui.section(
+        f"{shj['flag']} Sharjah — report-sourced intelligence",
+        "A 14-section regional view built from the published Sharjah source set.",
+        "🏙️",
+    )
+    shj_sections = [
+        ("📊", "Key Stats", "Q1 2026 headline figures reported by Savills"),
+        ("📈", "Market Dynamics", "Monthly, value and volume reference points"),
+        ("🌍", "Investors & Property", "Nationality and residential property mix"),
+        ("🗺️", "Areas & Transactions", "Top areas and notable reported deals"),
+        ("🏗️", "Projects & Infrastructure", "New registrations and named programmes"),
+        ("⚖️", "Regulation & Outlook", "Market rules and forward signals"),
+        ("📄", "Sources & Report", "Provenance and downloadable regional report"),
+    ]
+    shj_left, shj_right = st.columns(2, gap="large")
+    for i, (icon, name, desc) in enumerate(shj_sections):
+        with (shj_left if i % 2 == 0 else shj_right):
+            ui.directory_row(icon, name, desc, accent=shj["accent"],
+                             accent_soft=shj["accent_soft"], delay=(i // 2) + 1)
+    if st.button("🇦🇪  Open Sharjah Analytics  →", key="ex-go-sharjah"):
+        nav.goto(C.ROUTE_SHARJAH)
+
+    # ── RAK directory ───────────────────────────────────────────────────────
+    ui.section(
+        f"{rak['flag']} Ras Al Khaimah / RAK — report-sourced intelligence",
+        "A six-section regional view built from the current RAK report set.",
+        "🏙️",
+    )
+    rak_sections = [
+        ("📊", "Overview", "2025 annual snapshot and key statistics"),
+        ("📈", "Transactions", "Annual comparisons and monthly time series"),
+        ("🗺️", "Popular Areas", "Reported area rankings by sales value"),
+        ("🏠", "Property Use", "Land and property-use breakdowns"),
+        ("🌍", "Investors", "Top nationalities by value and number"),
+        ("📄", "Latest Month & Report", "January 2026 view and downloadable report"),
+    ]
+    rak_left, rak_right = st.columns(2, gap="large")
+    for i, (icon, name, desc) in enumerate(rak_sections):
+        with (rak_left if i % 2 == 0 else rak_right):
+            ui.directory_row(icon, name, desc, accent=rak["accent"],
+                             accent_soft=rak["accent_soft"], delay=(i // 2) + 1)
+    if st.button("🇦🇪  Open RAK Analytics  →", key="ex-go-rak"):
+        nav.goto(C.ROUTE_RAK)
 
     # ── Experimental directory ───────────────────────────────────────────────
     ui.section(

@@ -20,6 +20,8 @@ from platform_core import navigation as nav
 
 def render() -> None:
     ui.breadcrumb("TruEstates analytics", "Forecast")
+    from platform_core import ai_ui
+    ai_ui.render_trigger()
 
     area = nav.area()
     st.markdown(
