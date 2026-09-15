@@ -24,10 +24,14 @@ def monthly_row(year: int, month: str, offset: int = 0, *, missing: set[str] | N
 
 class RAKAnalyticsDataTests(unittest.TestCase):
     def test_requested_annual_years_are_fixed_and_only_report_backed_years_load(self):
-        self.assertEqual(data.ANNUAL_YEAR_OPTIONS, (2022, 2023, 2024))
+        self.assertEqual(data.ANNUAL_YEAR_OPTIONS, tuple(range(2019, 2027)))
+        self.assertEqual(data.available_annual_years(), (2020, 2021, 2022, 2024, 2025))
+        self.assertIsNone(data.annual_snapshot(2019))
         self.assertEqual(data.annual_snapshot(2022).source["id"], "rak_annual_2022")
         self.assertEqual(data.annual_snapshot(2024).source["id"], "rak_annual_2025")
+        self.assertEqual(data.annual_snapshot(2025).source["id"], "rak_annual_2025")
         self.assertIsNone(data.annual_snapshot(2023))
+        self.assertIsNone(data.annual_snapshot(2026))
 
     def test_complete_quarter_sums_only_numeric_monthly_metrics(self):
         rows = [
@@ -74,7 +78,8 @@ class RAKAnalyticsDataTests(unittest.TestCase):
         self.assertEqual(data.available_quarters(2022), ())
         self.assertEqual(data.available_quarters(2023), ("Q1", "Q2"))
         self.assertEqual(data.available_quarters(2024), ("Q1", "Q2"))
-        self.assertEqual(data.latest_completed_quarter(), (2024, "Q2"))
+        self.assertEqual(data.available_quarters(2025), ("Q1",))
+        self.assertEqual(data.latest_completed_quarter(), (2025, "Q1"))
 
     def test_future_monthly_report_additions_automatically_unlock_a_quarter(self):
         rows = list(data.monthly_records())

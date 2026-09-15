@@ -17,7 +17,9 @@ import re
 from . import sources as S
 
 
-ANNUAL_YEAR_OPTIONS = (2022, 2023, 2024)
+# The selector covers the full requested reporting window. A selected year is
+# rendered only when one of the supplied annual reports contains that year.
+ANNUAL_YEAR_OPTIONS = tuple(range(2019, 2027))
 MONTHS = (
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December",
@@ -160,9 +162,8 @@ def _annual_snapshot_from_tables(
 def annual_snapshot(year: int) -> AnnualSnapshot | None:
     """Load only the annual report containing ``year``.
 
-    A missing report returns ``None``. In particular, 2023 is intentionally
-    unavailable in the current report registry rather than being reconstructed
-    from monthly observations.
+    A missing report returns ``None`` rather than being reconstructed from
+    incomplete monthly observations.
     """
     for source, value_rows, count_rows in _ANNUAL_TABLES:
         snapshot = _annual_snapshot_from_tables(year, source, value_rows, count_rows)
