@@ -24,6 +24,41 @@ TABLE_METRICS = (
     ("Waivers Number", "waiv_n"),
 )
 
+# Older RAK reports use "Size of Real Estate Sales", "Market Value of
+# Transfers" and "Number of Transfers" for the same table columns. Keep the
+# canonical keys above while accepting those report/OCR label variants.
+_METRIC_ALIASES = {
+    "sales_v": (
+        "real estate sales volume",
+        "size of real estate sales",
+        "volume of real estate sale",
+    ),
+    "mort_v": (
+        "real estate mortgages volume",
+        "mortgages volume",
+    ),
+    "waiv_v": (
+        "waivers market value",
+        "market value of waivers",
+        "market value of transfers",
+    ),
+    "sales_n": (
+        "real estate sales number",
+        "number of real estate sales",
+        "number of real estate sale",
+    ),
+    "mort_n": (
+        "real estate mortgages number",
+        "number of real estate mortgages",
+        "number of mortgages",
+    ),
+    "waiv_n": (
+        "waivers number",
+        "number of waivers",
+        "number of transfers",
+    ),
+}
+
 _NUMBER = re.compile(r"(?<![A-Za-z])\(?\d[\d,]*(?:\.\d+)?\)?%?")
 
 
@@ -39,17 +74,25 @@ def _number_values(text: str) -> list[int | float]:
 
 
 def _metric_spans(text: str) -> list[tuple[str, str, int, int]]:
-    folded = text.casefold()
-    spans = []
-    for label, key in TABLE_METRICS:
-        start = 0
-        needle = label.casefold()
-        while True:
-            position = folded.find(needle, start)
-            if position < 0:
-                break
-            spans.append((label, key, position, position + len(needle)))
-            start = position + len(needle)
+    # OCR frequently wraps a label across two lines. Collapsing whitespace
+    # makes both the PDF text and OCR paths use the same matching logic.
+    folded = re.sub(r"\s+", " ", text).casefold()
+    candidates: list[tuple[str, str, int, int]] = []
+    labels_by_key = {key: label for label, key in TABLE_METRICS}
+    for key, aliases in _METRIC_ALIASES.items():
+        for alias in aliases:
+            needle = re.escape(alias)
+            for match in re.finditer(needle, folded):
+                candidates.append((labels_by_key[key], key, match.start(), match.end()))
+
+    # Prefer the longest match when aliases overlap, then remove any remaining
+    # overlap so a row is represented by one unambiguous metric span.
+    candidates.sort(key=lambda item: (item[2], -(item[3] - item[2])))
+    spans: list[tuple[str, str, int, int]] = []
+    for candidate in candidates:
+        if any(candidate[2] < chosen[3] and candidate[3] > chosen[2] for chosen in spans):
+            continue
+        spans.append(candidate)
     return sorted(spans, key=lambda item: item[2])
 
 
@@ -68,12 +111,17 @@ def parse_monthly_table_text(
     cell table was found. This prevents a partial OCR pass from becoming a
     seemingly valid monthly report and, consequently, a false quarter.
     """
+    # Use the same whitespace-normalised representation for spans and value
+    # slices; otherwise wrapped OCR labels shift the character offsets.
+    text = re.sub(r"\s+", " ", text)
     spans = _metric_spans(text)
     if not spans:
         return ()
 
     values_by_key: dict[str, tuple[int | float, int | float]] = {}
     for index, (_, key, _, end) in enumerate(spans):
+        if key in values_by_key:
+            continue
         next_start = spans[index + 1][2] if index + 1 < len(spans) else len(text)
         values = _number_values(text[end:next_start])
         if len(values) == 2:

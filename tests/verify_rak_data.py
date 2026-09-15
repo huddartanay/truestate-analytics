@@ -241,9 +241,9 @@ check("Jan 2026 sales_v matches r1.pdf key stat",
 check("No supplied monthly report remains unreadable",
       0, len(S.RAK_MONTHLY_UNREADABLE))
 
-# Data point count
-check("Total monthly data points = 47",
-      47, len(S.RAK_MONTHLY_TIMESERIES))
+# Data point count (the supplied RRR monthly reports expand the registry)
+check("Total monthly data points = 75",
+      75, len(S.RAK_MONTHLY_TIMESERIES))
 
 
 # ── Sharjah-only / cross-emirate filter ──────────────────────────────────

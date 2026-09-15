@@ -75,8 +75,10 @@ class RAKAnalyticsDataTests(unittest.TestCase):
         self.assertIsNone(data.parse_numeric("—"))
 
     def test_quarter_options_are_derived_from_the_supplied_monthly_registry(self):
-        self.assertEqual(data.available_quarters(2022), ())
-        self.assertEqual(data.available_quarters(2023), ("Q1", "Q2"))
+        self.assertEqual(data.available_quarters(2020), ("Q1", "Q2", "Q3", "Q4"))
+        self.assertEqual(data.available_quarters(2021), ("Q1", "Q2", "Q3", "Q4"))
+        self.assertEqual(data.available_quarters(2022), ("Q2", "Q3", "Q4"))
+        self.assertEqual(data.available_quarters(2023), ("Q1", "Q2", "Q4"))
         self.assertEqual(data.available_quarters(2024), ("Q1", "Q2"))
         self.assertEqual(data.available_quarters(2025), ("Q1",))
         self.assertEqual(data.latest_completed_quarter(), (2025, "Q1"))
@@ -111,6 +113,26 @@ class RAKAnalyticsDataTests(unittest.TestCase):
         self.assertEqual(rows[0]["sales_v"], 180119152)
         self.assertEqual(rows[1]["year"], 2023)
         self.assertEqual(rows[1]["waiv_n"], 51)
+
+    def test_older_report_labels_and_wrapped_rows_are_supported(self):
+        text = """
+        Real Estate Sales Volume 156,256,113 34,005,382 360%
+        Real Estate Mortgages\nVolume 138,191,135 57,113,065 142%
+        Market Value of Transfers 34,030,173 12,300,731 177%
+        Real Estate Sales Number 132 98 35%
+        Real Estate Mortgages\nNumber 60 11 445%
+        Number of Transfers 46 14 229%
+        """
+        rows = parse_monthly_table_text(
+            text,
+            month="April",
+            current_year=2021,
+            previous_year=2020,
+        )
+        self.assertTrue(rows_are_complete(rows))
+        self.assertEqual(rows[0]["waiv_v"], 34_030_173)
+        self.assertEqual(rows[1]["mort_n"], 11)
+        self.assertEqual(rows[1]["waiv_n"], 14)
 
     def test_partial_ocr_table_is_rejected_before_registry_ingestion(self):
         rows = parse_monthly_table_text(
