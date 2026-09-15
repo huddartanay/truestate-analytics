@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Sequence
 
 import plotly.graph_objects as go
 
-from platform_core.chart_theme import PRIMARY, SECONDARY, layout
+from platform_core.chart_theme import AMBER, PRIMARY, SECONDARY, layout
 
 from . import analytics as data
 
@@ -82,7 +82,7 @@ def annual_value_chart(snapshot: data.AnnualSnapshot, dark: bool = False) -> go.
     return _metric_chart(
         snapshot,
         data.CHART_VALUE_METRICS,
-        title=f"Annual Transaction Value — {snapshot.year}",
+        title=f"Yearly Aggregate Transaction Value — {snapshot.year}",
         y_title="AED billion",
         suffix="B",
         scale=1e9,
@@ -91,40 +91,33 @@ def annual_value_chart(snapshot: data.AnnualSnapshot, dark: bool = False) -> go.
     )
 
 
-def annual_count_chart(snapshot: data.AnnualSnapshot, dark: bool = False) -> go.Figure:
-    return _metric_chart(
-        snapshot,
-        data.CHART_COUNT_METRICS,
-        title=f"Annual Transaction Count — {snapshot.year}",
-        y_title="Number of transactions",
-        suffix="",
-        scale=1,
-        color=SECONDARY,
+def quarterly_monthly_value_chart(
+    snapshot: data.QuarterlySnapshot,
+    dark: bool = False,
+) -> go.Figure:
+    """Plot the three complete monthly reports inside the selected quarter."""
+    colors = (PRIMARY, SECONDARY, AMBER)
+    fig = go.Figure()
+    for (label, key, _), color in zip(data.CHART_VALUE_METRICS, colors):
+        fig.add_trace(go.Scatter(
+            name=label,
+            x=list(snapshot.months),
+            y=[row[key] / 1e9 for row in snapshot.monthly],
+            mode="lines+markers",
+            line={"color": color, "width": 2},
+            marker={"color": color, "size": 8},
+            hovertemplate=(
+                f"{label}<br>%{{x}}<br>AED %{{y:,.2f}}B<extra></extra>"
+            ),
+        ))
+    chart_layout = layout(
+        title=f"Monthly Transaction Value — {snapshot.quarter} {snapshot.year}",
+        height=420,
+        show_legend=True,
         dark=dark,
+        hovermode="x unified",
     )
-
-
-def quarterly_value_chart(snapshot: data.QuarterlySnapshot, dark: bool = False) -> go.Figure:
-    return _metric_chart(
-        snapshot,
-        data.CHART_VALUE_METRICS,
-        title=f"Quarterly Transaction Value — {snapshot.quarter} {snapshot.year}",
-        y_title="AED billion",
-        suffix="B",
-        scale=1e9,
-        color=PRIMARY,
-        dark=dark,
-    )
-
-
-def quarterly_count_chart(snapshot: data.QuarterlySnapshot, dark: bool = False) -> go.Figure:
-    return _metric_chart(
-        snapshot,
-        data.CHART_COUNT_METRICS,
-        title=f"Quarterly Transaction Count — {snapshot.quarter} {snapshot.year}",
-        y_title="Number of transactions",
-        suffix="",
-        scale=1,
-        color=SECONDARY,
-        dark=dark,
-    )
+    chart_layout["yaxis"]["title"] = {"text": "AED billion"}
+    chart_layout["margin"] = {"l": 65, "r": 25, "t": 60, "b": 65}
+    fig.update_layout(**chart_layout)
+    return fig

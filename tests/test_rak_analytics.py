@@ -44,6 +44,8 @@ class RAKAnalyticsDataTests(unittest.TestCase):
         self.assertEqual(snapshot.metrics["sales_n"], 33)
         self.assertEqual(snapshot.metrics["total_v"], 1809)
         self.assertEqual(snapshot.metrics["total_n"], 189)
+        self.assertEqual(snapshot.monthly[0]["month"], "January")
+        self.assertEqual(snapshot.monthly[-1]["month"], "March")
 
     def test_missing_required_month_does_not_create_incomplete_quarter(self):
         rows = [monthly_row(2024, "January"), monthly_row(2024, "March")]
@@ -116,7 +118,7 @@ class RAKAnalyticsDataTests(unittest.TestCase):
 
 
 class RAKAnalyticsPresentationTests(unittest.TestCase):
-    def test_plot_builders_share_dynamic_titles_and_single_reusable_series(self):
+    def test_plot_builders_share_dynamic_titles_and_monthly_quarter_series(self):
         annual = data.annual_snapshot(2024)
         quarterly = data.quarterly_snapshot(
             2024,
@@ -125,8 +127,10 @@ class RAKAnalyticsPresentationTests(unittest.TestCase):
         )
         self.assertEqual(len(charts.annual_value_chart(annual).data), 1)
         self.assertIn("2024", charts.annual_value_chart(annual).layout.title.text)
-        self.assertIn("Q1 2024", charts.quarterly_value_chart(quarterly).layout.title.text)
-        self.assertEqual(len(charts.quarterly_count_chart(quarterly).data), 1)
+        monthly_chart = charts.quarterly_monthly_value_chart(quarterly)
+        self.assertIn("Q1 2024", monthly_chart.layout.title.text)
+        self.assertEqual(len(monthly_chart.data), 3)
+        self.assertEqual(list(monthly_chart.data[0].x), ["January", "February", "March"])
 
     def test_dashboard_has_two_sections_and_no_legacy_tabbed_sections(self):
         dashboard = (Path(__file__).parents[1] / "regions/rak/dashboard.py").read_text()
@@ -135,6 +139,9 @@ class RAKAnalyticsPresentationTests(unittest.TestCase):
         self.assertIn('"Yearly Analytics"', dashboard)
         self.assertIn('"Quarterly Analytics"', dashboard)
         self.assertNotIn("st.tabs", dashboard)
+        self.assertNotIn("annual_count_chart", dashboard)
+        self.assertNotIn("quarterly_count_chart", dashboard)
+        self.assertNotIn("quarterly_value_chart", dashboard)
         self.assertNotIn("2024 vs 2025", dashboard)
         self.assertNotIn("2021 vs 2022", dashboard)
         self.assertNotIn("2024–2025", region_page)

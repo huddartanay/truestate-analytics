@@ -54,18 +54,8 @@ def _kpis(snapshot: data.AnnualSnapshot | data.QuarterlySnapshot) -> None:
                 st.metric(label, _format_metric(snapshot.metrics.get(key), unit))
 
 
-def _charts(snapshot: data.AnnualSnapshot | data.QuarterlySnapshot, dark: bool, *, quarterly: bool) -> None:
-    if quarterly:
-        value_chart = ch.quarterly_value_chart(snapshot, dark=dark)
-        count_chart = ch.quarterly_count_chart(snapshot, dark=dark)
-    else:
-        value_chart = ch.annual_value_chart(snapshot, dark=dark)
-        count_chart = ch.annual_count_chart(snapshot, dark=dark)
-    left, right = st.columns(2, gap="large")
-    with left:
-        st.plotly_chart(value_chart, use_container_width=True, config=PC)
-    with right:
-        st.plotly_chart(count_chart, use_container_width=True, config=PC)
+def _chart(figure) -> None:
+    st.plotly_chart(figure, use_container_width=True, config=PC)
 
 
 def _section_yearly(dark: bool) -> None:
@@ -94,7 +84,7 @@ def _section_yearly(dark: bool) -> None:
         f"Source: RAK Statistics Office official annual transaction report · {year}."
     )
     _kpis(snapshot)
-    _charts(snapshot, dark, quarterly=False)
+    _chart(ch.annual_value_chart(snapshot, dark=dark))
     _metric_table(snapshot)
 
 
@@ -148,10 +138,10 @@ def _section_quarterly(dark: bool) -> None:
 
     st.caption(
         f"Monthly sources: {', '.join(snapshot.months)} {year}. "
-        "Only numeric report fields are aggregated."
+        "The chart shows month-by-month values inside the selected complete quarter."
     )
     _kpis(snapshot)
-    _charts(snapshot, dark, quarterly=True)
+    _chart(ch.quarterly_monthly_value_chart(snapshot, dark=dark))
     _metric_table(snapshot)
 
 

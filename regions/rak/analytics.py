@@ -62,6 +62,7 @@ class QuarterlySnapshot:
     year: int
     quarter: str
     months: tuple[str, ...]
+    monthly: tuple[Mapping[str, object], ...]
     metrics: Mapping[str, float | int | None]
     source_notes: tuple[str, ...]
 
@@ -244,15 +245,26 @@ def _monthly_row_complete(row: Mapping[str, object]) -> bool:
     return all(row.get(key) is not None for key in keys)
 
 
+def _complete_quarter_records(
+    year: int,
+    quarter: str,
+    records: Mapping[tuple[int, int], Mapping[str, object]],
+) -> tuple[Mapping[str, object], ...] | None:
+    months = QUARTER_MONTHS.get(str(quarter).upper())
+    if months is None:
+        return None
+    monthly = tuple(records.get((year, month)) for month in months)
+    if any(row is None or not _monthly_row_complete(row) for row in monthly):
+        return None
+    return monthly  # type: ignore[return-value]
+
+
 def available_quarters(year: int, rows: Iterable[Mapping[str, object]] | None = None) -> tuple[str, ...]:
     """Return only quarters with three complete monthly report rows."""
     records = {(row["year"], row["month_number"]): row for row in monthly_records(rows)}
     return tuple(
         quarter for quarter, months in QUARTER_MONTHS.items()
-        if all(
-            (year, month) in records and _monthly_row_complete(records[(year, month)])
-            for month in months
-        )
+        if _complete_quarter_records(year, quarter, records) is not None
     )
 
 
@@ -267,8 +279,8 @@ def quarterly_snapshot(
     if months is None:
         return None
     records = {(row["year"], row["month_number"]): row for row in monthly_records(rows)}
-    monthly = [records.get((year, month)) for month in months]
-    if any(row is None or not _monthly_row_complete(row) for row in monthly):
+    monthly = _complete_quarter_records(year, quarter, records)
+    if monthly is None:
         return None
 
     metrics: dict[str, float | int | None] = {}
@@ -285,6 +297,7 @@ def quarterly_snapshot(
         year=year,
         quarter=quarter,
         months=tuple(MONTHS[month - 1] for month in months),
+        monthly=monthly,
         metrics=metrics,
         source_notes=tuple(row["source_note"] for row in monthly if row["source_note"]),
     )
