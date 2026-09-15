@@ -25,9 +25,9 @@ def render() -> None:
     ui.region_header(
         region,
         chips=[
-            "2025 · RAK Statistics Office",
+            "RAK Statistics Office",
             "Report-sourced",
-            "Annual + monthly",
+            "Yearly + quarterly",
         ],
     )
     from platform_core import ai_ui
@@ -37,14 +37,10 @@ def render() -> None:
         st.markdown(
             """
 This is the **Ras Al Khaimah** regional tab. Every figure and every table on
-this page is drawn from three official reports published by the RAK Statistics
-Office (Lands & Properties Sector):
-
-1. **RAK Annual 2024–2025** — the primary source for 2025 headline figures,
-   the popular-areas ranking, the property-use table and the investor tables.
-2. **RAK Annual 2020–2021** — historical context: the same categories reported
-   four years earlier.
-3. **RAK Monthly — January 2026** — the most recent monthly transaction report.
+this page is drawn from official annual and monthly reports published by the
+RAK Statistics Office (Lands & Properties Sector). The analytics below expose
+the available years through a dropdown and derive quarterly values only from
+complete three-month report groups.
 
 Nothing else is used. No Dubai, Sharjah or other-emirate value has been
 carried in, nothing is inferred from a UAE-wide aggregate, and no metric that

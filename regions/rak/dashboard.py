@@ -90,7 +90,9 @@ def _section_yearly(dark: bool) -> None:
         )
         return
 
-    st.caption(f"Source: {snapshot.source['citation']}")
+    st.caption(
+        f"Source: RAK Statistics Office official annual transaction report · {year}."
+    )
     _kpis(snapshot)
     _charts(snapshot, dark, quarterly=False)
     _metric_table(snapshot)

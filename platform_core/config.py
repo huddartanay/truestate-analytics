@@ -163,15 +163,14 @@ REGIONS = {
         "accent": "#059669",
         "accent_soft": "rgba(5, 150, 105, 0.10)",
         "description": (
-            "Ras Al Khaimah regional analytics, built entirely from three official "
-            "reports issued by the RAK Statistics Office (Lands & Properties Sector) — "
-            "the 2024–2025 and 2020–2021 annual reports plus the January 2026 monthly "
-            "report. No value is carried over from Dubai, Sharjah or any other emirate."
+            "Ras Al Khaimah regional analytics, built entirely from official annual "
+            "and monthly reports issued by the RAK Statistics Office (Lands & Properties "
+            "Sector). No value is carried over from Dubai, Sharjah or any other emirate."
         ),
         "highlights": [
-            "2024–2025 annual snapshot",
-            "2020–2021 historical context",
-            "January 2026 monthly report",
+            "Year-selectable analytics",
+            "Quarter-selectable analytics",
+            "Complete-month validation",
             "Top areas · property use · investors",
         ],
     },

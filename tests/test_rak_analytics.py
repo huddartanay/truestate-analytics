@@ -130,12 +130,14 @@ class RAKAnalyticsPresentationTests(unittest.TestCase):
 
     def test_dashboard_has_two_sections_and_no_legacy_tabbed_sections(self):
         dashboard = (Path(__file__).parents[1] / "regions/rak/dashboard.py").read_text()
+        region_page = (Path(__file__).parents[1] / "platform_pages/region_rak.py").read_text()
         self.assertEqual(dashboard.count('ui.section('), 2)
         self.assertIn('"Yearly Analytics"', dashboard)
         self.assertIn('"Quarterly Analytics"', dashboard)
         self.assertNotIn("st.tabs", dashboard)
         self.assertNotIn("2024 vs 2025", dashboard)
         self.assertNotIn("2021 vs 2022", dashboard)
+        self.assertNotIn("2024–2025", region_page)
 
 
 if __name__ == "__main__":
