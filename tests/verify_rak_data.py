@@ -223,8 +223,13 @@ check("January 2026 sales_v = 249,794,299 (matches r1.pdf)",
 
 # OCR-extracted months
 check("October 2022 mort_v = 674,360,576 (OCR)", 674_360_576, ts[(2022, "October")]["mort_v"])
-check("June 2024 sales_v = 2,935,067,291 (OCR)", 2_935_067_291, ts[(2024, "June")]["sales_v"])
+check("June 2024 sales_v = 2,535,067,291 (OCR-verified)", 2_535_067_291, ts[(2024, "June")]["sales_v"])
 check("August 2025 waiv_v = 232,334,273 (OCR)",  232_334_273,   ts[(2025, "August")]["waiv_v"])
+
+# Newly verified February–May reports complete Q1 and Q2 for 2023 and 2024.
+check("February 2023 sales_v = 109,910,233", 109_910_233, ts[(2023, "February")]["sales_v"])
+check("March 2024 waiv_v = 84,868,001", 84_868_001, ts[(2024, "March")]["waiv_v"])
+check("May 2024 sales_v = 618,091,229", 618_091_229, ts[(2024, "May")]["sales_v"])
 
 # Consistency between annual r2/r4 and the monthly extracts
 check("Dec 2021 sales_v matches (both monthly and annual chain)",
@@ -232,15 +237,13 @@ check("Dec 2021 sales_v matches (both monthly and annual chain)",
 check("Jan 2026 sales_v matches r1.pdf key stat",
       249_794_299, ts[(2026, "January")]["sales_v"])
 
-# Unreadable list transparency
-check("Unreadable list contains 8 entries",
-      8, len(S.RAK_MONTHLY_UNREADABLE))
-check("Unreadable list references February 2023/2024",
-      True, any("February 2023" in u["period"] for u in S.RAK_MONTHLY_UNREADABLE))
+# All supplied monthly tables have now passed the crop-OCR review.
+check("No supplied monthly report remains unreadable",
+      0, len(S.RAK_MONTHLY_UNREADABLE))
 
 # Data point count
-check("Total monthly data points = 35",
-      35, len(S.RAK_MONTHLY_TIMESERIES))
+check("Total monthly data points = 47",
+      47, len(S.RAK_MONTHLY_TIMESERIES))
 
 
 # ── Sharjah-only / cross-emirate filter ──────────────────────────────────

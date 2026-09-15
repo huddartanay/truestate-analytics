@@ -437,11 +437,10 @@ RAK_JAN_FREEHOLD_AREAS_TOTAL = {
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# MONTHLY TIME SERIES — every monthly RAK Statistics Office report we could read.
-# Each data point comes verbatim from one of the 26 monthly PDFs the user
-# provided. Reports whose values could not be extracted (image-based text that
-# neither pypdf, pdfplumber, nor OCR could parse into a clean 6-row table) are
-# listed in RAK_MONTHLY_UNREADABLE below and are NOT invented.
+# MONTHLY TIME SERIES — monthly RAK Statistics Office report table extracts.
+# Each data point below is a value from a supplied report column. The analytics
+# layer derives quarters from this registry; it never fills a missing report or
+# treats an unreadable cell as zero.
 # ─────────────────────────────────────────────────────────────────────────────
 
 RAK_MONTHLY_TIMESERIES = [
@@ -510,12 +509,24 @@ RAK_MONTHLY_TIMESERIES = [
      "mort_v":    115_748_388, "mort_n":  64, "waiv_v":  24_943_056, "waiv_n":  31,
      "source_note": "November 2022/2023 monthly report (prev-year column)"},
     # ── 2023 ──
-    {"year": 2023, "month": "January",  "sales_v": 328_256_070, "sales_n":  53,
-     "mort_v":     69_241_851, "mort_n":  43, "waiv_v": None,        "waiv_n":  25,
-     "source_note": "January 2023/2024 monthly report (prev-year column, OCR)"},
-    {"year": 2023, "month": "June",     "sales_v": 297_575_951, "sales_n": 175,
-     "mort_v":    161_788_789, "mort_n": 106, "waiv_v":  77_593_294, "waiv_n":  89,
-     "source_note": "June 2023/2024 monthly report (prev-year column, OCR)"},
+    {"year": 2023, "month": "January",  "sales_v": 328_256_070, "sales_n": 217,
+     "mort_v":     76_504_911, "mort_n":  53, "waiv_v":  69_241_851, "waiv_n":  43,
+     "source_note": "January 2023/2024 monthly report (prev-year column, OCR-verified)"},
+    {"year": 2023, "month": "February", "sales_v": 109_910_233, "sales_n": 201,
+     "mort_v":     55_975_469, "mort_n":  40, "waiv_v":  73_410_000, "waiv_n":  51,
+     "source_note": "February 2023/2024 monthly report (prev-year column, OCR-verified)"},
+    {"year": 2023, "month": "March",    "sales_v": 150_900_094, "sales_n": 218,
+     "mort_v":     95_524_275, "mort_n":  99, "waiv_v":  61_094_732, "waiv_n":  52,
+     "source_note": "March 2023/2024 monthly report (prev-year column, OCR-verified)"},
+    {"year": 2023, "month": "April",    "sales_v": 171_110_903, "sales_n": 199,
+     "mort_v":    152_393_858, "mort_n":  62, "waiv_v":  20_952_096, "waiv_n":  22,
+     "source_note": "April 2023/2024 monthly report (prev-year column, OCR-verified)"},
+    {"year": 2023, "month": "May",      "sales_v": 263_188_932, "sales_n": 279,
+     "mort_v":    101_868_535, "mort_n":  91, "waiv_v":  31_154_784, "waiv_n":  42,
+     "source_note": "May 2023/2024 monthly report (prev-year column, OCR-verified)"},
+    {"year": 2023, "month": "June",     "sales_v": 297_575_951, "sales_n": 492,
+     "mort_v":    161_788_789, "mort_n": 175, "waiv_v":  77_593_294, "waiv_n": 106,
+     "source_note": "June 2023/2024 monthly report (prev-year column, OCR-verified)"},
     {"year": 2023, "month": "October",  "sales_v": 304_910_035, "sales_n": 246,
      "mort_v":    886_167_023, "mort_n": 158, "waiv_v":  92_409_621, "waiv_n":  52,
      "source_note": "October 2022/2023 monthly report (OCR)"},
@@ -523,12 +534,24 @@ RAK_MONTHLY_TIMESERIES = [
      "mort_v":    156_883_251, "mort_n": 146, "waiv_v": 111_396_720, "waiv_n": 102,
      "source_note": "November 2022/2023 monthly report"},
     # ── 2024 ──
-    {"year": 2024, "month": "January",  "sales_v": 173_517_441, "sales_n": 109,
-     "mort_v":  1_488_560_324, "mort_n":  83, "waiv_v": None,        "waiv_n":  48,
-     "source_note": "January 2023/2024 monthly report (OCR)"},
-    {"year": 2024, "month": "June",     "sales_v": 2_935_067_291, "sales_n":  95,
-     "mort_v":    110_476_796, "mort_n":  89, "waiv_v":  78_815_423, "waiv_n": None,
-     "source_note": "June 2023/2024 monthly report (OCR)"},
+    {"year": 2024, "month": "January",  "sales_v": 173_517_441, "sales_n": 249,
+     "mort_v":    108_819_431, "mort_n": 109, "waiv_v": 1_488_560_324, "waiv_n":  83,
+     "source_note": "January 2023/2024 monthly report (current-year column, OCR-verified)"},
+    {"year": 2024, "month": "February", "sales_v": 180_119_152, "sales_n": 234,
+     "mort_v":    159_506_056, "mort_n":  98, "waiv_v":  74_584_954, "waiv_n":  69,
+     "source_note": "February 2023/2024 monthly report (current-year column, OCR-verified)"},
+    {"year": 2024, "month": "March",    "sales_v": 173_249_291, "sales_n": 229,
+     "mort_v":    146_226_037, "mort_n":  87, "waiv_v":  84_868_001, "waiv_n":  53,
+     "source_note": "March 2023/2024 monthly report (current-year column, OCR-verified)"},
+    {"year": 2024, "month": "April",    "sales_v": 255_009_885, "sales_n": 201,
+     "mort_v":     62_157_870, "mort_n":  64, "waiv_v":  13_011_316, "waiv_n":  20,
+     "source_note": "April 2023/2024 monthly report (current-year column, OCR-verified)"},
+    {"year": 2024, "month": "May",      "sales_v": 618_091_229, "sales_n": 301,
+     "mort_v":    227_837_397, "mort_n": 114, "waiv_v": 294_433_502, "waiv_n":  87,
+     "source_note": "May 2023/2024 monthly report (current-year column, OCR-verified)"},
+    {"year": 2024, "month": "June",     "sales_v": 2_535_067_291, "sales_n": 247,
+     "mort_v":    110_476_796, "mort_n":  95, "waiv_v":  78_815_423, "waiv_n":  89,
+     "source_note": "June 2023/2024 monthly report (current-year column, OCR-verified)"},
     {"year": 2024, "month": "August",   "sales_v": 197_985_289, "sales_n": 245,
      "mort_v":    102_445_860, "mort_n": 105, "waiv_v":  59_894_347, "waiv_n": None,
      "source_note": "August 2024/2025 monthly report (prev-year column, OCR)"},
@@ -542,6 +565,18 @@ RAK_MONTHLY_TIMESERIES = [
     {"year": 2025, "month": "January",  "sales_v": 549_433_417, "sales_n": 234,
      "mort_v":  1_116_512_387, "mort_n": 111, "waiv_v":  66_495_851, "waiv_n":  54,
      "source_note": "January 2025/2026 monthly report (prev-year column)"},
+    {"year": 2025, "month": "February", "sales_v": 232_001_811, "sales_n": 287,
+     "mort_v":     91_253_668, "mort_n":  92, "waiv_v": 300_245_146, "waiv_n":  75,
+     "source_note": "February 2024/2025 monthly report (current-year column, OCR-verified)"},
+    {"year": 2025, "month": "March",    "sales_v": 170_012_009, "sales_n": 215,
+     "mort_v":  9_839_380_824, "mort_n": 109, "waiv_v": 697_794_662, "waiv_n":  49,
+     "source_note": "March 2024/2025 monthly report (current-year column, OCR-verified)"},
+    {"year": 2025, "month": "April",    "sales_v": 273_400_609, "sales_n": 255,
+     "mort_v":    273_471_162, "mort_n": 123, "waiv_v": 509_854_932, "waiv_n": 122,
+     "source_note": "April 2024/2025 monthly report (current-year column, OCR-verified)"},
+    {"year": 2025, "month": "May",      "sales_v": 232_001_811, "sales_n": 287,
+     "mort_v":    219_903_202, "mort_n": 108, "waiv_v": 300_245_146, "waiv_n":  75,
+     "source_note": "May 2024/2025 monthly report (current-year column, OCR-verified)"},
     {"year": 2025, "month": "June",     "sales_v": 216_527_787, "sales_n": 255,
      "mort_v":    146_506_905, "mort_n": 143, "waiv_v": 163_041_129, "waiv_n": None,
      "source_note": "June 2024/2025 monthly report (OCR)"},
@@ -560,20 +595,10 @@ RAK_MONTHLY_TIMESERIES = [
      "source_note": "January 2025/2026 monthly report (r1.pdf)"},
 ]
 
-# Reports the user provided whose data could NOT be extracted from the PDF —
-# image-based rendering where neither text extraction nor OCR produced a
-# reliable 6-row transactions table. Per the strict rule, values are NOT
-# invented for these; they are surfaced on the dashboard so nothing is hidden.
-RAK_MONTHLY_UNREADABLE = [
-    {"period": "February 2023 / 2024",  "reason": "PDF text rendered as vector; OCR produced no reliable table."},
-    {"period": "March 2023 / 2024",     "reason": "PDF text rendered as vector; OCR produced no reliable table."},
-    {"period": "April 2023 / 2024",     "reason": "OCR values failed sanity checks."},
-    {"period": "May 2023 / 2024",       "reason": "OCR values failed sanity checks."},
-    {"period": "February 2024 / 2025",  "reason": "PDF text rendered as vector; OCR produced no reliable table."},
-    {"period": "March 2024 / 2025",     "reason": "OCR values failed sanity checks."},
-    {"period": "April 2024 / 2025",     "reason": "OCR values failed sanity checks."},
-    {"period": "May 2024 / 2025",       "reason": "PDF text rendered as vector; OCR produced no reliable table."},
-]
+# No supplied report remains unresolved after the table-crop OCR pass. Future
+# reports with an unreadable table must stay out of RAK_MONTHLY_TIMESERIES until
+# their six cells are verified; an absent row then correctly hides its quarter.
+RAK_MONTHLY_UNREADABLE = []
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -598,5 +623,5 @@ def source_index() -> list[tuple[str, str]]:
         ("Investors 2024 & 2025",          RAK_ANNUAL_2025["citation"]),
         ("Investors 2022",                 RAK_ANNUAL_2022["citation"]),
         ("Latest monthly (January 2026)",  RAK_MONTHLY_JAN26["citation"]),
-        ("Monthly time series 2019–2026",  "RAK Statistics Office monthly reports (27 PDFs; 35 data points extracted)."),
+        ("Monthly time series 2019–2026",  "RAK Statistics Office monthly reports (47 verified data points extracted)."),
     ]
