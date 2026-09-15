@@ -1,9 +1,8 @@
 """
 Ras Al Khaimah — report-sourced regional market intelligence (RAK tab).
 
-Every value on the RAK dashboard traces back to official reports published by
-the RAK Statistics Office (Lands & Properties Sector), including the annual
-reports and the verified monthly report registry used by quarterly analytics:
+Every value on the RAK dashboard traces back to one of the following official
+reports published by the RAK Statistics Office (Lands & Properties Sector):
 
     RAK_ANNUAL_2025    Real Estate Report on Lands and Properties Sector
                        Transactions 2024–2025  (r4.pdf)
