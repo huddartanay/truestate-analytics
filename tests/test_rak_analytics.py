@@ -137,18 +137,21 @@ class RAKAnalyticsPresentationTests(unittest.TestCase):
         self.assertEqual(len(monthly_chart.data), 3)
         self.assertEqual(list(monthly_chart.data[0].x), ["January", "February", "March"])
 
-    def test_dashboard_has_two_sections_and_no_legacy_tabbed_sections(self):
+    def test_dashboard_keeps_other_rak_subsections_with_dynamic_analytics(self):
         dashboard = (Path(__file__).parents[1] / "regions/rak/dashboard.py").read_text()
         region_page = (Path(__file__).parents[1] / "platform_pages/region_rak.py").read_text()
-        self.assertEqual(dashboard.count('ui.section('), 2)
         self.assertIn('"Yearly Analytics"', dashboard)
         self.assertIn('"Quarterly Analytics"', dashboard)
-        self.assertNotIn("st.tabs", dashboard)
-        self.assertNotIn("annual_count_chart", dashboard)
-        self.assertNotIn("quarterly_count_chart", dashboard)
-        self.assertNotIn("quarterly_value_chart", dashboard)
-        self.assertNotIn("2024 vs 2025", dashboard)
-        self.assertNotIn("2021 vs 2022", dashboard)
+        self.assertIn("_section_overview", dashboard)
+        self.assertIn("_section_monthly", dashboard)
+        self.assertIn("_section_areas", dashboard)
+        self.assertIn("_section_property", dashboard)
+        self.assertIn("_section_investors", dashboard)
+        self.assertIn("_section_latest_and_download", dashboard)
+        self.assertIn("st.tabs", dashboard)
+        self.assertNotIn("annual_value_2024_2025", dashboard)
+        self.assertNotIn("annual_count_2024_2025", dashboard)
+        self.assertNotIn("Reports the user provided but could not be extracted", dashboard)
         self.assertNotIn("2024–2025", region_page)
 
 
