@@ -341,10 +341,10 @@ st.markdown("---")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# TABS
+# LAZY ANALYTICS SECTION SELECTOR
 # ─────────────────────────────────────────────────────────────────────────────
 
-tabs = st.tabs([
+SECTION_OPTIONS = [
     "💡 Insights",
     "📈 Trends",
     "🗺️ Geographic",
@@ -357,20 +357,23 @@ tabs = st.tabs([
     "🔍 Data Quality",
     "⬇️ Download",
     "ℹ️ About",
-])
+]
 
-(
-    tab_insights, tab_trends, tab_geo, tab_property, tab_price,
-    tab_dist, tab_time, tab_corr, tab_outlier, tab_quality,
-    tab_download, tab_about,
-) = tabs
+selected_section = st.segmented_control(
+    "Analytics section",
+    SECTION_OPTIONS,
+    default=SECTION_OPTIONS[0],
+    key="ad_analytics_section",
+    width="stretch",
+)
+selected_section = selected_section or SECTION_OPTIONS[0]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TAB 1 — BUSINESS INSIGHTS
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_insights:
+if selected_section == "💡 Insights":
     section_header("Smart Business Insights", "Automatically derived from the filtered market data", "💡")
 
     # ── Compute insight metrics ────────────────────────────────────────────────
@@ -462,7 +465,7 @@ with tab_insights:
 # TAB 2 — SALES TRENDS
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_trends:
+if selected_section == "📈 Trends":
     section_header("Sales Trends & Market Dynamics", "Transaction volume and value over time", "📈")
 
     st.markdown("#### 📅 Monthly Transaction Trend")
@@ -492,7 +495,7 @@ with tab_trends:
 # TAB 3 — GEOGRAPHIC
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_geo:
+if selected_section == "🗺️ Geographic":
     section_header("Geographic Market Analysis", "Where transactions happen across Abu Dhabi", "🗺️")
 
     st.markdown("#### 🗺️ District Transaction Volume — Treemap")
@@ -540,7 +543,7 @@ with tab_geo:
 # TAB 4 — PROPERTY
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_property:
+if selected_section == "🏠 Property":
     section_header("Property Type & Characteristics", "Breakdown by type, layout and sale category", "🏠")
 
     c1, c2 = st.columns(2)
@@ -575,7 +578,7 @@ with tab_property:
 # TAB 5 — PRICE ANALYSIS
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_price:
+if selected_section == "💵 Price":
     section_header("Price Analysis", "Pricing trends, distributions and comparisons", "💵")
 
     st.markdown("#### 📈 Median Price & Rate / SQM — Monthly Trend")
@@ -608,7 +611,7 @@ with tab_price:
 # TAB 6 — DISTRIBUTION
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_dist:
+if selected_section == "📊 Distribution":
     section_header("Statistical Distribution Analysis", "Shape and spread of key market variables", "📊")
 
     st.markdown("#### 🎻 Rate / SQM Distribution by Year — Violin Plot")
@@ -706,7 +709,7 @@ represents the mid-market band where the majority of transactions occur.
 # TAB 7 — TIME SERIES
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_time:
+if selected_section == "🕐 Time Series":
     section_header("Time Series & Seasonality", "Seasonal patterns and year-over-year growth", "🕐")
 
     st.markdown("#### 🌊 Monthly Seasonal Patterns")
@@ -808,7 +811,7 @@ and UAE's safe-haven investment appeal. Investors entering at trough-volume year
 # TAB 8 — CORRELATIONS
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_corr:
+if selected_section == "🔗 Correlations":
     section_header("Correlation Analysis", "Statistical relationships between market variables", "🔗")
 
     info_box(
@@ -834,7 +837,7 @@ with tab_corr:
 # TAB 9 — OUTLIERS
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_outlier:
+if selected_section == "⚠️ Outliers":
     section_header("Outlier Analysis", "Identifying and contextualising extreme values", "⚠️")
 
     info_box(
@@ -889,7 +892,7 @@ with tab_outlier:
 # TAB 10 — DATA QUALITY
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_quality:
+if selected_section == "🔍 Data Quality":
     section_header("Data Quality Report", "Dataset structure, completeness and column overview", "🔍")
 
     if IS_APARTMENTS:
@@ -982,7 +985,7 @@ with tab_quality:
 # TAB 11 — DOWNLOAD
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_download:
+if selected_section == "⬇️ Download":
     section_header("Download Center", "Export filtered data and summary reports", "⬇️")
 
     info_box(
@@ -1064,7 +1067,7 @@ with tab_download:
 # TAB 12 — ABOUT
 # ─────────────────────────────────────────────────────────────────────────────
 
-with tab_about:
+if selected_section == "ℹ️ About":
     section_header("About This Dashboard", "Dataset, definitions and methodology", "ℹ️")
 
     c1, c2 = st.columns(2)

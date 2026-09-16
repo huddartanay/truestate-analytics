@@ -1554,22 +1554,30 @@ def render(dark: bool = False) -> None:
     # ── 4–9. Analytics ───────────────────────────────────────────────────────
     ui.divider_label("Analytics")
 
-    tabs = st.tabs([
+    section_options = [
         "💡 Insights", "📈 Trends", "🗺️ Geography",
         "🏠 Property", "💵 Price", "📊 Distribution", "📄 Download Report",
-    ])
+    ]
+    selected_section = st.segmented_control(
+        "Analytics section",
+        section_options,
+        default=section_options[0],
+        key="dxb_analytics_section",
+        width="stretch",
+    )
+    selected_section = selected_section or section_options[0]
 
-    with tabs[0]:
+    if selected_section == "💡 Insights":
         _section_insights(df, dark)
-    with tabs[1]:
+    if selected_section == "📈 Trends":
         _section_trends(df, dark)
-    with tabs[2]:
+    if selected_section == "🗺️ Geography":
         _section_geography(df, dark)
-    with tabs[3]:
+    if selected_section == "🏠 Property":
         _section_property(df, dark)
-    with tabs[4]:
+    if selected_section == "💵 Price":
         _section_price(df, dark)
-    with tabs[5]:
+    if selected_section == "📊 Distribution":
         _section_distribution(df, dark)
-    with tabs[6]:
+    if selected_section == "📄 Download Report":
         _section_download_report(df, df_all, global_area, dark)
