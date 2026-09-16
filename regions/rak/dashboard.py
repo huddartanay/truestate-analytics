@@ -103,30 +103,40 @@ def _chart(figure) -> None:
 def _section_yearly(dark: bool) -> None:
     ui.section(
         "Yearly Analytics",
-        "Select a year to view one aggregate annual-report graph, KPIs and table.",
+        "Select a year range to view the aggregate annual-report graph, KPIs and table.",
         "📈",
     )
-    year_options = list(data.ANNUAL_YEAR_OPTIONS)
-    default_year = data.latest_available_annual_year() or year_options[-1]
-    year = st.selectbox(
-        "Year",
-        year_options,
-        index=year_options.index(default_year),
-        key="rak.yearly.year",
+    start_year, end_year = st.slider(
+        "Year Range",
+        min_value=2019,
+        max_value=2026,
+        value=(2019, 2026),
+        step=1,
+        key="rak.yearly.range",
     )
-    snapshot = data.annual_snapshot(year)
-    if snapshot is None:
-        available = ", ".join(str(period) for period in data.available_annual_years())
+
+    snapshots = tuple(
+        snapshot
+        for year in range(start_year, end_year + 1)
+        if (snapshot := data.annual_snapshot(year)) is not None
+    )
+    if not snapshots:
         st.info(
-            f"No supplied annual report contains {year}. "
-            f"Annual report-backed years currently available: {available}."
+            f"No supplied annual report contains a year from {start_year} to {end_year}."
         )
         return
 
-    st.caption(f"Source: RAK Statistics Office official annual transaction report · {year}.")
-    _kpis(snapshot)
-    _chart(ch.annual_value_chart(snapshot, dark=dark))
-    _metric_table(snapshot)
+    # The range control is intentionally immediately above the existing chart.
+    _chart(ch.annual_value_chart(snapshots, dark=dark))
+    latest_snapshot = snapshots[-1]
+    shown_years = ", ".join(str(snapshot.year) for snapshot in snapshots)
+    st.caption(
+        f"Annual report-backed years shown: {shown_years}. "
+        f"KPIs/table summary: {latest_snapshot.year}. Source: RAK Statistics Office "
+        f"official annual transaction report · {latest_snapshot.year}."
+    )
+    _kpis(latest_snapshot)
+    _metric_table(latest_snapshot)
 
 
 def _section_quarterly(dark: bool) -> None:

@@ -6,7 +6,7 @@ from collections.abc import Sequence
 
 import plotly.graph_objects as go
 
-from platform_core.chart_theme import AMBER, PRIMARY, SECONDARY, layout
+from platform_core.chart_theme import AMBER, CHART_COLORS, PRIMARY, SECONDARY, layout
 
 from . import analytics as data
 from . import sources as S
@@ -79,17 +79,51 @@ def _metric_chart(
     )
 
 
-def annual_value_chart(snapshot: data.AnnualSnapshot, dark: bool = False) -> go.Figure:
-    return _metric_chart(
-        snapshot,
-        data.CHART_VALUE_METRICS,
-        title=f"Yearly Aggregate Transaction Value — {snapshot.year}",
-        y_title="AED billion",
-        suffix="B",
-        scale=1e9,
-        color=PRIMARY,
+def annual_value_chart(
+    snapshot: data.AnnualSnapshot | Sequence[data.AnnualSnapshot],
+    dark: bool = False,
+) -> go.Figure:
+    """Plot one or more report-backed annual snapshots with the same styling."""
+    snapshots = (snapshot,) if isinstance(snapshot, data.AnnualSnapshot) else tuple(snapshot)
+    if len(snapshots) == 1:
+        return _metric_chart(
+            snapshots[0],
+            data.CHART_VALUE_METRICS,
+            title=f"Yearly Aggregate Transaction Value — {snapshots[0].year}",
+            y_title="AED billion",
+            suffix="B",
+            scale=1e9,
+            color=PRIMARY,
+            dark=dark,
+        )
+
+    categories = [label for label, _, _ in data.CHART_VALUE_METRICS]
+    fig = go.Figure()
+    for index, annual in enumerate(snapshots):
+        values = [annual.metrics.get(key) for _, key, _ in data.CHART_VALUE_METRICS]
+        fig.add_trace(go.Bar(
+            name=str(annual.year),
+            x=categories,
+            y=[value / 1e9 if value is not None else None for value in values],
+            marker_color=CHART_COLORS[index % len(CHART_COLORS)],
+            text=[f"{value / 1e9:,.2f}B" if value is not None else "—" for value in values],
+            textposition="outside",
+            hovertemplate=(
+                f"{annual.year}<br>%{{x}}<br>AED %{{y:,.2f}}B<extra></extra>"
+            ),
+        ))
+    chart_layout = layout(
+        title=f"Yearly Aggregate Transaction Value — {snapshots[0].year}–{snapshots[-1].year}",
+        height=420,
+        show_legend=True,
         dark=dark,
+        hovermode="x",
     )
+    chart_layout["yaxis"]["title"] = {"text": "AED billion"}
+    chart_layout["margin"] = {"l": 65, "r": 25, "t": 60, "b": 115}
+    chart_layout["barmode"] = "group"
+    fig.update_layout(**chart_layout)
+    return fig
 
 
 def quarterly_monthly_value_chart(

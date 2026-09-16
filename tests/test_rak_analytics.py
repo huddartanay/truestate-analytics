@@ -159,6 +159,16 @@ class RAKAnalyticsPresentationTests(unittest.TestCase):
         self.assertEqual(len(monthly_chart.data), 3)
         self.assertEqual(list(monthly_chart.data[0].x), ["January", "February", "March"])
 
+    def test_yearly_chart_filters_to_available_snapshots_in_selected_range(self):
+        snapshots = tuple(
+            snapshot
+            for year in range(2019, 2027)
+            if (snapshot := data.annual_snapshot(year)) is not None
+        )
+        figure = charts.annual_value_chart(snapshots)
+        self.assertEqual([trace.name for trace in figure.data], ["2020", "2021", "2022", "2024", "2025"])
+        self.assertIn("2020–2025", figure.layout.title.text)
+
     def test_dashboard_keeps_other_rak_subsections_with_dynamic_analytics(self):
         dashboard = (Path(__file__).parents[1] / "regions/rak/dashboard.py").read_text()
         region_page = (Path(__file__).parents[1] / "platform_pages/region_rak.py").read_text()
@@ -175,6 +185,13 @@ class RAKAnalyticsPresentationTests(unittest.TestCase):
         self.assertNotIn("annual_count_2024_2025", dashboard)
         self.assertNotIn("Reports the user provided but could not be extracted", dashboard)
         self.assertNotIn("2024–2025", region_page)
+
+    def test_yearly_uses_range_slider_while_quarterly_keeps_year_dropdowns(self):
+        dashboard = (Path(__file__).parents[1] / "regions/rak/dashboard.py").read_text()
+        yearly = dashboard.split("def _section_yearly", 1)[1].split("def _section_quarterly", 1)[0]
+        self.assertIn('st.slider(\n        "Year Range"', yearly)
+        self.assertNotIn("st.selectbox", yearly)
+        self.assertIn("st.selectbox", dashboard.split("def _section_quarterly", 1)[1])
 
 
 if __name__ == "__main__":
