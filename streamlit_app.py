@@ -47,7 +47,8 @@ def _import_platform():
         from platform_core import design_system as ds
         from platform_core import memory as mem
         from platform_core import navigation as nav
-        return C, ds, mem, nav
+        from platform_core.performance import page_timer
+        return C, ds, mem, nav, page_timer
 
     try:
         return _load()
@@ -58,7 +59,7 @@ def _import_platform():
         return _load()
 
 
-C, ds, mem, nav = _import_platform()  # noqa: E402
+C, ds, mem, nav, page_timer = _import_platform()  # noqa: E402
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 1. GLOBAL PAGE CONFIGURATION — must be the first Streamlit call
@@ -110,60 +111,61 @@ route = nav.render_sidebar()
 mem.govern(route)
 
 try:
-    if route == C.ROUTE_ABU_DHABI:
-        from platform_pages import region_abu_dhabi
+    with page_timer(route):
+        if route == C.ROUTE_ABU_DHABI:
+            from platform_pages import region_abu_dhabi
 
-        region_abu_dhabi.render()
+            region_abu_dhabi.render()
 
-    elif route == C.ROUTE_DUBAI:
-        from platform_pages import region_dubai
+        elif route == C.ROUTE_DUBAI:
+            from platform_pages import region_dubai
 
-        region_dubai.render()
+            region_dubai.render()
 
-    elif route == C.ROUTE_SHARJAH:
-        from platform_pages import region_sharjah
+        elif route == C.ROUTE_SHARJAH:
+            from platform_pages import region_sharjah
 
-        region_sharjah.render()
+            region_sharjah.render()
 
-    elif route == C.ROUTE_RAK:
-        from platform_pages import region_rak
+        elif route == C.ROUTE_RAK:
+            from platform_pages import region_rak
 
-        region_rak.render()
+            region_rak.render()
 
-    elif route == C.ROUTE_AREA:
-        from platform_pages import area as area_page
+        elif route == C.ROUTE_AREA:
+            from platform_pages import area as area_page
 
-        area_page.render()
+            area_page.render()
 
-    elif route == C.ROUTE_REPORT:
-        from platform_pages import report
+        elif route == C.ROUTE_REPORT:
+            from platform_pages import report
 
-        report.render()
+            report.render()
 
-    elif route == C.ROUTE_FORECAST:
-        from platform_pages import forecast as forecast_page
+        elif route == C.ROUTE_FORECAST:
+            from platform_pages import forecast as forecast_page
 
-        forecast_page.render()
+            forecast_page.render()
 
-    elif route == C.ROUTE_EXPERIMENTAL:
-        from platform_pages import region_experimental
+        elif route == C.ROUTE_EXPERIMENTAL:
+            from platform_pages import region_experimental
 
-        region_experimental.render()
+            region_experimental.render()
 
-    elif route == C.ROUTE_EXPLORE:
-        from platform_pages import explore
+        elif route == C.ROUTE_EXPLORE:
+            from platform_pages import explore
 
-        explore.render()
+            explore.render()
 
-    elif route == C.ROUTE_ABOUT:
-        from platform_pages import about
+        elif route == C.ROUTE_ABOUT:
+            from platform_pages import about
 
-        about.render()
+            about.render()
 
-    else:
-        from platform_pages import overview
+        else:
+            from platform_pages import overview
 
-        overview.render()
+            overview.render()
 
 finally:
     # ─────────────────────────────────────────────────────────────────────────

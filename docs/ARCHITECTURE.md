@@ -18,8 +18,8 @@ This is the Phase-2 deliverable; Phase 3 onwards implements what is described he
 | Real application | `abu dhabi dashboard/app.py` (1,114 lines) |
 | Root shims | `app.py` and `streamlit_app.py` at the repo root, both `runpy.run_path()` the real app |
 | Structure | Genuinely modular — `config/`, `utils/`, `styles/`, `components/`, `charts/` |
-| Data | `Abu_Dhabi_Sales_Cleaned (1).csv` (~20 MB, 109k rows) resolved via `Path(__file__).parent.parent / DATA_FILE` |
-| Caching | `@st.cache_data` on `load_data`, `get_apartments_df`, `get_cleaned_apartments_df` |
+| Data | Runtime reads `regions/abu_dhabi/Abu_Dhabi_Sales_Optimized.parquet` (~2.4 MB, 109k rows); the original `Abu_Dhabi_Sales_Cleaned (1).csv` remains as immutable build-time provenance |
+| Caching | Fingerprint-keyed `@st.cache_data` on the prepared reader plus existing derived-frame caches |
 | UI | Hero → 12 KPI cards → 12 tabs |
 
 **Assessment:** clean, cache-aware, and path-safe. Preserve wholesale.

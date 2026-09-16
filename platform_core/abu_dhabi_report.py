@@ -32,7 +32,6 @@ import pandas as pd
 import streamlit as st
 
 from platform_core import config as C
-from platform_core import pdf_report as R
 
 AD_DIR = C.ABU_DHABI_DIR
 AREA_COL = "District"
@@ -93,18 +92,33 @@ def load_clean() -> tuple[pd.DataFrame, dict]:
 # same list, and the full frame is loaded only when a report is actually built.
 # ─────────────────────────────────────────────────────────────────────────────
 
-AD_CSV = AD_DIR / "Abu_Dhabi_Sales_Cleaned (1).csv"
+AD_PARQUET = AD_DIR / "Abu_Dhabi_Sales_Optimized.parquet"
 
 
-@st.cache_data(show_spinner=False)
+def _pdf_renderer():
+    """Load Matplotlib only when a user actually requests a PDF."""
+    from platform_core import pdf_report
+    return pdf_report
+
+
 def district_counts() -> dict[str, int]:
     """District → apartment-sale count, without loading the whole dataset."""
-    if not AD_CSV.exists():
+    if not AD_PARQUET.exists():
         raise AbuDhabiReportError(
-            "The Abu Dhabi sales file was not found under regions/abu_dhabi/.")
+            "The prepared Abu Dhabi sales artifact was not found under regions/abu_dhabi/.")
+    stat = AD_PARQUET.stat()
+    return _district_counts(str(AD_PARQUET), int(stat.st_size), int(stat.st_mtime_ns))
+
+
+@st.cache_data(show_spinner=False, max_entries=2)
+def _district_counts(path: str, size: int, modified_ns: int) -> dict[str, int]:
+    """Read the three report-list columns, keyed by the artifact fingerprint."""
+    del size, modified_ns
     try:
-        thin = pd.read_csv(AD_CSV, usecols=["Asset Class", "Property Type", "District"],
-                           low_memory=False)
+        thin = pd.read_parquet(
+            path,
+            columns=["Asset Class", "Property Type", "District"],
+        )
     except Exception as exc:  # pragma: no cover - surfaced, never swallowed
         raise AbuDhabiReportError(
             f"The Abu Dhabi district list could not be read "
@@ -153,6 +167,7 @@ ALL_AREAS = "All districts"
 
 def build(district: str = ALL_AREAS) -> bytes:
     """Render the Abu Dhabi report for one district and return the PDF bytes."""
+    R = _pdf_renderer()
     df_all, cols = load_clean()
     df = df_all if district == ALL_AREAS else df_all[
         df_all[AREA_COL].astype(str).str.lower() == str(district).lower()]
@@ -199,6 +214,7 @@ def build(district: str = ALL_AREAS) -> bytes:
 def write_sections(rep, df: pd.DataFrame, df_all: pd.DataFrame, district: str,
                    cols: dict, period: str) -> None:
     """Write the Abu Dhabi analysis into an existing report."""
+    R = _pdf_renderer()
     price, rate, area_sqm = cols["price"], cols["rate"], cols["area_sqm"]
 
     # ── 1. Executive summary ────────────────────────────────────────────────
@@ -353,8 +369,8 @@ def write_sections(rep, df: pd.DataFrame, df_all: pd.DataFrame, district: str,
     rep.h1("Methodology and scope", needs=2.4)
     rep.h2("Data source")
     rep.bullets([
-        "regions/abu_dhabi/Abu_Dhabi_Sales_Cleaned (1).csv — the Abu Dhabi sales "
-        "records held by the platform.",
+        "regions/abu_dhabi/Abu_Dhabi_Sales_Optimized.parquet — the prepared Abu Dhabi "
+        "sales records held by the platform.",
         "Loaded through the Abu Dhabi dashboard's own loader, so this report and that "
         "dashboard read the same cleaned frame.",
     ])

@@ -33,6 +33,7 @@ from config.settings import COLS, CHART_HEIGHT, PLOTLY_CONFIG
 from styles.theme import build_css, get_plotly_layout, CHART_COLORS
 from utils.data_loader import (
     load_data,
+    data_source_signature,
     get_apartments_df,
     get_cleaned_apartments_df,
     apply_filters,
@@ -104,12 +105,32 @@ DARK = st.session_state.dark_mode
 PC   = PLOTLY_CONFIG
 
 
+def _to_excel(df_export: pd.DataFrame) -> bytes:
+    """Build the existing Excel export only after the user requests it."""
+    buf = io.BytesIO()
+    with pd.ExcelWriter(buf, engine="openpyxl") as writer:
+        df_export.to_excel(writer, index=False, sheet_name="Transactions")
+        summary = pd.DataFrame({
+            "Metric": ["Total Records", "Total Value (AED)", "Median Price (AED)",
+                       "Median Rate/SQM", "Unique Districts", "Unique Communities"],
+            "Value": [
+                len(df_export), df_export[COLS["price"]].sum(),
+                df_export[COLS["price"]].median(),
+                df_export[COLS["rate"]].median() if COLS["rate"] in df_export else "N/A",
+                df_export[COLS["district"]].nunique(),
+                df_export[COLS["community"]].nunique(),
+            ],
+        })
+        summary.to_excel(writer, index=False, sheet_name="Summary")
+    return buf.getvalue()
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # DATA LOADING
 # ─────────────────────────────────────────────────────────────────────────────
 
 @st.cache_data(show_spinner=False)
-def _load():
+def _load(source_signature):
     raw     = load_data()
     apt     = get_apartments_df(raw)
     cleaned = get_cleaned_apartments_df(raw)
@@ -117,7 +138,7 @@ def _load():
 
 
 with st.spinner("🔄 Loading market data…"):
-    df_raw, df_apt, df_apt_cleaned = _load()
+    df_raw, df_apt, df_apt_cleaned = _load(data_source_signature())
 
 df_all = df_raw.copy()
 
@@ -991,32 +1012,29 @@ with tab_download:
     with c2:
         st.markdown("### 📊 Excel")
         st.markdown(f"**{len(export_df):,}** rows · Transactions + Summary sheets")
-
-        @st.cache_data
-        def _to_excel(df_export: pd.DataFrame) -> bytes:
-            buf = io.BytesIO()
-            with pd.ExcelWriter(buf, engine="openpyxl") as writer:
-                df_export.to_excel(writer, index=False, sheet_name="Transactions")
-                summary = pd.DataFrame({
-                    "Metric": ["Total Records", "Total Value (AED)", "Median Price (AED)",
-                               "Median Rate/SQM", "Unique Districts", "Unique Communities"],
-                    "Value": [
-                        len(df_export), df_export[COLS["price"]].sum(),
-                        df_export[COLS["price"]].median(),
-                        df_export[COLS["rate"]].median() if COLS["rate"] in df_export else "N/A",
-                        df_export[COLS["district"]].nunique(),
-                        df_export[COLS["community"]].nunique(),
-                    ],
-                })
-                summary.to_excel(writer, index=False, sheet_name="Summary")
-            return buf.getvalue()
-
-        st.download_button(
-            "⬇️ Download Excel",
-            data=_to_excel(export_df),
-            file_name=f"abu_dhabi_re_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        excel_signature = (
+            dataset_scope, tuple(sel_years), tuple(sel_types), tuple(sel_layouts),
+            tuple(sel_districts), tuple(sel_sale_types), tuple(sel_sale_seq),
+            tuple(price_range), tuple(area_range),
         )
+        if st.session_state.get("ad_excel_signature") != excel_signature:
+            st.session_state.pop("ad_excel_bytes", None)
+            st.session_state["ad_excel_signature"] = excel_signature
+
+        if st.button("Prepare Excel download", key="ad_prepare_excel"):
+            with st.spinner("Preparing the Excel workbook…"):
+                st.session_state["ad_excel_bytes"] = _to_excel(export_df)
+
+        excel_bytes = st.session_state.get("ad_excel_bytes")
+        if excel_bytes:
+            st.download_button(
+                "⬇️ Download Excel",
+                data=excel_bytes,
+                file_name=f"abu_dhabi_re_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            )
+        else:
+            st.caption("Prepare the workbook when needed; CSV and Summary downloads are ready now.")
 
     with c3:
         st.markdown("### 🔢 Summary Stats")

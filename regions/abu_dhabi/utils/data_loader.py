@@ -1,65 +1,61 @@
 """
 Data loading and preprocessing utilities.
-Mirrors the logic from the original notebook exactly.
+The runtime reads the build-time-prepared Abu Dhabi Parquet artifact.
 """
 import pandas as pd
-import numpy as np
 import streamlit as st
 from pathlib import Path
 import sys
-import os
 
 # Ensure parent path is in sys.path
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from config.settings import DATA_FILE, COLS
+from config.settings import COLS, PARQUET_FILE, PREPARED_COLUMNS
 
 
-@st.cache_data(show_spinner=False)
-def load_data() -> pd.DataFrame:
-    """
-    Load and clean the Abu Dhabi Real Estate dataset.
-    Mirrors notebook Steps 1 & 2 exactly.
-    """
-    # Locate the CSV relative to this file's parent directory
-    data_path = Path(__file__).parent.parent / DATA_FILE
-    if not data_path.exists():
-        # Try current working directory
-        data_path = Path(DATA_FILE)
-
-    df = pd.read_csv(data_path, low_memory=False)
-
-    # ── 1. Drop duplicates ────────────────────────────────────────────────────
-    df = df.drop_duplicates().reset_index(drop=True)
-
-    # ── 2. Parse date column ──────────────────────────────────────────────────
-    date_col = COLS["date"]
-    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
-
-    # ── 3. Feature Engineering (Temporal) ────────────────────────────────────
-    df["Year"] = df[date_col].dt.year
-    df["Month_Num"] = df[date_col].dt.month
-    df["Quarter"] = df[date_col].dt.quarter
-    df["Month"] = df[date_col].dt.strftime("%B")
-    df["YearMonth"] = df[date_col].dt.to_period("M").astype(str)
-    df["YearQuarter"] = (
-        df["Year"].astype(str) + " Q" + df["Quarter"].astype(str)
+def _data_path() -> Path:
+    """Resolve the prepared Abu Dhabi artifact without a runtime conversion."""
+    path = Path(__file__).parent.parent / PARQUET_FILE
+    if path.exists():
+        return path
+    fallback = Path(PARQUET_FILE)
+    if fallback.exists():
+        return fallback
+    raise FileNotFoundError(
+        f"The prepared Abu Dhabi data artifact was not found: {PARQUET_FILE}"
     )
 
-    # ── 4. Numeric coercion ───────────────────────────────────────────────────
-    for col in [COLS["price"], COLS["area_sqm"], COLS["rate"], COLS["land_area"]]:
-        df[col] = pd.to_numeric(df[col], errors="coerce")
 
-    # ── 5. Strip string columns ───────────────────────────────────────────────
-    str_cols = [
-        COLS["property_type"], COLS["asset_class"], COLS["layout"],
-        COLS["district"], COLS["community"], COLS["project"],
-        COLS["sale_type"], COLS["sale_sequence"],
-    ]
-    for col in str_cols:
-        if col in df.columns:
-            df[col] = df[col].astype(str).str.strip().str.lower()
+def data_source_signature() -> tuple[str, int, int]:
+    """Return a cheap cache identity that changes when the artifact changes."""
+    path = _data_path()
+    stat = path.stat()
+    return str(path.resolve()), int(stat.st_size), int(stat.st_mtime_ns)
 
-    return df
+
+@st.cache_data(show_spinner=False, max_entries=2)
+def _read_prepared_parquet(path: str, size: int, modified_ns: int) -> pd.DataFrame:
+    """Read one validated, build-time-prepared Abu Dhabi artifact."""
+    del size, modified_ns  # They are cache keys, not read parameters.
+    df = pd.read_parquet(path)
+    missing = [column for column in PREPARED_COLUMNS if column not in df.columns]
+    if missing:
+        raise ValueError(
+            "The prepared Abu Dhabi data artifact is missing required columns: "
+            + ", ".join(missing)
+        )
+    return df.loc[:, list(PREPARED_COLUMNS)]
+
+
+def load_data() -> pd.DataFrame:
+    """
+    Load the prepared Abu Dhabi Real Estate dataset.
+
+    Cleaning, feature engineering and schema preparation happen once in
+    ``tools/build_abu_dhabi_parquet.py``. Runtime never converts the CSV or
+    rebuilds those deterministic columns during a user rerun.
+    """
+    path, size, modified_ns = data_source_signature()
+    return _read_prepared_parquet(path, size, modified_ns)
 
 
 @st.cache_data(show_spinner=False)

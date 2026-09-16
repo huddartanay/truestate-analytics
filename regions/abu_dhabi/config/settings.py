@@ -11,6 +11,7 @@ APP_VERSION = "1.0.0"
 
 # Data Configuration
 DATA_FILE = "Abu_Dhabi_Sales_Cleaned (1).csv"
+PARQUET_FILE = "Abu_Dhabi_Sales_Optimized.parquet"
 
 # Column Mappings
 COLS = {
@@ -32,6 +33,19 @@ COLS = {
     "land_area": "Land Plot Ground Area (SQM)",
     "sold_share": "Property Sold Share",
 }
+
+# The prepared Parquet keeps the same raw/export columns and the same derived
+# feature columns produced by the original loader.  Keeping this contract
+# explicit lets the runtime loader fail safely if an incomplete artifact is
+# ever deployed.
+RAW_COLUMNS = (
+    "Asset Class", "Property Type", "Sale Application Date",
+    "Property Sold Area (SQM)", "Land Plot Ground Area (SQM)",
+    "Property Layout", "District", "Community", "Project Name",
+    "Property Sale Price (AED)", "Property Sold Share", "Rate (AED per SQM)",
+    "Sale Application Type", "Sale Sequence", "Year", "Month", "Quarter",
+)
+PREPARED_COLUMNS = RAW_COLUMNS + ("Month_Num", "YearMonth", "YearQuarter")
 
 # Premium Color Palette
 COLORS = {
