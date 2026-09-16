@@ -12,6 +12,7 @@ nothing when those are not met.
 from __future__ import annotations
 
 import pandas as pd
+import streamlit as st
 
 from .data import AMENITIES, COL, aed, num
 
@@ -88,6 +89,7 @@ def _hl(text) -> str:
     return f"<span class='insight-highlight'>{text}</span>"
 
 
+@st.cache_data(show_spinner=False, max_entries=32)
 def smart_insights(df: pd.DataFrame) -> list[tuple[str, str]]:
     """
     Concise, executive-level observations, each derived from the filtered data.

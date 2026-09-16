@@ -102,9 +102,25 @@ def _sidebar_filters(opts: dict) -> dict:
                 reg_types=reg_types, price_range=price_range, area_range=area_range)
 
 
+_STREAMLIT_NUMBER_FORMATS = {
+    "{:,}": "%,d",
+    "{:,.0f}": "%,.0f",
+    "{:.1f}": "%.1f",
+    "{:.2f}": "%.2f",
+    "{:+.1f}": "%+.1f",
+    "{:,.1f}": "%,.1f",
+}
+
+
 def _fmt(df: pd.DataFrame, fmt: dict, **kwargs) -> None:
-    st.dataframe(df.style.format(fmt, na_rep="—"), use_container_width=True,
-                 hide_index=True, **kwargs)
+    """Display a typed table without invoking Pandas Styler/Matplotlib."""
+    column_config = {
+        column: st.column_config.NumberColumn(format=_STREAMLIT_NUMBER_FORMATS[pattern])
+        for column, pattern in fmt.items()
+        if column in df.columns and pd.api.types.is_numeric_dtype(df[column])
+    }
+    st.dataframe(df, use_container_width=True, hide_index=True,
+                 column_config=column_config, **kwargs)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SECTION 1 — INSIGHTS
@@ -1332,9 +1348,8 @@ def _report_body(df: pd.DataFrame, df_all: pd.DataFrame, area: str) -> None:
 
     It reports on exactly what the rest of this page is showing: the same
     dataframe, after the same sidebar filters and the same global area. The
-    file builds itself when this tab opens and rebuilds whenever the area
-    changes, so the download button is simply present rather than hidden
-    behind a "generate" step.
+    existing report is prepared explicitly from this section, so its heavy
+    renderer is not imported while the analytics page is loading.
     """
     ui.section("Download detailed report",
                f"A print-ready PDF of this Dubai analysis for {area}.", "📄")
@@ -1344,12 +1359,6 @@ def _report_body(df: pd.DataFrame, df_all: pd.DataFrame, area: str) -> None:
                    "report.", icon="🔍")
         return
 
-    try:
-        from platform_core import dubai_report as builder
-    except Exception as exc:  # pragma: no cover
-        st.error(f"**The report builder could not be loaded.**\n\n{exc}", icon="⚠️")
-        return
-
     c1, c2, c3 = st.columns(3)
     c1.metric("Area covered", area)
     c2.metric("Transactions in report", f"{len(df):,}")
@@ -1357,7 +1366,12 @@ def _report_body(df: pd.DataFrame, df_all: pd.DataFrame, area: str) -> None:
 
     signature = (area, len(df))
     if st.session_state.get("dxb_report_sig") != signature:
+        st.session_state.pop("dxb_report_pdf", None)
+        st.session_state.pop("dxb_report_sig", None)
+
+    if st.button("Prepare Dubai report", use_container_width=True, key="dxb_prepare_report"):
         try:
+            from platform_core import dubai_report as builder
             with st.spinner(f"Preparing the {area} report — computing figures and drawing "
                             f"charts…"):
                 st.session_state["dxb_report_pdf"] = builder.build(df, area, len(df_all))
@@ -1371,6 +1385,7 @@ def _report_body(df: pd.DataFrame, df_all: pd.DataFrame, area: str) -> None:
 
     pdf_bytes = st.session_state.get("dxb_report_pdf")
     if not pdf_bytes:
+        st.caption("Prepare the report when needed; all analytics remain available immediately.")
         return
 
     safe = "".join(c if c.isalnum() or c in "-_" else "_" for c in area)
